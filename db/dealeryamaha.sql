@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Des 2019 pada 13.37
+-- Waktu pembuatan: 10 Des 2019 pada 15.02
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.1.28
 
@@ -45,6 +45,48 @@ INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `info_pt`
+--
+
+CREATE TABLE `info_pt` (
+  `id_info_pt` int(11) NOT NULL,
+  `nama_info_pt` varchar(114) NOT NULL,
+  `kode_pt` varchar(50) NOT NULL,
+  `img_header` varchar(50) NOT NULL,
+  `kontak_1` varchar(20) NOT NULL,
+  `kontak_2` varchar(20) NOT NULL,
+  `kontak_3` varchar(20) NOT NULL,
+  `kontak_4` varchar(20) NOT NULL,
+  `alamat_pt` varchar(114) NOT NULL,
+  `slogan` varchar(114) NOT NULL,
+  `logo_pt` varchar(114) NOT NULL,
+  `logo_kecil_pt` varchar(114) NOT NULL,
+  `header_pt` varchar(114) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `info_pt`
+--
+
+INSERT INTO `info_pt` (`id_info_pt`, `nama_info_pt`, `kode_pt`, `img_header`, `kontak_1`, `kontak_2`, `kontak_3`, `kontak_4`, `alamat_pt`, `slogan`, `logo_pt`, `logo_kecil_pt`, `header_pt`) VALUES
+(1, 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 'Yamaha', 'asd', '(0402)2825960', '(0402)2825961', 'asd', 'asd', 'Jalan Betoambari No 74, Baubau - Sulawesi Tenggara', 'asd', 'logo.png', 'logo.png', 'asd');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jenis`
+--
+
+CREATE TABLE `jenis` (
+  `id_jenis` int(11) NOT NULL,
+  `nm_jenis` varchar(50) NOT NULL,
+  `kode_jenis` varchar(50) NOT NULL,
+  `ket_jenis` varchar(114) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `login_attempts`
 --
 
@@ -54,6 +96,119 @@ CREATE TABLE `login_attempts` (
   `login` varchar(100) NOT NULL,
   `time` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `merk`
+--
+
+CREATE TABLE `merk` (
+  `id_merk` int(11) NOT NULL,
+  `nm_merk` varchar(50) NOT NULL,
+  `kode_merk` varchar(20) NOT NULL,
+  `ket_merk` varchar(114) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `nota_keluar`
+--
+
+CREATE TABLE `nota_keluar` (
+  `id_nota_keluar` int(11) NOT NULL,
+  `no_nota_keluar` varchar(50) NOT NULL,
+  `no_mesin` varchar(114) NOT NULL,
+  `no_rangka` varchar(114) NOT NULL,
+  `request_date` varchar(20) NOT NULL,
+  `no_pdi` varchar(114) NOT NULL,
+  `nm_p_bku_uang` varchar(114) NOT NULL,
+  `nm_p_ktp` varchar(114) NOT NULL,
+  `tgl_jual` date NOT NULL,
+  `harga_jual` int(20) NOT NULL,
+  `no_ktp_p` varchar(50) NOT NULL,
+  `jk_p` varchar(2) NOT NULL,
+  `tgl_lahir_p` date NOT NULL,
+  `pekerjaan_p` varchar(50) NOT NULL,
+  `pendidikan_p` varchar(50) NOT NULL,
+  `pengeluaran_p` varchar(50) NOT NULL,
+  `tahun_produk` int(11) NOT NULL,
+  `propinsi_p` varchar(50) NOT NULL,
+  `kecamatan_p` varchar(50) NOT NULL,
+  `kelurahan_p` varchar(50) NOT NULL,
+  `alamat_1_p` text NOT NULL,
+  `alamat_2_p` text NOT NULL,
+  `kode_pos_p` varchar(20) NOT NULL,
+  `tlp_p` varchar(20) NOT NULL,
+  `stnk` varchar(50) NOT NULL,
+  `tgl_reg_stnk` date NOT NULL,
+  `harga_stnk` int(20) NOT NULL,
+  `id_leasing` int(11) NOT NULL,
+  `uang_muka` int(50) NOT NULL,
+  `jangka_bayar` varchar(20) NOT NULL,
+  `angsuran` int(20) NOT NULL,
+  `outlet` varchar(50) NOT NULL,
+  `id_surveyor` int(11) NOT NULL,
+  `qrcode_nk` varchar(114) NOT NULL,
+  `id_status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pembeli`
+--
+
+CREATE TABLE `pembeli` (
+  `id_pembeli` int(11) NOT NULL,
+  `nm_p_bku_uang` varchar(114) NOT NULL,
+  `nm_p_ktp` varchar(114) NOT NULL,
+  `no_ktp_p` varchar(50) NOT NULL,
+  `jk_p` varchar(2) NOT NULL,
+  `tgl_lahir_p` date NOT NULL,
+  `pekerjaan_p` varchar(30) NOT NULL,
+  `pendidikan_p` varchar(30) NOT NULL,
+  `pengeluaran_p` varchar(30) NOT NULL,
+  `propinsi_p` varchar(20) NOT NULL,
+  `kecamatan_p` varchar(30) NOT NULL,
+  `kelurahan_p` varchar(30) NOT NULL,
+  `alamat_1_p` text NOT NULL,
+  `alamat_2_p` text NOT NULL,
+  `kode_pos_p` varchar(20) NOT NULL,
+  `tlp_p` varchar(114) NOT NULL,
+  `id_status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `produk`
+--
+
+CREATE TABLE `produk` (
+  `id_produk` int(11) NOT NULL,
+  `no_rangka` varchar(114) NOT NULL,
+  `no_mesin` varchar(114) NOT NULL,
+  `no_pdi` varchar(114) NOT NULL,
+  `id_jenis` int(11) NOT NULL,
+  `id_merk` int(11) NOT NULL,
+  `id_type` int(11) NOT NULL,
+  `id_status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `type`
+--
+
+CREATE TABLE `type` (
+  `id_type` int(11) NOT NULL,
+  `nm_type` varchar(50) NOT NULL,
+  `kode_type` varchar(20) NOT NULL,
+  `ket_type` varchar(114) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -123,10 +278,52 @@ ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `info_pt`
+--
+ALTER TABLE `info_pt`
+  ADD PRIMARY KEY (`id_info_pt`);
+
+--
+-- Indeks untuk tabel `jenis`
+--
+ALTER TABLE `jenis`
+  ADD PRIMARY KEY (`id_jenis`);
+
+--
 -- Indeks untuk tabel `login_attempts`
 --
 ALTER TABLE `login_attempts`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `merk`
+--
+ALTER TABLE `merk`
+  ADD PRIMARY KEY (`id_merk`);
+
+--
+-- Indeks untuk tabel `nota_keluar`
+--
+ALTER TABLE `nota_keluar`
+  ADD PRIMARY KEY (`id_nota_keluar`);
+
+--
+-- Indeks untuk tabel `pembeli`
+--
+ALTER TABLE `pembeli`
+  ADD PRIMARY KEY (`id_pembeli`);
+
+--
+-- Indeks untuk tabel `produk`
+--
+ALTER TABLE `produk`
+  ADD PRIMARY KEY (`id_produk`);
+
+--
+-- Indeks untuk tabel `type`
+--
+ALTER TABLE `type`
+  ADD PRIMARY KEY (`id_type`);
 
 --
 -- Indeks untuk tabel `users`
@@ -158,10 +355,52 @@ ALTER TABLE `groups`
   MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT untuk tabel `info_pt`
+--
+ALTER TABLE `info_pt`
+  MODIFY `id_info_pt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `jenis`
+--
+ALTER TABLE `jenis`
+  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `login_attempts`
 --
 ALTER TABLE `login_attempts`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `merk`
+--
+ALTER TABLE `merk`
+  MODIFY `id_merk` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `nota_keluar`
+--
+ALTER TABLE `nota_keluar`
+  MODIFY `id_nota_keluar` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `pembeli`
+--
+ALTER TABLE `pembeli`
+  MODIFY `id_pembeli` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `produk`
+--
+ALTER TABLE `produk`
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `type`
+--
+ALTER TABLE `type`
+  MODIFY `id_type` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
