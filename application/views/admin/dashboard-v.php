@@ -24,6 +24,12 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>\bower_components\bootstrap\css\bootstrap.min.css">
     <!-- feather Awesome -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>\assets\icon\feather\css\feather.css">
+    <!-- ion icon css -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>assets\icon\ion-icon\css\ionicons.min.css">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>assets\icon\themify-icons\themify-icons.css">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>assets\icon\icofont\css\icofont.css">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>\assets\css\style.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>\assets\css\jquery.mCustomScrollbar.css">
@@ -314,7 +320,7 @@
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
                                     <a href="#">
-                                        <span class="pcoded-micon"><i class="zmdi zmdi-tab"></i></span>
+                                        <span class="pcoded-micon"><i class="feather icon-home"></i></span>
                                         <span class="pcoded-mtext">Dashboard</span>
                                     </a>
                                 </li>
@@ -1736,14 +1742,13 @@
     <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\jquery-slimscroll\js\jquery.slimscroll.js"></script>
     <!-- modernizr js -->
     <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\modernizr\js\modernizr.js"></script>
-    <!-- Chart js -->
-    <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\chart.js\js\Chart.js"></script>
+    
     <!-- amchart js -->
     <script src="<?php echo base_url('assets/adminty/files/') ?>\assets\pages\widget\amchart\amcharts.js"></script>
     <script src="<?php echo base_url('assets/adminty/files/') ?>\assets\pages\widget\amchart\serial.js"></script>
     <script src="<?php echo base_url('assets/adminty/files/') ?>\assets\pages\widget\amchart\light.js"></script>
     <script src="<?php echo base_url('assets/adminty/files/') ?>\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\assets\js\SmoothScroll.js"></script>
+    
     <script src="<?php echo base_url('assets/adminty/files/') ?>\assets\js\pcoded.min.js"></script>
     <!-- custom js -->
     <script src="<?php echo base_url('assets/adminty/files/') ?>\assets\js\vartical-layout.min.js"></script>
