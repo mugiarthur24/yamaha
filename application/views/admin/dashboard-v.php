@@ -126,7 +126,7 @@
                                             <div class="media">
                                                 <img class="d-flex align-self-center img-radius" src="<?php echo base_url('assets/adminty/files/') ?>\assets\images\avatar-4.jpg" alt="Generic placeholder image">
                                                 <div class="media-body">
-                                                    <h5 class="notification-user">John Doe</h5>
+                                                    <h5 class="notification-user"><?php $users->username ?></h5>
                                                     <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
                                                     <span class="notification-time">30 minutes ago</span>
                                                 </div>
@@ -167,32 +167,17 @@
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-toggle="dropdown">
                                         <img src="<?php echo base_url('assets/adminty/files/') ?>\assets\images\avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                        <span>John Doe</span>
+                                        <span><?php echo $users->username; ?></span>
                                         <i class="feather icon-chevron-down"></i>
                                     </div>
                                     <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                        <li>
-                                            <a href="#!">
-                                                <i class="feather icon-settings"></i> Settings
-                                            </a>
-                                        </li>
                                         <li>
                                             <a href="user-profile.htm">
                                                 <i class="feather icon-user"></i> Profile
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="email-inbox.htm">
-                                                <i class="feather icon-mail"></i> My Messages
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="auth-lock-screen.htm">
-                                                <i class="feather icon-lock"></i> Lock Screen
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="auth-normal-sign-in.htm">
+                                            <a href="<?php echo base_url('index.php/login/logout') ?>">
                                                 <i class="feather icon-log-out"></i> Logout
                                             </a>
                                         </li>
@@ -349,7 +334,8 @@
                                 <li>
                                     <a href="animation.htm">
                                         <span class="pcoded-micon"><i class="feather icon-aperture rotate-refresh"></i><b>A</b></span>
-                                        <span class="pcoded-mtext">Rekap Data (Laporan)</span>
+                                        <span class="pcoded-mtext">Rekap Data</span>
+                                        <span class="pcoded-badge label label-success">Laporan</span>
                                     </a>
                                 </li>
                             </ul>
@@ -383,21 +369,21 @@
                                 <li>
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span>
-                                        <span class="pcoded-mtext">Jenis</span>
+                                        <span class="pcoded-mtext">Jenis Produk</span>
                                     </a>
                                     
                                 </li>
                                 <li>
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="feather icon-map"></i></span>
-                                        <span class="pcoded-mtext">Type</span>
+                                        <span class="pcoded-mtext">Type Produk</span>
                                     </a>
                                     
                                 </li>
                                 <li class="">
                                     <a href="<?php echo base_url('assets/adminty/files/') ?>\extra-pages\landingpage\index.htm" target="_blank">
                                         <span class="pcoded-micon"><i class="feather icon-navigation-2"></i></span>
-                                        <span class="pcoded-mtext">Merk</span>
+                                        <span class="pcoded-mtext">Merk Produk</span>
                                     </a>
                                 </li>
                             </ul>
@@ -418,20 +404,12 @@
                                     
                                 </li>
                             </ul>
-                            
-                            
                         </div>
                     </nav>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
                             <div class="main-body">
-                               <div class="card">
-                                   <div class="card-header">
-                                        <b>Halaman Awalan</b>
-                                         <span class="text-muted">Testing halaman awalan</span>
-                                    </div>
-                                   <div class="card-body">tes</div>
-                               </div>
+                                <?php $this->load->view($page) ?>
                             </div>
                         </div>
                     </div>

@@ -14,24 +14,35 @@ class Login extends CI_Controller {
         redirect(base_url('index.php/dashboard'));
        }
         //user tidak login, tampilkan halaman login
-       $data['title'] = 'Sistem Administrasi Keuangan';
+       $infopt = $this->Admin_m->info_pt(1);
+       $data['title'] = 'Sistem Informasi '.$infopt->nama_info_pt;
        $data['infopt'] = $this->Admin_m->info_pt(1);
-       $data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
+       $data['brand'] = 'asset/img/lembaga/'.$infopt->logo_pt;
        $this->load->view('admin/login-v', $data);
    }
-   function proses_login(){
-    $this->form_validation->set_rules('username', 'Username', 'required');
-    $this->form_validation->set_rules('password', 'Password', 'required');
-
-    if ($this->ion_auth->login($this->input->post('username'),$this->input->post('password'))) {
-       //jika login sukses, redirect ke halaman admin
-        redirect(base_url('index.php/dashboard'));
-        }else{
-        //jika login gagal, redirect kembali ke halaman login
-        //redirect('login','refresh'); //use redirect instead of loading views compatibility with MY_Controller libraries
-        $pesan = $this->ion_auth->errors();
-        $this->session->set_flashdata('message', $pesan ); 
-        redirect(base_url('index.php/login'));
+    public function proses_login(){
+        // validate form input
+        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+        if ($this->form_validation->run() === TRUE)
+        {
+            // check to see if the user is logging in
+            // check for "remember me"
+            $remember = (bool)$this->input->post('remember');
+            if ($this->ion_auth->login($this->input->post('username'), $this->input->post('password'), $remember))
+            {
+                //if the login is successful
+                //redirect them back to the home page
+                $this->session->set_flashdata('message', $this->ion_auth->messages());
+                redirect(base_url('index.php/dashboard'));
+            }
+            else
+            {
+                // if the login was un-successful
+                // redirect them back to the login page
+                $this->session->set_flashdata('message', $this->ion_auth->errors());
+                redirect(base_url('index.php/login')); // use redirects instead of loading views for compatibility with MY_Controller libraries
+            }
         }
     }
     function logout(){

@@ -1,11 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Admin_m extends CI_Model
 {
-	function __construct()
-	{
-		parent::__construct();
-		$this->db2 = $this->load->database('db2', TRUE);
-	}
 	public function info_pt($id){
 		$this->db->where('id_info_pt', $id);
 		$query = $this->db->get('info_pt');
