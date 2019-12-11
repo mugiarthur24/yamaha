@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
                                     <?php if ($this->session->flashdata('message') == TRUE): ?>
-                                      <div class="alert alert-info text-left"><?php echo $this->session->flashdata('message'); ?></div>
+                                      <div class="alert alert-primary background-primary"><?php echo $this->session->flashdata('message'); ?></div>
                                   <?php endif ?>
 
                                   <div class="form-group form-primary">
