@@ -390,18 +390,17 @@
                             <div class="pcoded-navigatio-lavel">Setting</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="pcoded-hasmenu ">
-                                    <a href="javascript:void(0)">
+                                    <a href="<?php echo base_url('index.php/admin/setting/') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-unlock"></i></span>
-                                        <span class="pcoded-mtext">Info</span>
+                                        <span class="pcoded-mtext">Data Persahaan</span>
                                     </a>
                                     
                                 </li>
                                 <li class="pcoded-hasmenu ">
-                                    <a href="javascript:void(0)">
+                                    <a href="<?php echo base_url('index.php/admin/users/') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-sliders"></i></span>
-                                        <span class="pcoded-mtext">Data User</span>
+                                        <span class="pcoded-mtext">Data Karyawan</span>
                                     </a>
-                                    
                                 </li>
                             </ul>
                         </div>
@@ -409,6 +408,9 @@
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
                             <div class="main-body">
+                                <?php if ($this->session->flashdata('message') == TRUE): ?>
+                                  <div class="alert alert-info bg-info text-white"><?php echo $this->session->flashdata('message'); ?></div>
+                                <?php endif ?>
                                 <?php $this->load->view($page) ?>
                             </div>
                         </div>
@@ -418,51 +420,6 @@
         </div>
     </div>
 
-    <!-- Warning Section Starts -->
-    <!-- Older IE warning message -->
-    <!--[if lt IE 10]>
-<div class="ie-warning">
-    <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="../files/assets/images/browser/chrome.png" alt="Chrome">
-                    <div>Chrome</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="../files/assets/images/browser/firefox.png" alt="Firefox">
-                    <div>Firefox</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://www.opera.com">
-                    <img src="../files/assets/images/browser/opera.png" alt="Opera">
-                    <div>Opera</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.apple.com/safari/">
-                    <img src="../files/assets/images/browser/safari.png" alt="Safari">
-                    <div>Safari</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="../files/assets/images/browser/ie.png" alt="">
-                    <div>IE (9 & above)</div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
-    <!-- Warning Section Ends -->
-    <!-- Required Jquery -->
     <script data-cfasync="false" src="..\..\..\cdn-cgi\scripts\5c5dd728\cloudflare-static\email-decode.min.js"></script><script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\jquery\js\jquery.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\jquery-ui\js\jquery-ui.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\popper.js\js\popper.min.js"></script>
