@@ -96,6 +96,85 @@ class Setting extends CI_Controller {
             redirect(base_url('index.php/login'));
         }
     }
+    public function create(){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $getuser = $this->ion_auth->user()->row();
+                $result =  $this->Admin_m->info_pt($getuser->id_info_pt);
+                $data['title'] = 'Buat Perusahaan baru ';
+                $data['brand'] = 'assets/img/lembaga/'.$result->logo_pt;
+                $data['users'] = $getuser;
+                $data['nav'] = 'nav/nav-admin';
+                $data['page'] = 'admin/setting/tambah-v';
+                // pagging setting
+                $this->load->view('admin/dashboard-v',$data);
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
+    public function proses_create(){
+        if ($this->ion_auth->logged_in()) {
+            $level=array('admin');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/dashboard'));
+            }else{
+                $getuser= $this->ion_auth->user()->row();
+                $post = $this->input->post();
+                $data = array(
+                    'nama_info_pt' => $post['nama_info_pt'],
+                    'kode_pt' => $post['kode_pt'],
+                    'kontak_1' => $post['kontak_1'],
+                    'kontak_2' => $post['kontak_2'],
+                    'kontak_3' => $post['kontak_3'],
+                    'kontak_4' => $post['kontak_4'],
+                    'alamat_pt' => $post['alamat_pt'],
+                    'slogan' => $post['slogan'],
+                    'kontak_4' => $post['kontak_4'],
+                    );
+                if (!empty($_FILES["logopt"]["tmp_name"])) {
+                    $config['file_name'] = strtolower(url_title('logo'.'-'.$post['nama_info_pt'].'-'.date('Ymd').'-'.time('Hms')));
+                    $config['upload_path'] = './assets/img/lembaga/';
+                    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                    $config['max_size'] = 2048;
+                    $config['max_width'] = '';
+                    $config['max_height'] = '';
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('logopt')){
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('eror', $error );
+                        redirect(base_url('index.php/admin/setting/create'));
+                    }
+                    else{
+                        $img = $this->upload->data('file_name');
+                        $data['logo_pt'] = $img;
+                        $file = "assets/img/lembaga/$img";
+                        //output resize (bisa juga di ubah ke format yang berbeda ex: jpg, png dll)
+                        $resizedFile = "assets/img/lembaga/$img";
+                        $this->resize->smart_resize_image(null , file_get_contents($file), 150 , 30 , false , $resizedFile , true , false ,100 );
+                    }
+                }
+                $this->Admin_m->create('info_pt',$data);
+                $pesan = 'Lembaga '.$post['nama_info_pt'].' Berhasil dibuat';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/setting'));
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin/login'));
+        }
+    }
     public function detail($id){
         if ($this->ion_auth->logged_in()) {
             $level = array('admin','karyawan');
@@ -165,7 +244,7 @@ class Setting extends CI_Controller {
                         $file = "assets/img/lembaga/$img";
                         //output resize (bisa juga di ubah ke format yang berbeda ex: jpg, png dll)
                         $resizedFile = "assets/img/lembaga/$img";
-                        $this->resize->smart_resize_image(null , file_get_contents($file), 250 , 250 , false , $resizedFile , true , false ,100 );
+                        $this->resize->smart_resize_image(null , file_get_contents($file), 150 , 30 , false , $resizedFile , true , false ,100 );
                     }
                 }
                 $this->Admin_m->update('info_pt','id_info_pt',$getuser->id_info_pt,$data);

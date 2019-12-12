@@ -1,13 +1,16 @@
 <div class="card">
 	<div class="card-header">
-		<b>Daftar Perusahaan</b>
-		<span class="text-muted">Daftar Perusahaandan sub perusahaan</span>
-		<?php if ($this->ion_auth->in_group(array('admin'))): ?>
-			<div class="card-header-right">
-				<a href="" class="btn btn-grd-success btn-sm">Tambah Perusahaan</a>
+		<div class="row">
+			<div class="col">
+				<b>Daftar Perusahaan</b>
+				<span class="text-muted">Daftar Perusahaandan sub perusahaan</span>
 			</div>
-		<?php endif ?>
-		
+			<?php if ($this->ion_auth->in_group(array('admin'))): ?>
+				<div class="col">
+					<a href="<?php echo base_url('index.php/admin/setting/create') ?>" class="btn btn-grd-success btn-sm float-right">Tambah Perusahaan</a>
+				</div>
+			<?php endif ?>
+		</div>
 	</div>
 	<div class="card-body">
 		<form action="<?php echo base_url('index.php/admin/setting/index') ?>" method="post">

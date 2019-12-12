@@ -86,7 +86,7 @@
                             <i class="feather icon-menu"></i>
                         </a>
                         <a href="index-1.htm">
-                            <img class="img-fluid" src="<?php echo base_url('assets/adminty/files/') ?>\assets\images\logo.png" alt="Theme-Logo">
+                            <img class="img-fluid" src="<?php echo base_url('assets/img/lembaga/'.$infopt->logo_pt) ?>" alt="Theme-Logo">
                         </a>
                         <a class="mobile-options">
                             <i class="feather icon-more-horizontal"></i>
