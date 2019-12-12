@@ -1,21 +1,66 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Users_m extends CI_Model
 {
-	function jumlah($string){
-		if (!empty($string)) {
-			$this->db->like('first_name',$string);
-			$this->db->or_like('username',$string);
+	// Fetch records
+	public function getData($rowno,$rowperpage,$search) {
+		$this->db->from('users');
+		if (!empty($search['string'])) {
+			$this->db->like('users.first_name',$search['string']);
 		}
-		return $this->db->get('users')->num_rows();
+		if (!empty($search['id_info_pt'])) {
+			$this->db->where('users.id_info_pt',$search['id_info_pt']);
+		}
+		$this->db->join('info_pt', 'info_pt.id_info_pt = users.id_info_pt');
+		$this->db->limit($rowperpage, $rowno);
+		$this->db->order_by('users.first_name','asc');
+		$query = $this->db->get();
+		return $query->result_array();
 	}
-	public function searcing_data($sampai,$dari,$cari){
-		if (!empty($cari)) {
-			$this->db->like('first_name',$cari);
-			$this->db->or_like('username',$cari);
+
+	  // Select total records
+	public function getrecordCount($search) {
+		$this->db->select('count(*) as allcount,users.*,info_pt.nama_info_pt,info_pt.kode_pt');
+		$this->db->from('users');
+		if (!empty($search['string'])) {
+			$this->db->like('user.first_name',$search['string']);
 		}
-		$this->db->order_by('id','desc');
-		$query = $this->db->get('users',$sampai,$dari);
-		return $query->result();
+		if (!empty($search['users.id_info_pt'])) {
+			$this->db->where('id_info_pt',$search['id_info_pt']);
+		}
+		$this->db->join('info_pt', 'info_pt.id_info_pt = users.id_info_pt');
+		$this->db->order_by('users.first_name','asc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+	// Fetch records
+	public function getDataid($id,$rowno,$rowperpage,$search) {
+		$this->db->from('users');
+		if (!empty($search['string'])) {
+			$this->db->like('users.first_name',$search['string']);
+		}
+		$this->db->where('users.id_info_pt',$id);
+		$this->db->limit($rowperpage, $rowno);
+		$this->db->where('users.id_info_pt',$id);
+		$this->db->join('info_pt', 'info_pt.id_info_pt = users.id_info_pt');
+		$this->db->order_by('users.first_name','asc');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	  // Select total records
+	public function getrecordCountid($id,$search) {
+		$this->db->select('count(*) as allcount,users.*,info_pt.nama_info_pt,info_pt.kode_pt');
+		$this->db->from('users');
+		if (!empty($search['string'])) {
+			$this->db->like('users.first_name',$search['string']);
+		}
+		$this->db->where('users.id_info_pt',$id);
+		$this->db->join('info_pt', 'info_pt.id_info_pt = users.id_info_pt');
+		$this->db->order_by('users.first_name','asc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
 	}
 	function insert_users($data){
 		$this->db->insert('users', $data);
