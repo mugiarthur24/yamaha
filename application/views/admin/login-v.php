@@ -75,7 +75,7 @@
                                     <div class="col-12">
                                         <div class="checkbox-fade fade-in-primary d-">
                                             <label>
-                                                <input type="checkbox" name="remember" value="">
+                                                <input type="checkbox" name="remember" value="1">
                                                 <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
                                                 <span class="text-inverse">Remember me</span>
                                             </label>
