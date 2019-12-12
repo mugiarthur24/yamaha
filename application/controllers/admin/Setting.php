@@ -105,7 +105,10 @@ class Setting extends CI_Controller {
                 redirect(base_url('index.php/admin/dashboard'));
             }else{
                 $getuser = $this->ion_auth->user()->row();
-                $result =  $this->Admin_m->info_pt($getuser->id_info_pt);
+                $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+                $data['infopt'] = $infopt;
+                $getuser = $this->ion_auth->user()->row();
+                $result =  $infopt;
                 $data['title'] = 'Buat Perusahaan baru ';
                 $data['brand'] = 'assets/img/lembaga/'.$result->logo_pt;
                 $data['users'] = $getuser;
@@ -183,11 +186,14 @@ class Setting extends CI_Controller {
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/dashboard'));
             }else{
+                $getuser = $this->ion_auth->user()->row();
+                $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+                $data['infopt'] = $infopt;
                 $result = $this->Admin_m->info_pt($id);
                 $data['title'] = 'Setting - '.$result->nama_info_pt;
                 $data['infopt'] = $result;
                 $data['brand'] = 'assets/img/lembaga/'.$result->logo_pt;
-                $data['users'] = $this->ion_auth->user()->row();
+                $data['users'] = $getuser;
                 $data['nav'] = 'nav/nav-admin';
                 $data['page'] = 'admin/setting-v';
                 // pagging setting

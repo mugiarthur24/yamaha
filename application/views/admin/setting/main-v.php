@@ -32,34 +32,36 @@
 				</div>
 			</div>
 		</form>
-		<table class="table" style="font-size: 13px;">
-			<tr>
-				<th>No</th>
-				<th>Nama Perusahaan</th>
-				<th>Daerah</th>
-				<th>Alamat</th>
-				<th>Kontak Utama</th>
-				<th>Status</th>
-			</tr>
-			<?php $no = 1+$row ?>
-			<?php foreach ($hasil as $data): ?>
+		<div class="table-responsive">
+			<table class="table" style="font-size: 13px;">
 				<tr>
-					<td><?php echo $no; ?></td>
-					<td><a href="<?php echo base_url('index.php/admin/setting/detail/'.$data['id_info_pt']) ?>"><?php echo $data['nama_info_pt']; ?></a></td>
-					<td><span class="pcoded-badge label label-primary"><?php echo $data['kode_pt']; ?></span></td>
-					<td><?php echo $data['alamat_pt']; ?></td>
-					<td><?php echo $data['kontak_1']; ?></td>
-					<td>
-						<?php if ($data['id_status'] !== '1' ): ?>
-							<span class="pcoded-badge label label-success">Aktif</span>
-						<?php else: ?>
-							<span class="pcoded-badge label label-danger">Nonaktif</span>
-						<?php endif ?>
-					</td>
+					<th>No</th>
+					<th>Nama Perusahaan</th>
+					<th>Daerah</th>
+					<th>Alamat</th>
+					<th>Kontak Utama</th>
+					<th>Status</th>
 				</tr>
-				<?php $no++ ?>
-			<?php endforeach ?>
-		</table>
+				<?php $no = 1+$row ?>
+				<?php foreach ($hasil as $data): ?>
+					<tr>
+						<td><?php echo $no; ?></td>
+						<td><a href="<?php echo base_url('index.php/admin/setting/detail/'.$data['id_info_pt']) ?>"><?php echo $data['nama_info_pt']; ?></a></td>
+						<td><span class="pcoded-badge label label-primary"><?php echo $data['kode_pt']; ?></span></td>
+						<td><?php echo substr($data['alamat_pt'],0,45).' ...'; ?></td>
+						<td><?php echo $data['kontak_1']; ?></td>
+						<td>
+							<?php if ($data['id_status'] !== '1' ): ?>
+								<span class="pcoded-badge label label-success">Aktif</span>
+							<?php else: ?>
+								<span class="pcoded-badge label label-danger">Nonaktif</span>
+							<?php endif ?>
+						</td>
+					</tr>
+					<?php $no++ ?>
+				<?php endforeach ?>
+			</table>
+		</div>
 		<div class="row">
 			<div class="col">
 				<?php echo $pagination; ?>
