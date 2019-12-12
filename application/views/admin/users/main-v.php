@@ -44,6 +44,7 @@
 			<table class="table" style="font-size: 13px;">
 				<tr>
 					<th>No</th>
+					<th>ID</th>
 					<th>Nama Karyawan</th>
 					<th>Jk</th>
 					<th>PT</th>
@@ -55,6 +56,7 @@
 				<?php foreach ($hasil as $data): ?>
 					<tr>
 						<td><?php echo $no; ?></td>
+						<td><a href="<?php echo base_url('index.php/admin/users/detail/'.$data['id']) ?>"><?php echo $data['username']; ?></a></td>
 						<td><a href="<?php echo base_url('index.php/admin/users/detail/'.$data['id']) ?>"><?php echo $data['first_name']; ?></a></td>
 						<td><?php echo $data['jk']; ?></td>
 						<td><?php echo $data['nama_info_pt']; ?></td>

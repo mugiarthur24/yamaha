@@ -102,23 +102,21 @@ class Users extends CI_Controller {
     }
 	public function create(){
 		if ($this->ion_auth->logged_in()) {
-			$level = array('admin','members');
+			$level = array('admin');
 			if (!$this->ion_auth->in_group($level)) {
 				$pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
 				$this->session->set_flashdata('message', $pesan );
 				redirect(base_url('index.php/admin/dashboard'));
 			}else{
 				$post = $this->input->post();
-				$data['title'] = 'Tambah users';
-				$data['infopt'] = $this->Admin_m->info_pt(1);
-				$data['users'] = $this->ion_auth->user()->row();
-				if ($this->ion_auth->in_group('admin')) {
-					$data['aside'] = 'nav/nav-admin';
-				}else{
-					$data['aside'] = 'nav/nav-members';
-				}
+                $getuser = $this->ion_auth->user()->row();
+                $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+				$data['title'] = 'Tambah Karyawan Baru';
+				$data['infopt'] = $infopt;
+				$data['users'] = $getuser;
 				$data['groups'] = $this->ion_auth->groups()->result();
-				$data['page'] = 'admin/tambah-users-v';
+				$data['dtpt'] = $this->Admin_m->select_data('info_pt');
+				$data['page'] = 'admin/users/tambah-v';
 				$this->load->view('admin/dashboard-v',$data);
 			}
 		}else{
@@ -135,22 +133,77 @@ class Users extends CI_Controller {
 				$this->session->set_flashdata('message', $pesan );
 				redirect(base_url('index.php/admin/dashboard'));
 			}else{
-				$username = $this->input->post('username');
-				$email = $this->input->post('email');
-				$password = $this->input->post('password');
-				$group = array($this->input->post('groups'));
+				// echo "<pre>";print_r($this->input->post());echo "</pre>";exit();
+				$this->form_validation->set_rules('first_name', 'Nama Depan', 'required|alpha_numeric_spaces');
+				$this->form_validation->set_rules('last_name', 'Nama Belakang', 'alpha_numeric_spaces');
+				$this->form_validation->set_rules('jk', 'Jenis Kelamin', 'required|alpha|max_length[1]');
+				$this->form_validation->set_rules('phone', 'Nomor HP', 'required|numeric|min_length[12]|max_length[15]');
+				$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+				$this->form_validation->set_rules('id_info_pt', 'Cabang Perusahaan', 'required|numeric|max_length[3]');
+				$this->form_validation->set_rules('password', 'Password', 'required|alpha_numeric|min_length[5]|max_length[20]');
+				$this->form_validation->set_rules('repassword', 'Ulangi Password', 'required|alpha_numeric|min_length[5]|max_length[20]|matches[password]');
+				if ($this->form_validation->run() == FALSE){
+				    $pesan = validation_errors();
+				    $this->session->set_flashdata('message',$pesan); 
+				    redirect(base_url('index.php/admin/users/create/'));
+				}else{
+					$getuser = $this->ion_auth->user()->row();
+					$infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+					if ($getuser->id_info_pt == '1') {
+						$idpt = strip_tags($this->input->post('id_info_pt'));
+						$company = $this->Admin_m->detail_data('info_pt','id_info_pt',strip_tags($this->input->post('id_info_pt')))->nama_info_pt;
+					}else{
+						$idpt = strip_tags($getuser->id_info_pt);
+						$company = $this->Admin_m->detail_data('info_pt','id_info_pt',$getuser->id_info_pt)->nama_info_pt;
+					}
+					$lastuser = $this->Users_m->lastuser();
+					if ($lastuser == TRUE) {
+						$getlus = trim($lastuser+1);
+					}else{
+						$getlus = trim('1');
+					}
+					$username = trim(date('Ymd').$getlus);
+					$email = trim($this->input->post('email'));
+					$password = $this->input->post('password');
+					$group = array($this->input->post('groups'));
 
-				$additional_data = array(
-					'first_name' => $this->input->post('first_name'),
-					'last_name' => $this->input->post('last_name'),
-					'company' => $this->Admin_m->info_pt(1)->nama_info_pt,
-					'phone' => '123456789',
-					'repassword' => $this->input->post('password'),
-					);
-				$this->ion_auth->register($username, $password, $email, $additional_data, $group);
-				$pesan = 'user '.$username.' Berhasil dibuat';
-				$this->session->set_flashdata('message', $pesan );
-				redirect(base_url('index.php/admin/users'));
+					$additional_data = array(
+						'first_name' => strip_tags($this->input->post('first_name')),
+						'last_name' => strip_tags($this->input->post('last_name')),
+						'id_info_pt' => $idpt,
+						'company' => $company,
+						'phone' => strip_tags($this->input->post('phone')),
+						'repassword' => $this->input->post('password'),
+						'jk' => $this->input->post('jk'),
+						);
+					if (!empty($_FILES["logopt"]["tmp_name"])) {
+					    $config['file_name'] = strtolower(url_title('karyawan'.'-'.$username.'-'.date('Ymd').'-'.time('Hms')));
+					    $config['upload_path'] = './assets/img/users/';
+					    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+					    $config['max_size'] = 2048;
+					    $config['max_width'] = '';
+					    $config['max_height'] = '';
+
+					    $this->load->library('upload', $config);
+					    if (!$this->upload->do_upload('logopt')){
+					        $error = $this->upload->display_errors();
+					        $this->session->set_flashdata('eror', $error );
+					        redirect(base_url('index.php/admin/users/create'));
+					    }
+					    else{
+					        $img = $this->upload->data('file_name');
+					        $additional_data['profile'] = $img;
+					        $file = "assets/img/lembaga/$img";
+					        //output resize (bisa juga di ubah ke format yang berbeda ex: jpg, png dll)
+					        $resizedFile = "assets/img/lembaga/$img";
+					        $this->resize->smart_resize_image(null , file_get_contents($file), 250 , 350 , false , $resizedFile , true , false ,100 );
+					    }
+					}
+					$this->ion_auth->register($username, $password, $email, $additional_data, $group);
+					$pesan = 'Karyawan '.$username.' Berhasil dibuat';
+					$this->session->set_flashdata('message', $pesan );
+					redirect(base_url('index.php/admin/users'));
+				}
 			}
 		}else{
 			$pesan = 'Login terlebih dahulu';

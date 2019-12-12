@@ -79,6 +79,11 @@ class Users_m extends CI_Model
 		$query = $this->db->get('users');
 		return $query->row();
 	}
+	public function lastuser(){
+		$this->db->order_by('id','desc');
+		$query = $this->db->get('users');
+		return $query->row();
+	}
 	public function delete_users($id){
 		$this->db->where('id', $id);
 		$this->db->delete('users');
