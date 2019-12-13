@@ -14,7 +14,7 @@ class Users extends CI_Controller {
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
-                redirect(base_url('index.php/admin/dashboard'));
+                redirect(base_url('index.php/dashboard'));
             }else{
                 $post = $this->input->post();
                 $getuser = $this->ion_auth->user()->row();
@@ -106,7 +106,7 @@ class Users extends CI_Controller {
 			if (!$this->ion_auth->in_group($level)) {
 				$pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
 				$this->session->set_flashdata('message', $pesan );
-				redirect(base_url('index.php/admin/dashboard'));
+				redirect(base_url('index.php/dashboard'));
 			}else{
 				$post = $this->input->post();
                 $getuser = $this->ion_auth->user()->row();
@@ -131,7 +131,7 @@ class Users extends CI_Controller {
 			if (!$this->ion_auth->in_group($level)) {
 				$pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
 				$this->session->set_flashdata('message', $pesan );
-				redirect(base_url('index.php/admin/dashboard'));
+				redirect(base_url('index.php/dashboard'));
 			}else{
 				// echo "<pre>";print_r($this->input->post());echo "</pre>";exit();
 				$this->form_validation->set_rules('first_name', 'Nama Depan', 'required|alpha_numeric_spaces');
@@ -217,7 +217,7 @@ class Users extends CI_Controller {
 			if (!$this->ion_auth->in_group($level)) {
 				$pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
 				$this->session->set_flashdata('message', $pesan );
-				redirect(base_url('index.php/admin/dashboard'));
+				redirect(base_url('index.php/dashboard'));
 			}else{
 				$getuser = $this->ion_auth->user()->row();
 				$infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
@@ -249,7 +249,7 @@ class Users extends CI_Controller {
 			if (!$this->ion_auth->in_group($level)) {
 				$pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
 				$this->session->set_flashdata('message', $pesan );
-				redirect(base_url('index.php/admin/dashboard'));
+				redirect(base_url('index.php/dashboard'));
 			}else{
 				$getuser = $this->ion_auth->user()->row();
 				$infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
@@ -281,7 +281,7 @@ class Users extends CI_Controller {
 			if (!$this->ion_auth->in_group($level)) {
 				$pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
 				$this->session->set_flashdata('message', $pesan );
-				redirect(base_url('index.php/admin/dashboard'));
+				redirect(base_url('index.php/dashboard'));
 			}else{
 				// echo "<pre>";print_r($this->input->post());echo "</pre>";exit();
 				$this->form_validation->set_rules('first_name', 'Nama Depan', 'required|alpha_numeric_spaces');
@@ -374,6 +374,60 @@ class Users extends CI_Controller {
 						$this->session->set_flashdata('message', $pesan );
 						redirect(base_url('index.php/admin/users/'));
 					}
+				}
+			}
+		}else{
+			$pesan = 'Login terlebih dahulu';
+			$this->session->set_flashdata('message', $pesan );
+			redirect(base_url('index.php/admin/login'));
+		}
+	}
+	public function nonaktifasiakun($id){
+		if ($this->ion_auth->logged_in()) {
+			$level=array('admin');
+			if (!$this->ion_auth->in_group($level)) {
+				$pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+				$this->session->set_flashdata('message', $pesan );
+				redirect(base_url('index.php/dashboard'));
+			}else{
+				$getuser = $this->ion_auth->user(strip_tags(trim($id)))->row();
+				if ($getuser == TRUE) {
+					$sendata['active']='0';
+					$this->ion_auth->update($getuser->id,$sendata);
+					$pesan = 'Karyawan '.$getuser->fist_name.' berhasil di nonaktifkan';
+					$this->session->set_flashdata('message',$pesan);
+					redirect(base_url('index.php/admin/users/detail/'.$getuser->id));
+				}else{
+					$pesan = 'Karyawan dengan ID '.strip_tags(trim($id)).' tidak ditemukan';
+					$this->session->set_flashdata('message',$pesan);
+					redirect(base_url('index.php/admin/users/detail/'.$getuser->id));
+				}
+			}
+		}else{
+			$pesan = 'Login terlebih dahulu';
+			$this->session->set_flashdata('message', $pesan );
+			redirect(base_url('index.php/admin/login'));
+		}
+	}
+	public function aktifasiakun($id){
+		if ($this->ion_auth->logged_in()){
+			$level=array('admin');
+			if (!$this->ion_auth->in_group($level)) {
+				$pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+				$this->session->set_flashdata('message', $pesan );
+				redirect(base_url('index.php/dashboard'));
+			}else{
+				$getuser = $this->ion_auth->user(strip_tags(trim($id)))->row();
+				if ($getuser == TRUE) {
+					$sendata['active']='1';
+					$this->ion_auth->update($getuser->id,$sendata);
+					$pesan = 'Karyawan '.$getuser->fist_name.' berhasil di aktifkan';
+					$this->session->set_flashdata('message',$pesan);
+					redirect(base_url('index.php/admin/users/detail/'.$getuser->id));
+				}else{
+					$pesan = 'Karyawan dengan ID '.strip_tags(trim($id)).' tidak ditemukan';
+					$this->session->set_flashdata('message',$pesan);
+					redirect(base_url('index.php/admin/users/detail/'.$getuser->id));
 				}
 			}
 		}else{

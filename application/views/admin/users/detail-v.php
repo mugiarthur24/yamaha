@@ -50,7 +50,24 @@
             </div>
             <!--profile cover end-->
             <div class="card">
-                <div class="card-header"><b>Data karyawan</b><span>Dara diri lengkap Karyawan</span></div>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Data karyawan</b><span>Dara diri lengkap Karyawan</span>
+                        </div>
+                        <div class="col-md-6">
+                            <?php if ($detail->active =='1'): ?>
+                                <button type="button" class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#nonatif">
+                                  Nonaktifkan Pegawai
+                                </button>
+                            <?php else: ?>
+                                <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#nonatif">
+                                  Aktifkan Pegawai
+                                </button>
+                            <?php endif ?>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
                     <table>
                         <tr>
@@ -92,7 +109,7 @@
                             <td>Status Keaktifan</td>   
                             <td>:</td>   
                             <td>
-                                <?php if ($detail->aktive == '1'): ?>
+                                <?php if ($detail->active == '1'): ?>
                                     Aktif
                                 <?php else: ?>
                                     Nonaktif
@@ -104,4 +121,44 @@
             </div>
         </div>
     </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="nonatif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Aktif dan Nonaktifkan Karyawan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <?php if ($detail->active =="1"): ?>
+            <form action="<?php echo base_url('index.php/admin/users/nonaktifasiakun/'.$detail->id) ?>" method="post">
+                <div class="modal-body">
+                <div class="alert alert-danger">
+                    <b>Saat Ini Status Karyawan Sedang Aktif!</b>
+                    <p>Bila anda meNonaktifkan akun ini, maka pengguna akun tersebut akan kehilangan segala akses dari Aplikasi ini, Yakin Menonaktifkan Akun ini?</p>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" name="submit" value="submit" class="btn btn-danger">Ya</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak !</button>
+              </div>
+            </form>
+        <?php else: ?>
+            <form action="<?php echo base_url('index.php/admin/users/aktifasiakun/'.$detail->id) ?>" method="post">
+                <div class="modal-body">
+                <div class="alert alert-success">
+                    <b>Saat Ini Status Karyawan Sedang Nonaktif!</b>
+                    <p>Akses akun ini sedang di nonaktifkan, singga pengguna akun tidak dapat menggunakan semua fitur yang terdapat pada Alikasi ini, Aktifkan Kembali Akun ini?</p>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button  class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                <button type="submit" name="submit" value="submit" class="btn btn-success">Ya</button>
+              </div>
+            </form>
+      <?php endif ?>
+    </div>
+  </div>
 </div>

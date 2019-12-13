@@ -14,7 +14,7 @@ class Setting extends CI_Controller {
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
-                redirect(base_url('index.php/admin/dashboard'));
+                redirect(base_url('index.php/dashboard'));
             }else{
                 $post = $this->input->post();
                 $getuser = $this->ion_auth->user()->row();
@@ -102,7 +102,7 @@ class Setting extends CI_Controller {
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
-                redirect(base_url('index.php/admin/dashboard'));
+                redirect(base_url('index.php/dashboard'));
             }else{
                 $getuser = $this->ion_auth->user()->row();
                 $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
@@ -129,7 +129,7 @@ class Setting extends CI_Controller {
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
-                redirect(base_url('index.php/admin/dashboard'));
+                redirect(base_url('index.php/dashboard'));
             }else{
                 $getuser= $this->ion_auth->user()->row();
                 $post = $this->input->post();
@@ -184,7 +184,7 @@ class Setting extends CI_Controller {
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
-                redirect(base_url('index.php/admin/dashboard'));
+                redirect(base_url('index.php/dashboard'));
             }else{
                 $getuser = $this->ion_auth->user()->row();
                 $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
@@ -211,7 +211,7 @@ class Setting extends CI_Controller {
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
-                redirect(base_url('index.php/admin/dashboard'));
+                redirect(base_url('index.php/dashboard'));
             }else{
                 $getuser= $this->ion_auth->user()->row();
                 $post = $this->input->post();
