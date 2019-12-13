@@ -164,7 +164,7 @@
                             <li class="user-profile header-notification">
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-toggle="dropdown">
-                                        <img src="<?php echo base_url('assets/adminty/files/') ?>\assets\images\avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+                                        <img src="<?php echo base_url('assets/img/users/'.$users->profile) ?>" class="img-radius" alt="User-Profile-Image">
                                         <span><?php echo $users->username.' | '.$users->first_name; ?></span>
                                         <i class="feather icon-chevron-down"></i>
                                     </div>
