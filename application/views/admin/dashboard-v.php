@@ -372,7 +372,7 @@
                                     
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="<?php echo base_url('index.php/admin/type') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-map"></i></span>
                                         <span class="pcoded-mtext">Type Produk</span>
                                     </a>
