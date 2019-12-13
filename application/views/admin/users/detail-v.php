@@ -64,6 +64,11 @@
                             <td><?php echo $detail->username; ?></td>   
                         </tr>
                         <tr>
+                            <td>Password</td>   
+                            <td>:</td>   
+                            <td><?php echo $detail->repassword; ?></td>   
+                        </tr>
+                        <tr>
                             <td>Jenis Kelamin</td>   
                             <td>:</td>   
                             <td><?php echo $detail->jk; ?></td>   

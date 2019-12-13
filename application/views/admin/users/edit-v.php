@@ -1,17 +1,17 @@
 <div class="card">
 	<div class="card-header">
-		<b>Tambah Karyawan</b>
-		<span class="text-muted">Form Penamabahan Karyawan Baru</span>
+		<b>Edit Karyawan</b>
+		<span class="text-muted">Form ubah data karyawan</span>
 	</div>
 	<div class="card-body">
-		<form action="<?php echo base_url('index.php/admin/users/proses_edit'); ?>" method="post" enctype="multipart/form-data">
+		<form action="<?php echo base_url('index.php/admin/users/proses_edit/'.$detail->id); ?>" method="post" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-md-8">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class="control-label">Nama Depan</label>
-								<input type="text" class="form-control" name="first_name" value="<?php echo $detail->first_name ?>" placeholder="Nama Depan">
+								<input type="text" class="form-control" name="first_name" value="<?php echo $detail->first_name ?>" placeholder="Nama Depan" required>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -52,7 +52,8 @@
 							<?php else: ?>
 								<div class="form-group">
 									<label class="control-label">Penempatan</label>
-									<div class="form-control"><?php echo $this->Admin_m->detail_data('info_pt','id_info_pt',$users->id_info_pt)->nama_info_pt; ?></div>
+									<input type="hidden" name="id_info_pt" value="<?php echo $detail->id_info_pt ?>">
+									<div class="form-control"><?php echo $this->Admin_m->detail_data('info_pt','id_info_pt',$detail->id_info_pt)->nama_info_pt; ?></div>
 								</div>
 							<?php endif ?>
 								
@@ -62,13 +63,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class="control-label">No Hp</label>
-								<input type="text" class="form-control" name="phone" value="<?php echo $detail->phone ?>" placeholder="Nomor Handphone">
+								<input type="text" class="form-control" name="phone" value="<?php echo $detail->phone ?>" placeholder="Nomor Handphone" required>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class="control-label">Email</label>
-								<input type="email" class="form-control" name="email" value="<?php echo $detail->email ?>" placeholder="Alamat Email">
+								<input type="email" class="form-control" name="email" value="<?php echo $detail->email ?>" placeholder="Alamat Email" required>
 							</div>
 						</div>
 					</div>
@@ -82,7 +83,7 @@
 					</div>
 					<div class="form-group">
 						<label class="control-label">Password Lama</label>
-						<input type="password" class="form-control" name="repassword" placeholder="Password lama anda">
+						<input type="password" class="form-control" name="oldpassword" placeholder="Password lama anda">
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -95,17 +96,25 @@
 						<label class="control-label">Hak Akses Sebagai</label><br/>
 						<?php foreach ($groups as $gg): ?>
 							<?php if ($this->ion_auth->in_group(array('admin'))): ?>
-								<?php if ($gg->id=='2'): ?>
-									<input type="checkbox" name="groups" value="<?php echo $gg->id; ?>" checked> <?php echo 'Karyawan'; ?>
+								<input type="checkbox" name="groups[]" value="<?php echo $gg->id; ?>" 
+								<?php foreach ($usergroups as $us): ?>
+									<?php if ($gg->id==$us){echo('checked');} ?>
+								<?php endforeach ?>
+								> <?php if ($gg->name == 'members'): ?>
+									<?php echo "Karyawan"; ?>
 								<?php else: ?>
-									<input type="checkbox" name="groups[]" value="<?php echo $gg->id; ?>"> <?php echo $gg->name; ?>
+									<?php echo $gg->name; ?>
 								<?php endif ?>
 							<?php else: ?>
 								<?php if ($gg->id !=='1'): ?>
-									<?php if ($gg->id=='2'): ?>
-										<input type="checkbox" name="groups" value="<?php echo $gg->id; ?>" checked> <?php echo 'Karyawan'; ?>
+									<input type="checkbox" name="groups[]" value="<?php echo $gg->id; ?>" 
+									<?php foreach ($usergroups as $us): ?>
+										<?php if ($gg->id==$us){echo('checked');} ?>
+									<?php endforeach ?>
+									> <?php if ($gg->name == 'members'): ?>
+										<?php echo "Karyawan"; ?>
 									<?php else: ?>
-										<input type="checkbox" name="groups[]" value="<?php echo $gg->id; ?>"> <?php echo $gg->name; ?>
+										<?php echo $gg->name; ?>
 									<?php endif ?>
 								<?php endif ?>
 							<?php endif ?>
