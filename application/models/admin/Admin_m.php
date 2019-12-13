@@ -27,6 +27,10 @@ class Admin_m extends CI_Model
 		$query = $this->db->get($table);
 		return $query->row();
 	}
+	public function select_all_data($table){
+		$query = $this->db->get($table);
+		return $query->result();
+	}
 	public function select_data($table){
 		$query = $this->db->get($table);
 		return $query->result();

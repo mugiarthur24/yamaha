@@ -365,7 +365,7 @@
                             <div class="pcoded-navigatio-lavel">Master</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="<?php echo base_url('index.php/admin/jenis') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span>
                                         <span class="pcoded-mtext">Jenis Produk</span>
                                     </a>
@@ -390,7 +390,7 @@
                                 <li class="pcoded-hasmenu ">
                                     <a href="<?php echo base_url('index.php/admin/setting/') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-unlock"></i></span>
-                                        <span class="pcoded-mtext">Data Persahaan</span>
+                                        <span class="pcoded-mtext">Data Perusahaan</span>
                                     </a>
                                     
                                 </li>
