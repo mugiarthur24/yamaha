@@ -83,7 +83,7 @@
                         <a class="mobile-menu" id="mobile-collapse" href="#!">
                             <i class="feather icon-menu"></i>
                         </a>
-                        <a href="index-1.htm">
+                        <a href="<?php echo base_url() ?>">
                             <img class="img-fluid" src="<?php echo base_url('assets/img/lembaga/'.$infopt->logo_pt) ?>" alt="Theme-Logo">
                         </a>
                         <a class="mobile-options">
@@ -302,7 +302,7 @@
                             <div class="pcoded-navigatio-lavel">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
-                                    <a href="#">
+                                    <a href="<?php echo base_url() ?>">
                                         <span class="pcoded-micon"><i class="feather icon-home"></i></span>
                                         <span class="pcoded-mtext">Dashboard</span>
                                     </a>
