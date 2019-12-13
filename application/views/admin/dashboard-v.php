@@ -379,7 +379,7 @@
                                     
                                 </li>
                                 <li class="">
-                                    <a href="<?php echo base_url('assets/adminty/files/') ?>\extra-pages\landingpage\index.htm" target="_blank">
+                                    <a href="<?php echo base_url('index.php/admin/merk') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-navigation-2"></i></span>
                                         <span class="pcoded-mtext">Merk Produk</span>
                                     </a>
