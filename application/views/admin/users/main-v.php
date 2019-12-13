@@ -56,8 +56,8 @@
 				<?php foreach ($hasil as $data): ?>
 					<tr>
 						<td><?php echo $no; ?></td>
-						<td><a href="<?php echo base_url('index.php/admin/users/detail/'.$data['id']) ?>"><?php echo $data['username']; ?></a></td>
-						<td><a href="<?php echo base_url('index.php/admin/users/detail/'.$data['id']) ?>"><?php echo $data['first_name']; ?></a></td>
+						<td><?php echo $data['username']; ?></td>
+						<td><a href="<?php echo base_url('index.php/admin/users/detail/'.$data['id']) ?>"><b><?php echo $data['first_name']; ?></b></a></td>
 						<td><?php echo $data['jk']; ?></td>
 						<td><?php echo $data['nama_info_pt']; ?></td>
 						<td><span class="pcoded-badge label label-primary"><?php echo $data['kode_pt']; ?></td>

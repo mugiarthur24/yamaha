@@ -158,7 +158,7 @@ class Users extends CI_Controller {
 					}
 					$lastuser = $this->Users_m->lastuser();
 					if ($lastuser == TRUE) {
-						$getlus = trim($lastuser+1);
+						$getlus = trim($lastuser->id+1);
 					}else{
 						$getlus = trim('1');
 					}
@@ -219,11 +219,12 @@ class Users extends CI_Controller {
 				$this->session->set_flashdata('message', $pesan );
 				redirect(base_url('index.php/admin/dashboard'));
 			}else{
-				$data['title'] = 'Edit - '.$this->ion_auth->user($id)->row()->username;
-				$data['infopt'] = $this->Admin_m->info_pt(1);
-				$data['users'] = $this->ion_auth->user()->row();
-				$data['brand'] = 'asset/img/lembaga/'.$this->Admin_m->info_pt(1)->logo_pt;
-				$data['aside'] = 'nav/nav';
+				$getuser = $this->ion_auth->user()->row();
+				$infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+				$detail = $this->ion_auth->user($id)->row();
+				$data['title'] = 'Edit Karyawan - '.$detail->username;
+				$data['infopt'] = $infopt;
+				$data['users'] = $getuser;
 				$data['groups'] = $this->ion_auth->groups()->result();
 				$data['usergroups'] = array();
 				if($usergroups = $this->ion_auth->get_users_groups($id)->result()){
@@ -232,8 +233,33 @@ class Users extends CI_Controller {
 						$data['usergroups'][] = $group->id;
 					}
 				}
-				$data['detail'] = $this->ion_auth->user($id)->row();
-				$data['page'] = 'admin/edit-users-v';
+				$data['detail'] = $detail;
+				$data['page'] = 'admin/users/edit-v';
+				$this->load->view('admin/dashboard-v',$data);
+			}
+		}else{
+			$pesan = 'Login terlebih dahulu';
+			$this->session->set_flashdata('message', $pesan );
+			redirect(base_url('index.php/login'));
+		}
+	}
+	public function detail($id){
+		if ($this->ion_auth->logged_in()) {
+			$level = array('admin','members');
+			if (!$this->ion_auth->in_group($level)) {
+				$pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+				$this->session->set_flashdata('message', $pesan );
+				redirect(base_url('index.php/admin/dashboard'));
+			}else{
+				$getuser = $this->ion_auth->user()->row();
+				$infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+				$detail = $this->ion_auth->user($id)->row();
+				$data['title'] = 'Detail Karyawan - '.$detail->username;
+				$data['infopt'] = $infopt;
+				$data['users'] = $getuser;
+				$data['groups'] = $this->ion_auth->groups()->result();
+				$data['detail'] = $detail;
+				$data['page'] = 'admin/users/detail-v';
 				$this->load->view('admin/dashboard-v',$data);
 			}
 		}else{
