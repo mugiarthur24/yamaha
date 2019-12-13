@@ -22,7 +22,7 @@ class Users_m extends CI_Model
 		$this->db->select('count(*) as allcount,users.*,info_pt.nama_info_pt,info_pt.kode_pt');
 		$this->db->from('users');
 		if (!empty($search['string'])) {
-			$this->db->like('user.first_name',$search['string']);
+			$this->db->like('users.first_name',$search['string']);
 		}
 		if (!empty($search['users.id_info_pt'])) {
 			$this->db->where('id_info_pt',$search['id_info_pt']);
