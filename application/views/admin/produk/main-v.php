@@ -5,11 +5,6 @@
 				<b>Daftar Produk</b>
 				<span class="text-muted">Daftar Produk pada masing masing Perusahaan / Cabang</span>
 			</div>
-			<?php if ($this->ion_auth->in_group(array('admin'))): ?>
-				<div class="col">
-					<a href="<?php echo base_url('index.php/admin/produk/create') ?>" class="btn btn-grd-success btn-sm float-right">Tambah Perusahaan</a>
-				</div>
-			<?php endif ?>
 		</div>
 	</div>
 	<div class="card-body">
