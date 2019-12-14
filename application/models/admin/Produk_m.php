@@ -7,6 +7,7 @@ class Produk_m extends CI_Model
 		$this->db->join('jenis', 'jenis.id_jenis = produk.id_jenis');
 		$this->db->join('merk', 'merk.id_merk = produk.id_merk');
 		$this->db->join('type', 'type.id_type = produk.id_type');
+		$this->db->join('info_pt', 'info_pt.id_info_pt = produk.id_info_pt');
 		if (!empty($search['id_jenis'])) {
 			$this->db->like('produk.id_jenis',$search['id_jenis']);
 		}
@@ -33,11 +34,12 @@ class Produk_m extends CI_Model
 
 	  // Select total records
 	public function getrecordCount($search) {
-		$this->db->select('count(*) as allcount,produk.*,jenis.nm_jenis,merk.nm_merk,type.nm_type');
+		$this->db->select('count(*) as allcount,produk.*,jenis.nm_jenis,merk.nm_merk,type.nm_type,info_pt.nama_info_pt');
 		$this->db->from('produk');
 		$this->db->join('jenis', 'jenis.id_jenis = produk.id_jenis');
 		$this->db->join('merk', 'merk.id_merk = produk.id_merk');
 		$this->db->join('type', 'type.id_type = produk.id_type');
+		$this->db->join('info_pt', 'info_pt.id_info_pt = produk.id_info_pt');
 		if (!empty($search['id_jenis'])) {
 			$this->db->like('produk.id_jenis',$search['id_jenis']);
 		}
@@ -64,9 +66,10 @@ class Produk_m extends CI_Model
 	// Fetch records
 	public function getDataid($idinfopt,$rowno,$rowperpage,$search) {
 		$this->db->from('produk');
-		$$this->db->join('jenis', 'jenis.id_jenis = produk.id_jenis');
+		$this->db->join('jenis', 'jenis.id_jenis = produk.id_jenis');
 		$this->db->join('merk', 'merk.id_merk = produk.id_merk');
 		$this->db->join('type', 'type.id_type = produk.id_type');
+		$this->db->join('info_pt', 'info_pt.id_info_pt = produk.id_info_pt');
 		if (!empty($search['id_jenis'])) {
 			$this->db->like('produk.id_jenis',$search['id_jenis']);
 		}
@@ -91,11 +94,12 @@ class Produk_m extends CI_Model
 
 	  // Select total records
 	public function getrecordCountid($idinfopt,$search) {
-		$this->db->select('count(*) as allcount,produk.*,jenis.nm_jenis,merk.nm_merk,type.nm_type');
+		$this->db->select('count(*) as allcount,produk.*,jenis.nm_jenis,merk.nm_merk,type.nm_type,info_pt.nama_info_pt');
 		$this->db->from('produk');
 		$this->db->join('jenis', 'jenis.id_jenis = produk.id_jenis');
 		$this->db->join('merk', 'merk.id_merk = produk.id_merk');
 		$this->db->join('type', 'type.id_type = produk.id_type');
+		$this->db->join('info_pt', 'info_pt.id_info_pt = produk.id_info_pt');
 		if (!empty($search['id_jenis'])) {
 			$this->db->like('id_jenis',$search['id_jenis']);
 		}

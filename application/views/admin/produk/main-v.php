@@ -92,6 +92,7 @@
 					<th>Jenis</th>
 					<th>Merk</th>
 					<th>Type</th>
+					<th>Delaer</th>
 					<th>Status</th>
 				</tr>
 				<?php if ($hasil == TRUE): ?>
@@ -104,6 +105,7 @@
 							<td><?php echo $data['nm_jenis']; ?></td>
 							<td><?php echo $data['nm_merk']; ?></td>
 							<td><?php echo $data['nm_type']; ?></td>
+							<td><?php echo $data['nama_info_pt']; ?></td>
 							<td>
 								<?php if ($data['id_status'] !== '1' ): ?>
 									<span class="pcoded-badge label label-success">Ready</span>
@@ -115,7 +117,7 @@
 						<?php $no++ ?>
 					<?php endforeach ?>
 				<?php else: ?>
-					<tr><td colspan="7" class="text-center">Tidak ada data ditemukan</td></tr>
+					<tr><td colspan="8" class="text-center">Tidak ada data ditemukan</td></tr>
 				<?php endif ?>
 			</table>
 		</div>
