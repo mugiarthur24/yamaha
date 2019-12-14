@@ -47,6 +47,7 @@
 					<th>ID</th>
 					<th>Nama Karyawan</th>
 					<th>Jk</th>
+					<th>Jab</th>
 					<th>PT</th>
 					<th>Daerah</th>
 					<th>Hp</th>
@@ -59,6 +60,22 @@
 						<td><?php echo $data['username']; ?></td>
 						<td><a href="<?php echo base_url('index.php/admin/users/detail/'.$data['id']) ?>"><b><?php echo $data['first_name']; ?></b></a></td>
 						<td><?php echo $data['jk']; ?></td>
+						<td>
+							<?php 
+								$getug = $this->ion_auth->get_users_groups($data['id'])->result();
+								foreach ($getug as $key) {
+									if ($key->id =='1') {
+										echo "<span class='pcoded-badge label label-success'>".$key->name."</span>";
+									}else{
+										if ($key->id == '2') {
+											echo "<span class='pcoded-badge label label-warning'>Karyawan</span>";
+										}else{
+											echo "<span class='pcoded-badge label label-warning'>".$key->name."</span>";
+										}
+									}
+								}
+							?>
+						</td>
 						<td><?php echo $data['nama_info_pt']; ?></td>
 						<td><span class="pcoded-badge label label-primary"><?php echo $data['kode_pt']; ?></td>
 						<td><?php echo $data['phone']; ?></td>
