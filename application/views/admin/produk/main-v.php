@@ -88,7 +88,7 @@
 				</div> -->
 			</div>
 		</form>
-		<div class="table-responsive">
+		<div class="table-responsive mt-2">
 			<table class="table" style="font-size: 13px;">
 				<tr>
 					<th>No</th>
