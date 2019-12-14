@@ -226,6 +226,7 @@ class Users extends CI_Controller {
 				$data['infopt'] = $infopt;
 				$data['users'] = $getuser;
 				$data['groups'] = $this->ion_auth->groups()->result();
+				$data['dtpt'] = $this->Admin_m->select_data('info_pt');
 				$data['usergroups'] = array();
 				if($usergroups = $this->ion_auth->get_users_groups($id)->result()){
 					foreach($usergroups as $group)

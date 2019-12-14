@@ -43,7 +43,7 @@
 								<div class="form-group">
 									<label class="control-label">Penempatan</label>
 									<select name="id_info_pt" class="form-control">
-										<option value="<?php echo $detail->id_info_pt ?>"><?php echo $this->Admin_m->detail_data('info_pt','id_info_pt',$detail->id_info_pt)->nama_info_pt; ?></option>
+										<option value="<?php echo $detail->id_info_pt ?>"><?php echo '-- '.$this->Admin_m->detail_data('info_pt','id_info_pt',$detail->id_info_pt)->nama_info_pt.' --'; ?></option>
 										<?php foreach ($dtpt as $data): ?>
 											<option value="<?php echo $data->id_info_pt ?>"><?php echo $data->nama_info_pt ?></option>
 										<?php endforeach ?>
