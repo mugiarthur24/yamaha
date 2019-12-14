@@ -95,6 +95,7 @@
 					<div class="form-group" style="margin-top: 30px;">
 						<label class="control-label">Hak Akses Sebagai</label><br/>
 						<?php foreach ($groups as $gg): ?>
+							<span class="pcoded-badge label label-primary">
 							<?php if ($this->ion_auth->in_group(array('admin'))): ?>
 								<input type="checkbox" name="groups[]" value="<?php echo $gg->id; ?>" 
 								<?php foreach ($usergroups as $us): ?>
@@ -105,7 +106,9 @@
 								<?php else: ?>
 									<?php echo $gg->name; ?>
 								<?php endif ?>
+							</span>
 							<?php else: ?>
+								<span class="pcoded-badge label label-primary">
 								<?php if ($gg->id !=='1'): ?>
 									<input type="checkbox" name="groups[]" value="<?php echo $gg->id; ?>" 
 									<?php foreach ($usergroups as $us): ?>
@@ -118,6 +121,7 @@
 									<?php endif ?>
 								<?php endif ?>
 							<?php endif ?>
+							</span>
 						<?php endforeach ?>
 					</div>
 				</div><hr/>

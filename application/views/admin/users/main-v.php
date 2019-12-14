@@ -68,16 +68,16 @@
 										echo "<span class='pcoded-badge label label-success'>".$key->name."</span>";
 									}else{
 										if ($key->id == '2') {
-											echo "<span class='pcoded-badge label label-warning'>Karyawan</span>";
+											echo "<span class='pcoded-badge label label-primary'>Karyawan</span>";
 										}else{
-											echo "<span class='pcoded-badge label label-warning'>".$key->name."</span>";
+											echo "<span class='pcoded-badge label label-primary'>".$key->name."</span>";
 										}
 									}
 								}
 							?>
 						</td>
-						<td><?php echo $data['nama_info_pt']; ?></td>
-						<td><span class="pcoded-badge label label-primary"><?php echo $data['kode_pt']; ?></td>
+						<td><?php echo substr($data['nama_info_pt'],0,35).' ...' ; ?></td>
+						<td><b><?php echo $data['kode_pt']; ?></b></td>
 						<td><?php echo $data['phone']; ?></td>
 						<td>
 							<?php if ($data['active'] == '1' ): ?>

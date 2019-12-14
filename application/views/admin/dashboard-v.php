@@ -312,7 +312,7 @@
                             <div class="pcoded-navigatio-lavel">Gudang & DPI</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="<?php echo base_url('index.php/admin/produk') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-box"></i></span>
                                         <span class="pcoded-mtext">Daftar Produk</span>
                                     </a>
