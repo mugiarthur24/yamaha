@@ -22,7 +22,7 @@
 							<?php endif ?>>
 					<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-1">
 					<select name="id_jenis" class="form-control">
 						<?php if (!empty($post['id_jenis'])): ?>
 							<option value="<?php echo $post['id_jenis'] ?>"><?php echo $this->Admin_m->detail_data('jenis','id_jenis',$post['id_jenis'])->nm_jenis ?></option>
@@ -78,9 +78,9 @@
 					</select>
 					<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
 				</div>
-				<!-- <div class="col-md-2">
+				<div class="col-md-1">
 					<button type="submit" name="submit" value="submit" class="btn btn-success btn-sm">Cari</button>
-				</div> -->
+				</div>
 			</div>
 		</form>
 		<div class="table-responsive mt-2">
