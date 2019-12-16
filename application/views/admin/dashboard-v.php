@@ -387,14 +387,14 @@
                             </ul>
                             <div class="pcoded-navigatio-lavel">Setting</div>
                             <ul class="pcoded-item pcoded-left-item">
-                                <li class="pcoded-hasmenu ">
+                                <li>
                                     <a href="<?php echo base_url('index.php/admin/setting/') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-unlock"></i></span>
                                         <span class="pcoded-mtext">Data Perusahaan</span>
                                     </a>
                                     
                                 </li>
-                                <li class="pcoded-hasmenu ">
+                                <li>
                                     <a href="<?php echo base_url('index.php/admin/users/') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-sliders"></i></span>
                                         <span class="pcoded-mtext">Data Karyawan</span>
