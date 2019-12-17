@@ -216,6 +216,8 @@ class ProdukMasuk extends CI_Controller {
                   $data['post'] = $search_text;
                  $data['pagination'] = $this->pagination->create_links();
                  $data['barang'] = $this->ProdukMasuk_m->getproduk($id);
+                 $data['detail'] = $detnota;
+                 // echo "<pre>";print_r($data['barang']);echo "</pre>";exit();
                 // load
                 $this->load->view('admin/dashboard-v',$data);
             }
@@ -241,18 +243,24 @@ class ProdukMasuk extends CI_Controller {
                 redirect(base_url('index.php/admin/produkmasuk/create/'.$post['id_pm']));
               }else{
                 $getuser= $this->ion_auth->user()->row();
-                  $post = $this->input->post();
-                  $detail = $this->Admin_m->detail_data('type','id_type',$post['id_type']);
-                  $data = array(
-                      'id_type' => $post['id_type'],
-                      'id_pm' => $post['id_pm'],
-                      );
-                  $this->Admin_m->create('brg_pm',$data);
-                  $pesan = 'Produk '.$detail->nm_type.' Berhasil ditambahkan';
+                $post = $this->input->post();
+                $cek = $this->ProdukMasuk_m->cekbrgnota($post['id_pm'],$post['id_type']);
+                $detail = $this->Admin_m->detail_data('type','id_type',$post['id_type']);
+                if ($cek == TRUE) {
+                  $pesan = 'Produk <b>'.$detail->nm_type.'<b> Sudah ada dalam nota';
                   $this->session->set_flashdata('message', $pesan );
                   redirect(base_url('index.php/admin/produkmasuk/create/'.$post['id_pm']));
+                }else{
+                  $data = array(
+                    'id_type' => $post['id_type'],
+                    'id_pm' => $post['id_pm'],
+                  );
+                  $this->Admin_m->create('brg_pm',$data);
+                  $pesan = 'Produk <b>'.$detail->nm_type.'</b> Berhasil ditambahkan';
+                  $this->session->set_flashdata('message', $pesan );
+                  redirect(base_url('index.php/admin/produkmasuk/create/'.$post['id_pm']));
+                } 
               }
-                  
             }
         }else{
             $pesan = 'Login terlebih dahulu';

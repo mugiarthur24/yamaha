@@ -118,13 +118,16 @@ class ProdukMasuk_m extends CI_Model
 		return $query->row();
 	}
 	public function getproduk($id){
-		$this->db->select('produk.*,jenis.nm_jenis,merk.nm_merk,type.nm_type,info_pt.nama_info_pt');
+		$this->db->select('brg_pm.*,type.nm_type');
 		$this->db->where('id_pm',$id);
-		$this->db->join('jenis', 'jenis.id_jenis = produk.id_jenis');
-		$this->db->join('merk', 'merk.id_merk = produk.id_merk');
-		$this->db->join('type', 'type.id_type = produk.id_type');
-		$this->db->join('info_pt', 'info_pt.id_info_pt = produk.id_info_pt');
-		$query = $this->db->get('produk');
+		$this->db->join('type', 'type.id_type = brg_pm.id_type');
+		$query = $this->db->get('brg_pm');
 		return $query->result();
+	}
+	public function cekbrgnota($idpm,$idtype){
+		$this->db->where('id_pm',$idpm);
+		$this->db->where('id_type',$idtype);
+		$query = $this->db->get('brg_pm');
+		return $query->row();
 	}
 }

@@ -21,7 +21,46 @@
 			</div>
 			<div class="card-body">
 				<?php if ($barang == TRUE): ?>
-				
+				<table class="table">
+					<tr>
+						<th>No</th>
+						<th>Type</th>
+						<th>Cc</th>
+						<th>Warna</th>
+						<th>Stok</th>
+						<th></th>
+					</tr>
+					<?php $no = 1 ?>
+					<?php foreach ($barang as $data): ?>
+						<tr>
+							<td><?php echo $no; ?></td>
+							<td><?php echo $data->nm_type; ?></td>
+							<td>
+								<input type="text" class="form-control" name="cc" <?php if ($data->cc == TRUE): ?>
+								value="<?php $data->cc ?>"
+								<?php else: ?>
+									value="0"
+								<?php endif ?>>
+							</td>
+							<td>
+								<input type="text" class="form-control" name="warna" <?php if ($data->warna == TRUE): ?>
+								value="<?php $data->warna ?>"
+								<?php else: ?>
+									value="-"
+								<?php endif ?>>
+							</td>
+							<td>
+								<input type="text"  class="form-control"name="jml_brg" <?php if ($data->warna == TRUE): ?>
+								value="<?php $data->jml_brg ?>"
+								<?php else: ?>
+									value="0"
+								<?php endif ?>>
+							</td>
+							<td><a href="<?php echo base_url('index.php/admin/prdukmasuk/delproduk/'.$data->id_brg_pm) ?>" class="text-danger">Hapus</a></td>
+						</tr>
+						<?php $no++ ?>
+					<?php endforeach ?>
+				</table>
 				<?php else: ?>
 					<div class="alert alert-danger"> Belum ada Produk dimasukan</div>	
 				<?php endif ?>
@@ -55,11 +94,17 @@
 						<tbody>
 							<?php $no = 1 ?>
 							<?php foreach ($hasil as $data): ?>
-								<tr>
-									<td><?php echo $no; ?></td>
-									<td><?php echo $data['nm_type']; ?></td>
-									<td><a href="#">Pilih</a></td>
-								</tr>
+								<form action="<?php echo base_url('index.php/admin/produkmasuk/addproduk/'.$data['id_type']) ?>" method="post">
+									<tr>
+										<td><?php echo $no; ?></td>
+										<td>
+											<?php echo $data['nm_type']; ?>
+											<input type="hidden" name="id_pm" value="<?php echo $detail->id_pm ?>">
+											<input type="hidden" name="id_type" value="<?php echo $data['id_type'] ?>">
+										</td>
+										<td><button type="submit" name="submit" value="submit" class="btn btn-success btn-sm">Pilih</button></td>
+									</tr>
+								</form>
 							<?php $no++ ?>
 							<?php endforeach ?>
 						</tbody>
