@@ -318,7 +318,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="<?php echo base_url('index.php/admin/produkmasuk') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-gitlab"></i></span>
                                         <span class="pcoded-mtext">Produk Masuk</span>
                                     </a>
