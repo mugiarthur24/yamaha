@@ -32,32 +32,35 @@
 					</tr>
 					<?php $no = 1 ?>
 					<?php foreach ($barang as $data): ?>
-						<tr>
-							<td><?php echo $no; ?></td>
-							<td><?php echo $data->nm_type; ?></td>
-							<td>
-								<input type="text" class="form-control" name="cc" <?php if ($data->cc == TRUE): ?>
-								value="<?php $data->cc ?>"
-								<?php else: ?>
-									value="0"
-								<?php endif ?>>
-							</td>
-							<td>
-								<input type="text" class="form-control" name="warna" <?php if ($data->warna == TRUE): ?>
-								value="<?php $data->warna ?>"
-								<?php else: ?>
-									value="-"
-								<?php endif ?>>
-							</td>
-							<td>
-								<input type="text"  class="form-control"name="jml_brg" <?php if ($data->warna == TRUE): ?>
-								value="<?php $data->jml_brg ?>"
-								<?php else: ?>
-									value="0"
-								<?php endif ?>>
-							</td>
-							<td><a href="<?php echo base_url('index.php/admin/prdukmasuk/delproduk/'.$data->id_brg_pm) ?>" class="text-danger">Hapus</a></td>
-						</tr>
+						<form action="<?php echo base_url('index.php/admin/produkmasuk/updatelistbarang/'.$data->id_brg_pm) ?>" method ="post">
+							<tr>
+								<td><?php echo $no; ?><input type="hidden" name="id_pm" value="<?php echo $detail->id_pm ?>"></td>
+								<td><?php echo $data->nm_type; ?> <input type="hidden" name="id_brg_pm" value="<?php echo $data->id_brg_pm ?>"></td>
+								<td>
+									<input type="text" class="form-control" name="cc" <?php if ($data->cc == TRUE): ?>
+									value="<?php echo $data->cc ?>"
+									<?php else: ?>
+										value="0"
+									<?php endif ?>>
+								</td>
+								<td>
+									<input type="text" class="form-control" name="warna" <?php if ($data->warna == TRUE): ?>
+									value="<?php echo $data->warna ?>"
+									<?php else: ?>
+										value="-"
+									<?php endif ?>>
+								</td>
+								<td>
+									<input type="text"  class="form-control"name="jml_brg" <?php if ($data->warna == TRUE): ?>
+									value="<?php echo $data->jml_brg ?>"
+									<?php else: ?>
+										value="0"
+									<?php endif ?> onchange="this.form.submit()">
+								</td>
+								<td><a href="<?php echo base_url('index.php/admin/produkmasuk/addsubproduk/'.$data->id_brg_pm) ?>" class="text-info">Detail</a></td>
+								<td><a href="<?php echo base_url('index.php/admin/produkmasuk/delproduk/'.$data->id_brg_pm) ?>" class="text-danger">Hapus</a></td>
+							</tr>
+						</form>
 						<?php $no++ ?>
 					<?php endforeach ?>
 				</table>
@@ -129,26 +132,34 @@
 				</div>
 			</div>
 			<div class="card-body">
-				<form>
+				<form action="<?php echo base_url('index.php/admin/produkmasuk/updatenota/'.$detail->id_pm) ?>" method="post">
 					<div class="form-group">
 						<label>No So Ref</label>
-						<input type="text" name="so_ref" class="form-control" placeholder="Masukan SO REF">
+						<input type="text" name="so_ref" class="form-control" value="<?php echo $detail->so_ref?>" placeholder="Masukan SO REF">
 					</div>
 					<div class="form-group">
 						<label>So No</label>
-						<input type="text" name="so_no" class="form-control" placeholder="Masukan SO No">
+						<input type="text" name="so_no" class="form-control" value="<?php echo $detail->so_no?>" placeholder="Masukan SO No">
 					</div>
 					<div class="form-group">
 						<label>IPDO No</label>
-						<input type="text" name="ipdo_no" class="form-control" placeholder="Masukan IPDO No">
+						<input type="text" name="ipdo_no" class="form-control" value="<?php echo $detail->ipdo_no?>" placeholder="Masukan IPDO No">
 					</div>
 					<div class="form-group">
 						<label>IPDO Date</label>
-						<input type="date" name="ipdo_date" class="form-control" value="<?php echo date('Y-m-d') ?>">
+						<input type="date" name="ipdo_date" class="form-control" <?php if ($detail->ipdo_date == TRUE): ?>
+							value="<?php echo date('Y-m-d',strtotime($detail->ipdo_date)) ?>"
+						<?php else: ?>
+							value="<?php echo date('Y-m-d') ?>"
+						<?php endif ?> >
 					</div>
 					<div class="form-group">
 						<label>SO Date</label>
-						<input type="date" name="so_date" class="form-control" value="<?php echo date('Y-m-d') ?>">
+						<input type="date" name="so_date" class="form-control" <?php if ($detail->so_date == TRUE): ?>
+							value="<?php echo date('Y-m-d',strtotime($detail->so_date)) ?>"
+						<?php else: ?>
+							value="<?php echo date('Y-m-d') ?>"
+						<?php endif ?> >
 					</div>
 					<button type="submit" name="submit" value="submit" class="btn btn-success btn-sm">Simpan RIncian Nota</button>
 				</form>

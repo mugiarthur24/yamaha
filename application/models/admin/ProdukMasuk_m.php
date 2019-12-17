@@ -130,4 +130,9 @@ class ProdukMasuk_m extends CI_Model
 		$query = $this->db->get('brg_pm');
 		return $query->row();
 	}
+	public function cekbrgproduk($brg){
+		$this->db->where('id_brg_pm',$brg);
+		$query = $this->db->get('brg_pm');
+		return $query->row();
+	}
 }

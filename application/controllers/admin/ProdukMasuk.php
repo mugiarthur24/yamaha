@@ -244,19 +244,111 @@ class ProdukMasuk extends CI_Controller {
               }else{
                 $getuser= $this->ion_auth->user()->row();
                 $post = $this->input->post();
-                $cek = $this->ProdukMasuk_m->cekbrgnota($post['id_pm'],$post['id_type']);
+                // $cek = $this->ProdukMasuk_m->cekbrgnota($post['id_pm'],$post['id_type']);
                 $detail = $this->Admin_m->detail_data('type','id_type',$post['id_type']);
-                if ($cek == TRUE) {
-                  $pesan = 'Produk <b>'.$detail->nm_type.'<b> Sudah ada dalam nota';
-                  $this->session->set_flashdata('message', $pesan );
-                  redirect(base_url('index.php/admin/produkmasuk/create/'.$post['id_pm']));
-                }else{
+                // if ($cek == TRUE) {
+                //   $pesan = 'Produk <b>'.$detail->nm_type.'<b> Sudah ada dalam nota';
+                //   $this->session->set_flashdata('message', $pesan );
+                //   redirect(base_url('index.php/admin/produkmasuk/create/'.$post['id_pm']));
+                // }else{
                   $data = array(
                     'id_type' => $post['id_type'],
                     'id_pm' => $post['id_pm'],
                   );
                   $this->Admin_m->create('brg_pm',$data);
                   $pesan = 'Produk <b>'.$detail->nm_type.'</b> Berhasil ditambahkan';
+                  $this->session->set_flashdata('message', $pesan );
+                  redirect(base_url('index.php/admin/produkmasuk/create/'.$post['id_pm']));
+                // } 
+              }
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin/login'));
+        }
+    }
+    public function updatenota($id){
+        if ($this->ion_auth->logged_in()) {
+            $level=array('admin');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/dashboard'));
+            }else{
+              $post = $this->input->post();
+              // echo "<pre>";print_r($post);echo "</pre>";exit();
+              $this->form_validation->set_rules('so_ref', 'SO REF ', 'required|trim');
+              $this->form_validation->set_rules('so_no', 'SO NO', 'required|trim|numeric');
+              $this->form_validation->set_rules('ipdo_no', 'IPDO NO', 'required|trim|numeric');
+              $this->form_validation->set_rules('ipdo_date', 'IPDO DATE ', 'required|trim|alpha_dash');
+              $this->form_validation->set_rules('so_date', 'SO DATE ', 'required|trim|alpha_dash');
+              if ($this->form_validation->run() == FALSE){
+                $pesan = $pesan = validation_errors();
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/produkmasuk/create/'.$id));
+              }else{
+                $getuser= $this->ion_auth->user()->row();
+                $cek = $this->Admin_m->detail_data('produkmasuk','id_pm',$id);
+                if ($cek == FALSE) {
+                  $pesan = 'Produk Yang di maksud tidak terdapat dalam daftar, harap periksa kembali kode unik anda';
+                  $this->session->set_flashdata('message', $pesan );
+                  redirect(base_url('index.php/admin/produkmasuk/create/'.$id));
+                }else{
+                  $data = array(
+                    'so_ref' => $post['so_ref'],
+                    'so_no' => $post['so_no'],
+                    'ipdo_no' => $post['ipdo_no'],
+                    'ipdo_date' => $post['ipdo_date'],
+                    'so_date' => $post['so_date'],
+                  );
+                  $this->Admin_m->update('produkmasuk','id_pm',$id,$data);
+                  $pesan = 'Produk  Berhasil diubah';
+                  $this->session->set_flashdata('message', $pesan );
+                  redirect(base_url('index.php/admin/produkmasuk/create/'.$id));
+                } 
+              }
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin/login'));
+        }
+    }
+    public function updatelistbarang($id){
+        if ($this->ion_auth->logged_in()) {
+            $level=array('admin');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/dashboard'));
+            }else{
+              $post = $this->input->post();
+              // echo "<pre>";print_r($post);echo "</pre>";exit();
+              $this->form_validation->set_rules('id_brg_pm', 'Type', 'required|trim|numeric');
+              $this->form_validation->set_rules('id_pm', 'Kode Produk Masuk', 'required|trim|numeric');
+              $this->form_validation->set_rules('cc', 'Cc', 'required|trim|numeric');
+              $this->form_validation->set_rules('jml_brg', 'Stok ', 'required|trim|numeric');
+              $this->form_validation->set_rules('warna', 'Warna ', 'required|trim|alpha_numeric_spaces');
+              if ($this->form_validation->run() == FALSE){
+                $pesan = $pesan = validation_errors();
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/produkmasuk/create/'.$post['id_pm']));
+              }else{
+                $getuser= $this->ion_auth->user()->row();
+                $cek = $this->ProdukMasuk_m->cekbrgproduk($post['id_brg_pm']);
+                if ($cek == FALSE) {
+                  $pesan = 'Produk Yang di maksud tidak terdapat dalam daftar, harap periksa kembali kode unik anda';
+                  $this->session->set_flashdata('message', $pesan );
+                  redirect(base_url('index.php/admin/produkmasuk/create/'.$post['id_pm']));
+                }else{
+                  $data = array(
+                    'cc' => $post['cc'],
+                    'warna' => $post['warna'],
+                    'jml_brg' => $post['jml_brg'],
+                  );
+                  $this->Admin_m->update('brg_pm','id_brg_pm',$post['id_brg_pm'],$data);
+                  $pesan = 'Produk  Berhasil diubah';
                   $this->session->set_flashdata('message', $pesan );
                   redirect(base_url('index.php/admin/produkmasuk/create/'.$post['id_pm']));
                 } 

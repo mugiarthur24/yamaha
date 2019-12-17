@@ -73,10 +73,10 @@
 					<?php foreach ($hasil as $data): ?>
 						<tr>
 							<td><?php echo $no; ?></td>
-							<td><?php echo $data['so_ref']; ?></td>
+							<td><a href="<?php echo base_url('index.php/admin/produkmasuk/create/'.$data['id_pm']) ?>"><?php echo $data['so_ref']; ?></a></td>
 							<td><?php echo $data['so_no']; ?></td>
-							<td><?php echo $data['ipdo_date']; ?></td>
-							<td><?php echo $data['so_date']; ?></td>
+							<td><?php echo date('d F Y',strtotime($data['ipdo_date'])); ?></td>
+							<td><?php echo date('d F Y',strtotime($data['so_date'])); ?></td>
 							<td>
 								<?php if ($data['id_status'] !== '1' ): ?>
 									<span class="pcoded-badge label label-success">Ready</span>
