@@ -616,6 +616,79 @@ class ProdukMasuk extends CI_Controller {
             redirect(base_url('index.php/admin/login'));
         }
     }
+    public function delpm($idpm){
+      if ($this->ion_auth->logged_in()) {
+        $level = array('admin');
+        if (!$this->ion_auth->in_group($level)) {
+          $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+          $this->session->set_flashdata('message', $pesan );
+          redirect(base_url('index.php/dashboard'));
+        }else{
+          $kode = preg_replace("/[^0-9]/", "", $idpm);
+          $detail = $this->Admin_m->detail_data('produkmasuk','id_pm',$kode);
+          if ($detail == TRUE) {
+            if ($detail->id_status =='0') {
+              $this->Admin_m->delete('produkmasuk','id_pm',$kode);
+              $pesan = 'Produk Berhasil dihapus';
+              $this->session->set_flashdata('message', $pesan );
+              redirect(base_url('index.php/admin/produkmasuk/'));
+            }else{
+              $pesan = 'Produk ini sudah memiliki sub produk sehingga tidak dapat di hapus';
+              $this->session->set_flashdata('message', $pesan );
+              redirect(base_url('index.php/admin/produkmasuk/'));
+            }
+          }else{
+            $pesan = 'Kode Produk tidak di temukan, harap priksa kembali kode anda';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin/produkmasuk/'));
+          }
+        }
+      }else{
+        $pesan = 'Login terlebih dahulu';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/login'));
+      }
+    }
+    public function delproduk($idpm,$idbrg){
+      if ($this->ion_auth->logged_in()) {
+        $level = array('admin');
+        if (!$this->ion_auth->in_group($level)) {
+          $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+          $this->session->set_flashdata('message', $pesan );
+          redirect(base_url('index.php/dashboard'));
+        }else{
+          $detpm = $this->Admin_m->detail_data('produkmasuk','id_pm',strip_tags(trim($idpm)));
+          if ($detpm == TRUE ) {
+            $kode = preg_replace("/[^0-9]/", "", $idbrg);
+            $detail = $this->Admin_m->detail_data('brg_pm','id_brg_pm',$kode);
+            if ($detail == TRUE) {
+              if ($detail->id_status =='0') {
+                $this->Admin_m->delete('brg_pm','id_brg_pm',$kode);
+                $pesan = 'Produk Berhasil dihapus';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/produkmasuk/create/'.$idpm));
+              }else{
+                $pesan = 'Produk ini sudah memiliki sub produk sehingga tidak dapat di hapus';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/produkmasuk/create/'.$idpm));
+              }
+            }else{
+              $pesan = 'Kode Produk tidak di temukan, harap priksa kembali kode anda';
+              $this->session->set_flashdata('message', $pesan );
+              redirect(base_url('index.php/admin/produkmasuk/create/'.$idpm));
+            }
+          }else{
+            $pesan = 'Kode struk dan kode sub struk tidak di temukan, harap priksa kembali kode anda';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$idpm.'/'.$idbrg));
+          }
+        }
+      }else{
+        $pesan = 'Login terlebih dahulu';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/login'));
+      }
+    }
     public function delsubproduk($idpm,$idbrg,$id){
       if ($this->ion_auth->logged_in()) {
         $level = array('admin');
@@ -632,9 +705,9 @@ class ProdukMasuk extends CI_Controller {
             if ($detail == TRUE) {
               if ($detail->id_validasi =='0') {
                 $this->Admin_m->delete('produk','id_produk',$kode);
-               $pesan = 'Produk Berhasil dihapus';
-               $this->session->set_flashdata('message', $pesan );
-               redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$idpm.'/'.$idbrg));
+                $pesan = 'Produk Berhasil dihapus';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$idpm.'/'.$idbrg));
               }else{
                 $pesan = 'Barang sudah tervalidasi keberadaannya sehingga tidak dapat di hapus';
                 $this->session->set_flashdata('message', $pesan );

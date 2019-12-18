@@ -67,6 +67,7 @@
 					<th>Ipdo Date</th>
 					<th>So Date</th>
 					<th>Status</th>
+					<th></th>
 				</tr>
 				<?php if ($hasil == TRUE): ?>
 					<?php $no = 1+$row ?>
@@ -100,6 +101,13 @@
 									<span class="pcoded-badge label label-success">Selesai</span>
 								<?php else: ?>
 									<span class="pcoded-badge label label-danger">Belum Selesai</span>
+								<?php endif ?>
+							</td>
+							<td>
+								<?php if ($data['id_status'] == '1'): ?>
+									<a href="#" class="text-secondary">Hapus</a>
+								<?php else: ?>
+									<a href="<?php echo base_url('index.php/admin/produkmasuk/delpm/'.$data['id_pm']) ?>" class="text-danger">Hapus</a>
 								<?php endif ?>
 							</td>
 						</tr>

@@ -58,7 +58,7 @@
 									<?php endif ?> onchange="this.form.submit()">
 								</td>
 								<td><a href="<?php echo base_url('index.php/admin/produkmasuk/addsubproduk/'.$detail->id_pm.'/'.$data->id_brg_pm) ?>" class="text-info">Detail</a></td>
-								<td><a href="<?php echo base_url('index.php/admin/produkmasuk/delproduk/'.$data->id_brg_pm) ?>" class="text-danger">Hapus</a></td>
+								<td><a href="<?php echo base_url('index.php/admin/produkmasuk/delproduk/'.$detail->id_pm.'/'.$data->id_brg_pm) ?>" class="text-danger">Hapus</a></td>
 							</tr>
 						</form>
 						<?php $no++ ?>
