@@ -542,5 +542,46 @@ class ProdukMasuk extends CI_Controller {
             redirect(base_url('index.php/admin/login'));
         }
     }
+    public function delsubproduk($idpm,$idbrg,$id){
+      if ($this->ion_auth->logged_in()) {
+        $level = array('admin');
+        if (!$this->ion_auth->in_group($level)) {
+          $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+          $this->session->set_flashdata('message', $pesan );
+          redirect(base_url('index.php/dashboard'));
+        }else{
+          $detbrg = $this->Admin_m->detail_data('brg_pm','id_brg_pm',strip_tags(trim($idbrg)));
+          $detpm = $this->Admin_m->detail_data('produkmasuk','id_pm',strip_tags(trim($idpm)));
+          if ($detbrg == TRUE && $detpm == TRUE) {
+            $kode = preg_replace("/[^0-9]/", "", $id);
+            $detail = $this->Admin_m->detail_data('produk','id_produk',$kode);
+            if ($detail == TRUE) {
+              if ($detail->id_validasi =='0') {
+                $this->Admin_m->delete('produk','id_produk',$kode);
+               $pesan = 'Produk Berhasil dihapus';
+               $this->session->set_flashdata('message', $pesan );
+               redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$idpm.'/'.$idbrg));
+              }else{
+                $pesan = 'Barang sudah tervalidasi keberadaannya sehingga tidak dapat di hapus';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$idpm.'/'.$idbrg));
+              }
+            }else{
+              $pesan = 'Kode Produk tidak di temukan, harap priksa kembali kode anda';
+              $this->session->set_flashdata('message', $pesan );
+              redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$idpm.'/'.$idbrg));
+            }
+          }else{
+            $pesan = 'Kode struk dan kode sub struk tidak di temukan, harap priksa kembali kode anda';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$idpm.'/'.$idbrg));
+          }
+        }
+      }else{
+        $pesan = 'Login terlebih dahulu';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/login'));
+      }
+    }
 }
 ?>

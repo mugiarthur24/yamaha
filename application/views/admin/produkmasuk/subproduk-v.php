@@ -27,6 +27,7 @@
 				<th>Warna</th>
 				<th>Delaer</th>
 				<th>Status</th>
+				<th></th>
 			</tr>
 			<?php if ($hasil == TRUE): ?>
 				<?php $no = 1 ?>
@@ -39,14 +40,22 @@
 						<td><?php echo ucfirst($data->warna); ?></td>
 						<td><?php echo $data->nama_info_pt; ?></td>
 						<td>
-							<?php if ($data->id_validasi !== '1' ): ?>
+							<?php if ($data->id_validasi == '1' ): ?>
 								<span class="pcoded-badge label label-success">Ada</span>
-								<?php else: ?>
-									<span class="pcoded-badge label label-danger">Tidak Ada</span>
-								<?php endif ?>
-							</td>
-						</tr>
-					<?php $no++ ?>
+							<?php else: ?>
+								<span class="pcoded-badge label label-danger">Tidak Ada</span>
+							<?php endif ?>
+						</td>
+						<td>
+							<?php if ($data->id_validasi =='1'): ?>
+								<a href="#" class="text-secondary">Hapus</a>
+							<?php else: ?>
+								<a href="<?php echo base_url('index.php/admin/produkmasuk/delsubproduk/'.$detpm->id_pm.'/'.$detbrg->id_brg_pm.'/'.$data->id_produk) ?>" class='text-danger'>Hapus</a>
+							<?php endif ?>
+							
+						</td>
+					</tr>
+				<?php $no++ ?>
 				<?php endforeach ?>
 			<?php else: ?>
 				<tr><td colspan="8" class="text-center">Tidak ada data ditemukan</td></tr>
