@@ -10,7 +10,7 @@
 	<div class="card-body">
 		<form action="<?php echo base_url('index.php/admin/produk/index') ?>" method="post">
 			<div class="row">
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<input type="text" name="no_rangka" class="form-control" placeholder="masukan nomor rangka produk" style="width: 100%" <?php if (!empty($post['no_rangka']) ): ?>
 								value="<?php echo $post['no_rangka'] ?>"
 							<?php endif ?>>
@@ -22,7 +22,7 @@
 							<?php endif ?>>
 					<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
 				</div>
-				<div class="col-md-1">
+				<!-- <div class="col-md-1">
 					<select name="id_jenis" class="form-control">
 						<?php if (!empty($post['id_jenis'])): ?>
 							<option value="<?php echo $post['id_jenis'] ?>"><?php echo $this->Admin_m->detail_data('jenis','id_jenis',$post['id_jenis'])->nm_jenis ?></option>
@@ -35,7 +35,7 @@
 						<?php endforeach ?>
 					</select>
 					<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
-				</div>
+				</div> -->
 				<div class="col-md-2">
 					<select name="id_merk" class="form-control">
 						<?php if (!empty($post['id_merk'])): ?>
@@ -89,9 +89,9 @@
 					<th>No</th>
 					<th>No Rangka</th>
 					<th>No Mesin</th>
-					<th>Jenis</th>
 					<th>Merk</th>
 					<th>Type</th>
+					<th>Warna</th>
 					<th>Delaer</th>
 					<th>Status</th>
 				</tr>
@@ -102,9 +102,9 @@
 							<td><?php echo $no; ?></td>
 							<td><?php echo $data['no_rangka']; ?></td>
 							<td><?php echo $data['no_mesin']; ?></td>
-							<td><?php echo $data['nm_jenis']; ?></td>
 							<td><span class="pcoded-badge label label-info"><?php echo $data['nm_merk']; ?></span></td>
 							<td><?php echo $data['nm_type']; ?></td>
+							<td><?php echo ucfirst($data['warna']); ?></td>
 							<td><?php echo $data['nama_info_pt']; ?></td>
 							<td>
 								<?php if ($data['id_status'] == '1' ): ?>
