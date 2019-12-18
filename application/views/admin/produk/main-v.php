@@ -94,7 +94,6 @@
 					<th>Type</th>
 					<th>Delaer</th>
 					<th>Status</th>
-					<th></th>
 				</tr>
 				<?php if ($hasil == TRUE): ?>
 					<?php $no = 1+$row ?>

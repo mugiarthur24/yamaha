@@ -37,21 +37,21 @@
 								<td><?php echo $no; ?><input type="hidden" name="id_pm" value="<?php echo $detail->id_pm ?>"></td>
 								<td><?php echo $data->nm_type; ?> <input type="hidden" name="id_brg_pm" value="<?php echo $data->id_brg_pm ?>"></td>
 								<td>
-									<input type="text" class="form-control" name="cc" <?php if ($data->cc == TRUE): ?>
+									<input type="text" class="form-control form-control-sm" name="cc" <?php if ($data->cc == TRUE): ?>
 									value="<?php echo $data->cc ?>"
 									<?php else: ?>
 										value="0"
 									<?php endif ?>>
 								</td>
 								<td>
-									<input type="text" class="form-control" name="warna" <?php if ($data->warna == TRUE): ?>
+									<input type="text" class="form-control form-control-sm" name="warna" <?php if ($data->warna == TRUE): ?>
 									value="<?php echo $data->warna ?>"
 									<?php else: ?>
 										value="-"
 									<?php endif ?>>
 								</td>
 								<td>
-									<input type="text"  class="form-control"name="jml_brg" <?php if ($data->warna == TRUE): ?>
+									<input type="text"  class="form-control form-control-sm"name="jml_brg" <?php if ($data->warna == TRUE): ?>
 									value="<?php echo $data->jml_brg ?>"
 									<?php else: ?>
 										value="0"
