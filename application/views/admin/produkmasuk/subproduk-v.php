@@ -42,8 +42,10 @@
 						<td>
 							<?php if ($data->id_validasi == '1' ): ?>
 								<span class="pcoded-badge label label-success">Ada</span>
+								<a href="<?php echo base_url('index.php/admin/produkmasuk/changetoempty/'.$detpm->id_pm.'/'.$detbrg->id_brg_pm.'/'.$data->id_produk) ?>" class="pcoded-badge label label-inverse-info-border">Tidak Ada</a>
 							<?php else: ?>
-								<span class="pcoded-badge label label-danger">Tidak Ada</span>
+								<a href="<?php echo base_url('index.php/admin/produkmasuk/changetofull/'.$detpm->id_pm.'/'.$detbrg->id_brg_pm.'/'.$data->id_produk) ?>" class="pcoded-badge label label-inverse-info-border">Ada</a>
+								<span  class="pcoded-badge label label-danger">Tidak Ada</span>
 							<?php endif ?>
 						</td>
 						<td>

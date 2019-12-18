@@ -26,6 +26,7 @@ class Produk_m extends CI_Model
 		if (!empty($search['id_info_pt'])) {
 			$this->db->where('produk.id_info_pt',$search['id_info_pt']);
 		}
+		$this->db->where('produk.id_validasi','1');
 		$this->db->limit($rowperpage, $rowno);
 		$this->db->order_by('id_produk','desc');
 		$query = $this->db->get();
@@ -58,6 +59,7 @@ class Produk_m extends CI_Model
 		if (!empty($search['id_info_pt'])) {
 			$this->db->where('produk.id_info_pt',$search['id_info_pt']);
 		}
+		$this->db->where('produk.id_validasi','1');
 		$this->db->order_by('produk.id_produk','desc');
 		$query = $this->db->get();
 		$result = $query->result_array();
@@ -86,6 +88,7 @@ class Produk_m extends CI_Model
 			$this->db->like('produk.no_mesin',$search['no_mesin']);
 		}
 		$this->db->where('produk.id_info_pt',$idinfopt);
+		$this->db->where('produk.id_validasi','1');
 		$this->db->limit($rowperpage, $rowno);
 		$this->db->order_by('produk.id_produk','desc');
 		$query = $this->db->get();
@@ -116,6 +119,7 @@ class Produk_m extends CI_Model
 			$this->db->like('produk.no_mesin',$search['no_mesin']);
 		}
 		$this->db->where('id_info_pt',$idinfopt);
+		$this->db->where('produk.id_validasi','1');
 		$this->db->order_by('produk.id_produk','desc');
 		$query = $this->db->get();
 		$result = $query->result_array();

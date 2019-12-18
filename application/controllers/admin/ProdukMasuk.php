@@ -141,6 +141,80 @@ class ProdukMasuk extends CI_Controller {
             redirect(base_url('index.php/admin/login'));
         }
     }
+    public function changetofull($idpm,$idbrg,$id){
+      if ($this->ion_auth->logged_in()) {
+        $level=array('admin');
+        if (!$this->ion_auth->in_group($level)) {
+          $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+          $this->session->set_flashdata('message', $pesan );
+          redirect(base_url('index.php/dashboard'));
+        }else{
+          $getuser= $this->ion_auth->user()->row();
+          $kode = strip_tags(trim($id));
+          $detbrg = $this->Admin_m->detail_data('brg_pm','id_brg_pm',strip_tags(trim($idbrg)));
+          $detpm = $this->Admin_m->detail_data('produkmasuk','id_pm',strip_tags(trim($idpm)));
+          if ($detbrg == TRUE && $detpm == TRUE) {
+            $cek = $this->Admin_m->detail_data('produk','id_produk',$kode);
+            if ($cek == TRUE) {
+              $data['id_validasi'] = '1';
+              $this->Admin_m->update('produk','id_produk',$kode,$data);
+              $pesan = 'Produk berhasi di ubah menjadi <b>"Ada"</b>';
+              $this->session->set_flashdata('message', $pesan );
+              redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$detpm->id_pm.'/'.$detbrg->id_brg_pm));
+            }else{
+              $pesan = 'Kode Produk tidak di temukan, harap priksa kembali kode anda';
+              $this->session->set_flashdata('message', $pesan );
+              redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$detpm->id_pm.'/'.$detbrg->id_brg_pm));
+            }
+          }else{
+            $pesan = 'Kode struk dan kode sub struk tidak di temukan, harap priksa kembali kode anda';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$detpm->id_pm.'/'.$detbrg->id_brg_pm));
+          }
+        }
+      }else{
+        $pesan = 'Login terlebih dahulu';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/admin/login'));
+      }
+    }
+    public function changetoempty($idpm,$idbrg,$id){
+      if ($this->ion_auth->logged_in()) {
+        $level=array('admin');
+        if (!$this->ion_auth->in_group($level)) {
+          $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+          $this->session->set_flashdata('message', $pesan );
+          redirect(base_url('index.php/dashboard'));
+        }else{
+          $getuser= $this->ion_auth->user()->row();
+          $kode = strip_tags(trim($id));
+          $detbrg = $this->Admin_m->detail_data('brg_pm','id_brg_pm',strip_tags(trim($idbrg)));
+          $detpm = $this->Admin_m->detail_data('produkmasuk','id_pm',strip_tags(trim($idpm)));
+          if ($detbrg == TRUE && $detpm == TRUE) {
+            $cek = $this->Admin_m->detail_data('produk','id_produk',$kode);
+            if ($cek == TRUE) {
+              $data['id_validasi'] = '0';
+              $this->Admin_m->update('produk','id_produk',$kode,$data);
+              $pesan = 'Produk berhasi di ubah menjadi <b>"Tidak Ada"</b>';
+              $this->session->set_flashdata('message', $pesan );
+              redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$detpm->id_pm.'/'.$detbrg->id_brg_pm));
+            }else{
+              $pesan = 'Kode Produk tidak di temukan, harap priksa kembali kode anda';
+              $this->session->set_flashdata('message', $pesan );
+              redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$detpm->id_pm.'/'.$detbrg->id_brg_pm));
+            }
+          }else{
+            $pesan = 'Kode struk dan kode sub struk tidak di temukan, harap priksa kembali kode anda';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$detpm->id_pm.'/'.$detbrg->id_brg_pm));
+          }
+        }
+      }else{
+        $pesan = 'Login terlebih dahulu';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/admin/login'));
+      }
+    }
     public function create($id,$rowno=0){
         if ($this->ion_auth->logged_in()) {
             $level = array('admin');

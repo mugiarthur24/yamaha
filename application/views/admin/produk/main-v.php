@@ -103,14 +103,18 @@
 							<td><?php echo $data['no_rangka']; ?></td>
 							<td><?php echo $data['no_mesin']; ?></td>
 							<td><?php echo $data['nm_jenis']; ?></td>
-							<td><?php echo $data['nm_merk']; ?></td>
+							<td><span class="pcoded-badge label label-info"><?php echo $data['nm_merk']; ?></span></td>
 							<td><?php echo $data['nm_type']; ?></td>
 							<td><?php echo $data['nama_info_pt']; ?></td>
 							<td>
-								<?php if ($data['id_status'] !== '1' ): ?>
+								<?php if ($data['id_status'] == '1' ): ?>
 									<span class="pcoded-badge label label-success">Ready</span>
 								<?php else: ?>
-									<span class="pcoded-badge label label-danger">Sell</span>
+									<?php if ($data['id_status'] == '0'): ?>
+										<span class="pcoded-badge label label-danger">Tidak Tersedia</span>
+									<?php else: ?>
+										<span class="pcoded-badge label label-info">Sell</span>
+									<?php endif ?>
 								<?php endif ?>
 							</td>
 						</tr>
