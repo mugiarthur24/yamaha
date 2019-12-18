@@ -69,6 +69,24 @@
 						<small id="kode_type" class="form-text text-muted">Hanya dapat menggunakan gabungan angka dan huruf</small>
 					</div>
 					<div class="form-group">
+						<label for="nm_type">Jenis</label>
+						<select class="form-control" name="id_jenis">
+							<?php foreach ($jenis as $jns): ?>
+								<option value="<?php echo $jns->id_jenis ?>"><?php echo $jns->nm_jenis ?></option>
+							<?php endforeach ?>
+						</select>
+						<small id="nm_type" class="form-text text-muted">Semua type karakter (Huruf, Angka dan simbol) Dapat digunakan</small>
+					</div>
+					<div class="form-group">
+						<label for="nm_type">Merk</label>
+						<select class="form-control" name="id_merk">
+							<?php foreach ($merk as $mrk): ?>
+								<option value="<?php echo $mrk->id_merk ?>"><?php echo $mrk->nm_merk ?></option>
+							<?php endforeach ?>
+						</select>
+						<small id="nm_type" class="form-text text-muted">Semua type karakter (Huruf, Angka dan simbol) Dapat digunakan</small>
+					</div>
+					<div class="form-group">
 						<label for="ket_type">Keterangan Type</label>
 						<textarea class="form-control" name="ket_type" placeholder="Masukan Keterangan"></textarea>
 						<small id="ket_type" class="form-text text-muted">Deskripsi type, maksimal 144 karakter.</small>

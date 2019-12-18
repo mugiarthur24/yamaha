@@ -73,15 +73,33 @@
 					<?php foreach ($hasil as $data): ?>
 						<tr>
 							<td><?php echo $no; ?></td>
-							<td><a href="<?php echo base_url('index.php/admin/produkmasuk/create/'.$data['id_pm']) ?>"><?php echo $data['so_ref']; ?></a></td>
-							<td><?php echo $data['so_no']; ?></td>
-							<td><?php echo date('d F Y',strtotime($data['ipdo_date'])); ?></td>
-							<td><?php echo date('d F Y',strtotime($data['so_date'])); ?></td>
 							<td>
-								<?php if ($data['id_status'] !== '1' ): ?>
-									<span class="pcoded-badge label label-success">Ready</span>
+								<?php if ($data['so_ref'] == TRUE): ?>
+									<a href="<?php echo base_url('index.php/admin/produkmasuk/create/'.$data['id_pm']) ?>"><?php echo $data['so_ref']; ?></a>
 								<?php else: ?>
-									<span class="pcoded-badge label label-danger">Sell</span>
+									<a href="<?php echo base_url('index.php/admin/produkmasuk/create/'.$data['id_pm']) ?>" class="pcoded-badge label label-primary">Belum disetting</a>
+								<?php endif ?>
+							</td>
+							<td><?php echo $data['so_no']; ?></td>
+							<td>
+								<?php if ($data['ipdo_date'] !=='0000-00-00'): ?>
+									<?php echo date('d F Y',strtotime($data['ipdo_date'])); ?>
+								<?php else: ?>
+									<?php echo "Belum disetting"; ?>
+								<?php endif ?>
+							</td>
+							<td>
+								<?php if ($data['so_date'] !== '0000-00-00'): ?>
+									<?php echo date('d F Y',strtotime($data['so_date'])); ?>
+								<?php else: ?>
+									<?php echo "Belum disetting"; ?>
+								<?php endif ?>
+							</td>
+							<td>
+								<?php if ($data['id_status'] == '1' ): ?>
+									<span class="pcoded-badge label label-success">Selesai</span>
+								<?php else: ?>
+									<span class="pcoded-badge label label-danger">Belum Selesai</span>
 								<?php endif ?>
 							</td>
 						</tr>

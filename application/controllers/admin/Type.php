@@ -20,6 +20,8 @@ class Type extends CI_Controller {
 				$data['infopt'] = $infopt;
 				$data['users'] = $getuser;
 				$data['aside'] = 'nav/nav';
+				$data['jenis'] = $this->Admin_m->select_data('jenis');
+				$data['merk'] = $this->Admin_m->select_data('merk');
 				$data['hasil'] = $this->Admin_m->select_data('type');
 				$data['page'] = 'admin/type/main-v';
 				$this->load->view('admin/dashboard-v',$data);
@@ -39,6 +41,8 @@ class Type extends CI_Controller {
 				redirect(base_url('index.php/dashboard'));
 			}else{
 				$post=$this->input->post();
+				$this->form_validation->set_rules('id_jenis', 'Kode Jenis', 'required|numeric');
+				$this->form_validation->set_rules('id_merk', 'Kode Merk', 'required|numeric');
 				$this->form_validation->set_rules('nm_type', 'Nama type', 'required|alpha_numeric_spaces');
 				$this->form_validation->set_rules('kode_type', 'Kode type', 'required|alpha_numeric_spaces');
 				$this->form_validation->set_rules('ket_type', 'Keterangan type', 'required|alpha_numeric_spaces');
@@ -48,6 +52,8 @@ class Type extends CI_Controller {
 					redirect(base_url('index.php/admin/type'));
 				}else{
 					$data = array(
+						'id_jenis' =>strip_tags(trim($post['id_jenis'])),
+						'id_merk' =>strip_tags(trim($post['id_merk'])),
 						'nm_type' =>strip_tags(trim($post['nm_type'])),
 						'kode_type' =>strip_tags(trim($post['kode_type'])),
 						'ket_type' =>strip_tags(trim($post['ket_type'])),
@@ -78,6 +84,8 @@ class Type extends CI_Controller {
                 $data['infopt'] = $infopt;
                 $data['users'] = $getuser;
                 $data['aside'] = 'nav/nav';
+                $data['jenis'] = $this->Admin_m->select_data('jenis');
+				$data['merk'] = $this->Admin_m->select_data('merk');
                 $data['hasil'] = $this->Admin_m->detail_data('type','id_type',$id);
                 $data['page'] = 'admin/type/edit-v';
                 // pagging setting
@@ -98,6 +106,8 @@ class Type extends CI_Controller {
                 redirect(base_url('index.php/dashboard'));
             }else{
                 $post=$this->input->post();
+                $this->form_validation->set_rules('id_jenis', 'Kode Jenis', 'required|numeric');
+				$this->form_validation->set_rules('id_merk', 'Kode Merk', 'required|numeric');
                 $this->form_validation->set_rules('nm_type', 'Nama type', 'required|alpha_numeric_spaces');
 				$this->form_validation->set_rules('kode_type', 'Kode type', 'required|alpha_numeric_spaces');
 				$this->form_validation->set_rules('ket_type', 'Keterangan type', 'required|alpha_numeric_spaces');
@@ -107,6 +117,8 @@ class Type extends CI_Controller {
 					redirect(base_url('index.php/admin/type'));
 				}else{
 					$data = array(
+						'id_jenis' =>strip_tags(trim($post['id_jenis'])),
+						'id_merk' =>strip_tags(trim($post['id_merk'])),
 						'nm_type' =>strip_tags(trim($post['nm_type'])),
 						'kode_type' =>strip_tags(trim($post['kode_type'])),
 						'ket_type' =>strip_tags(trim($post['ket_type'])),

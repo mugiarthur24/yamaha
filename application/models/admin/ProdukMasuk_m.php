@@ -135,4 +135,24 @@ class ProdukMasuk_m extends CI_Model
 		$query = $this->db->get('brg_pm');
 		return $query->row();
 	}
+	public function getsubproduk($id,$brg){
+		$this->db->select('produk.*,jenis.nm_jenis,merk.nm_merk,type.nm_type,info_pt.nama_info_pt');
+		$this->db->where('produk.id_brg_pm',$brg);
+		$this->db->where('produk.id_pm',$id);
+		$this->db->join('jenis', 'jenis.id_jenis = produk.id_jenis');
+		$this->db->join('merk', 'merk.id_merk = produk.id_merk');
+		$this->db->join('type', 'type.id_type = produk.id_type');
+		$this->db->join('info_pt', 'info_pt.id_info_pt = produk.id_info_pt');
+		$this->db->order_by('produk.id_produk','desc');
+		$query = $this->db->get('produk');
+		return $query->result();
+	}
+	public function gettype($id){
+		$this->db->select('type.*,jenis.nm_jenis,merk.nm_merk');
+		$this->db->join('jenis', 'jenis.id_jenis = type.id_jenis');
+		$this->db->join('merk', 'merk.id_merk = type.id_merk');
+		$this->db->where('id_type',$id);
+		$query = $this->db->get('type');
+		return $query->row();
+	}
 }

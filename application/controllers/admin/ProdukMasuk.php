@@ -387,6 +387,102 @@ class ProdukMasuk extends CI_Controller {
             redirect(base_url('index.php/login'));
         }
     }
+    public function addsubproduk($idpm,$idbrg){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','karyawan');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/dashboard'));
+            }else{
+                $getuser = $this->ion_auth->user()->row();
+                $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+                $detbrg = $this->Admin_m->detail_data('brg_pm','id_brg_pm',strip_tags(trim($idbrg)));
+                $detpm = $this->Admin_m->detail_data('produkmasuk','id_pm',strip_tags(trim($idpm)));
+                $type = $this->ProdukMasuk_m->gettype($detbrg->id_type);
+                if ($detbrg == TRUE && $detpm == TRUE) {
+                  $hasil = $this->ProdukMasuk_m->getsubproduk(strip_tags(trim($idpm)),strip_tags(trim($idbrg)));
+                  $data['infopt'] = $infopt;
+                  $data['title'] = 'Sub Produk Masuk - '.$infopt->nama_info_pt;
+                  $data['users'] = $getuser;
+                  $data['detbrg'] = $detbrg;
+                  $data['detpm'] = $detpm;
+                  $data['hasil'] = $hasil;
+                  $data['type'] = $type;
+                  $data['nav'] = 'nav/nav-admin';
+                  $data['page'] = 'admin/produkmasuk/subproduk-v';
+                  // pagging produk
+                  $this->load->view('admin/dashboard-v',$data);
+                }else{
+                  $pesan = 'Kode struk dan kode sub struk tidak di temukan, harap priksa kembali kode anda';
+                  $this->session->set_flashdata('message', $pesan );
+                  redirect(base_url('index.php/produkmasuk/create/'.$idpm));
+                }
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
+    public function prsaddsubproduk($idpm,$idbrg){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','members');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/dashboard'));
+            }else{
+                $post = $this->input->post();
+                $getuser = $this->ion_auth->user()->row();
+                $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+                $detbrg = $this->Admin_m->detail_data('brg_pm','id_brg_pm',strip_tags(trim($idbrg)));
+                $detpm = $this->Admin_m->detail_data('produkmasuk','id_pm',strip_tags(trim($idpm)));
+                $type = $this->ProdukMasuk_m->gettype(strip_tags(trim($detbrg->id_type)));
+                if ($detbrg == TRUE && $detpm == TRUE) {
+                  $this->form_validation->set_rules('no_rangka', 'Nomor Rangka', 'required|trim|numeric');
+                  $this->form_validation->set_rules('no_mesin', 'Nomor Mesin ', 'required|trim|numeric');
+                  $this->form_validation->set_rules('thn_produk', 'Tahun Produk ', 'required|trim|numeric|min_length[4]|max_length[4]');
+                  $this->form_validation->set_rules('bahan_bakar', 'bahan bakar ', 'required|trim|alpha_numeric_spaces');
+                  if ($this->form_validation->run() == FALSE){
+                    $pesan = $pesan = validation_errors();
+                    $this->session->set_flashdata('message', $pesan );
+                    redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$idpm.'/'.$idbrg));
+                  }else{
+                    $data = array(
+                      'id_pm' => strip_tags(trim($idpm)),
+                      'id_brg_pm' => strip_tags(trim($idbrg)),
+                      'id_info_pt' => strip_tags(trim($infopt->id_info_pt)),
+                      'no_rangka' => strip_tags(trim($post['no_rangka'])),
+                      'no_mesin' => strip_tags(trim($post['no_mesin'])),
+                      'id_jenis' => strip_tags(trim($type->id_jenis)),
+                      'id_merk' => strip_tags(trim($type->id_merk)),
+                      'id_type' => strip_tags(trim($type->id_type)),
+                      'thn_produk' => strip_tags(trim($post['thn_produk'])),
+                      'tgl_masuk' => strip_tags(trim($post['tgl_masuk'])),
+                      'cc' => strip_tags(trim($detbrg->cc)),
+                      'bahan_bakar' => strip_tags(trim($post['bahan_bakar'])),
+                      'warna' => strip_tags(trim($detbrg->warna)),
+                      'id_validasi' => '0',
+                      'id_status' => '1',
+                    );
+                    $this->Admin_m->create('produk',$data);
+                    $pesan = 'Produk Baru Berhasil ditambahkan';
+                    $this->session->set_flashdata('message', $pesan );
+                    redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$idpm.'/'.$idbrg));
+                  }
+                }else{
+                  $pesan = 'Kode struk dan kode sub struk tidak di temukan, harap priksa kembali kode anda';
+                  $this->session->set_flashdata('message', $pesan );
+                  redirect(base_url('index.php/produkmasuk/create/'.$idpm));
+                }
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
     public function update(){
         if ($this->ion_auth->logged_in()) {
             $level=array('admin');
