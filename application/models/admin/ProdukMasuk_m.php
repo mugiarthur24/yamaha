@@ -76,7 +76,7 @@ class ProdukMasuk_m extends CI_Model
 		if (!empty($search['id_status'])) {
 			$this->db->where('id_status',$search['id_status']);
 		}
-		$this->db->where('id_info_pt',$idinfopt);
+		$this->db->where('produkmasuk.id_info_pt',$idinfopt);
 		$this->db->limit($rowperpage, $rowno);
 		$this->db->order_by('id_pm','desc');
 		$query = $this->db->get();
@@ -105,7 +105,7 @@ class ProdukMasuk_m extends CI_Model
 		if (!empty($search['id_status'])) {
 			$this->db->where('id_status',$search['id_status']);
 		}
-		$this->db->where('id_info_pt',$idinfopt);
+		$this->db->where('produkmasuk.id_info_pt',$idinfopt);
 		$this->db->order_by('id_pm','desc');
 		$query = $this->db->get();
 		$result = $query->result_array();

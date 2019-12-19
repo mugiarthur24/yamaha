@@ -128,6 +128,7 @@ class ProdukMasuk extends CI_Controller {
                 $data = array(
                     'tgl_create' => $date,
                     'waktu_create' => $time,
+                    'id_info_pt' => $getuser->id_info_pt,
                     );
                 $this->Admin_m->create('produkmasuk',$data);
                 $getdata=$this->ProdukMasuk_m->getprodukmasuk($date,$time);
@@ -542,6 +543,9 @@ class ProdukMasuk extends CI_Controller {
                     );
                     $this->Admin_m->create('produk',$data);
                     $pesan = 'Produk Baru Berhasil ditambahkan';
+                    // tambah jumlah
+                    $updata['jml_input'] = $detbrg->jml_input+1;
+                    $this->Admin_m->update('brg_pm','id_brg_pm',$detbrg->id_brg_pm,$updata);
                     $this->session->set_flashdata('message', $pesan );
                     redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$idpm.'/'.$idbrg));
                   }
@@ -705,6 +709,8 @@ class ProdukMasuk extends CI_Controller {
             if ($detail == TRUE) {
               if ($detail->id_validasi =='0') {
                 $this->Admin_m->delete('produk','id_produk',$kode);
+                $updata['jml_input'] = $detbrg->jml_input-1;
+                $this->Admin_m->update('brg_pm','id_brg_pm',$detbrg->id_brg_pm,$updata);
                 $pesan = 'Produk Berhasil dihapus';
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/produkmasuk/addsubproduk/'.$idpm.'/'.$idbrg));

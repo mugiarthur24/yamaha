@@ -28,6 +28,7 @@
 						<th>Cc</th>
 						<th>Warna</th>
 						<th>Stok</th>
+						<th>Input</th>
 						<th></th>
 					</tr>
 					<?php $no = 1 ?>
@@ -57,8 +58,15 @@
 										value="0"
 									<?php endif ?> onchange="this.form.submit()">
 								</td>
+								<td><label class="badge badge-warning"><?php echo $data->jml_input; ?></label></td>
 								<td><a href="<?php echo base_url('index.php/admin/produkmasuk/addsubproduk/'.$detail->id_pm.'/'.$data->id_brg_pm) ?>" class="text-info">Detail</a></td>
-								<td><a href="<?php echo base_url('index.php/admin/produkmasuk/delproduk/'.$detail->id_pm.'/'.$data->id_brg_pm) ?>" class="text-danger">Hapus</a></td>
+								<td>
+									<?php if ($data->jml_input >0): ?>
+										<a href="#" class="text-secondary">Hapus</a>
+									<?php else: ?>
+										<a href="<?php echo base_url('index.php/admin/produkmasuk/delproduk/'.$detail->id_pm.'/'.$data->id_brg_pm) ?>" class="text-danger">Hapus</a>
+									<?php endif ?>
+								</td>
 							</tr>
 						</form>
 						<?php $no++ ?>
