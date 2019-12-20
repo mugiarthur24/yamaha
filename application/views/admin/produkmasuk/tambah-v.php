@@ -33,42 +33,55 @@
 					</tr>
 					<?php $no = 1 ?>
 					<?php foreach ($barang as $data): ?>
-						<form action="<?php echo base_url('index.php/admin/produkmasuk/updatelistbarang/'.$data->id_brg_pm) ?>" method ="post">
+						<?php if ($users->id_info_pt == '1'): ?>
+							<form action="<?php echo base_url('index.php/admin/produkmasuk/updatelistbarang/'.$data->id_brg_pm) ?>" method ="post">
+								<tr>
+									<td><?php echo $no; ?><input type="hidden" name="id_pm" value="<?php echo $detail->id_pm ?>"></td>
+									<td><?php echo $data->nm_type; ?> <input type="hidden" name="id_brg_pm" value="<?php echo $data->id_brg_pm ?>"></td>
+									<td>
+										<input type="text" class="form-control form-control-sm" name="cc" <?php if ($data->cc == TRUE): ?>
+										value="<?php echo $data->cc ?>"
+										<?php else: ?>
+											value="0"
+										<?php endif ?>>
+									</td>
+									<td>
+										<input type="text" class="form-control form-control-sm" name="warna" <?php if ($data->warna == TRUE): ?>
+										value="<?php echo $data->warna ?>"
+										<?php else: ?>
+											value="-"
+										<?php endif ?>>
+									</td>
+									<td>
+										<input type="text"  class="form-control form-control-sm"name="jml_brg" <?php if ($data->warna == TRUE): ?>
+										value="<?php echo $data->jml_brg ?>"
+										<?php else: ?>
+											value="0"
+										<?php endif ?> onchange="this.form.submit()">
+									</td>
+									<td><label class="badge badge-warning"><?php echo $data->jml_input; ?></label></td>
+									<td><a href="<?php echo base_url('index.php/admin/produkmasuk/addsubproduk/'.$detail->id_pm.'/'.$data->id_brg_pm) ?>" class="text-info">Detail</a></td>
+									<td>
+										<?php if ($data->jml_input >0): ?>
+											<a href="#" class="text-secondary">Hapus</a>
+										<?php else: ?>
+											<a href="<?php echo base_url('index.php/admin/produkmasuk/delproduk/'.$detail->id_pm.'/'.$data->id_brg_pm) ?>" class="text-danger">Hapus</a>
+										<?php endif ?>
+									</td>
+								</tr>
+							</form>
+						<?php else: ?>
 							<tr>
-								<td><?php echo $no; ?><input type="hidden" name="id_pm" value="<?php echo $detail->id_pm ?>"></td>
-								<td><?php echo $data->nm_type; ?> <input type="hidden" name="id_brg_pm" value="<?php echo $data->id_brg_pm ?>"></td>
-								<td>
-									<input type="text" class="form-control form-control-sm" name="cc" <?php if ($data->cc == TRUE): ?>
-									value="<?php echo $data->cc ?>"
-									<?php else: ?>
-										value="0"
-									<?php endif ?>>
-								</td>
-								<td>
-									<input type="text" class="form-control form-control-sm" name="warna" <?php if ($data->warna == TRUE): ?>
-									value="<?php echo $data->warna ?>"
-									<?php else: ?>
-										value="-"
-									<?php endif ?>>
-								</td>
-								<td>
-									<input type="text"  class="form-control form-control-sm"name="jml_brg" <?php if ($data->warna == TRUE): ?>
-									value="<?php echo $data->jml_brg ?>"
-									<?php else: ?>
-										value="0"
-									<?php endif ?> onchange="this.form.submit()">
-								</td>
-								<td><label class="badge badge-warning"><?php echo $data->jml_input; ?></label></td>
+								<td><?php echo $no; ?></td>
+								<td><?php echo $data->nm_type; ?></td>
+								<td><?php echo $data->cc; ?></td>
+								<td><?php echo $data->warna; ?></td>
+								<td><?php echo $data->jml_brg; ?></td>
+								<td><?php echo $data->jml_input; ?></td>
 								<td><a href="<?php echo base_url('index.php/admin/produkmasuk/addsubproduk/'.$detail->id_pm.'/'.$data->id_brg_pm) ?>" class="text-info">Detail</a></td>
-								<td>
-									<?php if ($data->jml_input >0): ?>
-										<a href="#" class="text-secondary">Hapus</a>
-									<?php else: ?>
-										<a href="<?php echo base_url('index.php/admin/produkmasuk/delproduk/'.$detail->id_pm.'/'.$data->id_brg_pm) ?>" class="text-danger">Hapus</a>
-									<?php endif ?>
-								</td>
 							</tr>
-						</form>
+						<?php endif ?>
+							
 						<?php $no++ ?>
 					<?php endforeach ?>
 				</table>
@@ -140,7 +153,11 @@
 				</div>
 			</div>
 			<div class="card-body">
-				<form action="<?php echo base_url('index.php/admin/produkmasuk/updatenota/'.$detail->id_pm) ?>" method="post">
+				<?php if ($users->id_info_pt == '1'): ?>
+					<form action="<?php echo base_url('index.php/admin/produkmasuk/updatenota/'.$detail->id_pm) ?>" method="post">
+				<?php else: ?>
+					<form action="#">
+				<?php endif ?>
 					<div class="form-group">
 						<label>No So Ref</label>
 						<input type="text" name="so_ref" class="form-control" value="<?php echo $detail->so_ref?>" placeholder="Masukan SO REF">
@@ -169,7 +186,9 @@
 							value="<?php echo date('Y-m-d') ?>"
 						<?php endif ?> >
 					</div>
-					<button type="submit" name="submit" value="submit" class="btn btn-success btn-sm">Simpan RIncian Nota</button>
+					<?php if ($users->id_info_pt == '1'): ?>
+						<button type="submit" name="submit" value="submit" class="btn btn-success btn-sm">Simpan RIncian Nota</button>
+					<?php endif ?>
 				</form>
 			</div>
 		</div>

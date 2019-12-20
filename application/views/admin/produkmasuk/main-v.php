@@ -5,7 +5,7 @@
 				<b>Daftar Produk Masuk</b>
 				<span class="text-muted">Daftar Produk Masuk pada masing masing Perusahaan / Cabang</span>
 			</div>
-			<?php if ($this->ion_auth->in_group(array('admin'))): ?>
+			<?php if ($this->ion_auth->in_group(array('admin')) && $users->id_info_pt == '1'): ?>
 				<div class="col">
 					<a href="<?php echo base_url('index.php/admin/produkmasuk/crtprodukmasuk') ?>" class="btn btn-grd-success btn-sm float-right">Tambah Produk Masuk</a>
 				</div>
