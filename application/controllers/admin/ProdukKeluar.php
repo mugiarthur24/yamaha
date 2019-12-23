@@ -447,6 +447,46 @@ class ProdukKeluar extends CI_Controller {
             redirect(base_url('index.php/admin/login'));
         }
     }
+    public function addsubpk($idpk,$idbrg){
+      if ($this->ion_auth->logged_in()) {
+        $level = array('admin');
+        if (!$this->ion_auth->in_group($level)) {
+          $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+          $this->session->set_flashdata('message', $pesan );
+          redirect(base_url('index.php/dashboard'));
+        }else{
+          $post = $this->input->post();
+          $getuser = $this->ion_auth->user()->row();
+          $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+          $status = $this->Admin_m->select_data('status');
+          $dftrpt = $this->Admin_m->select_data('info_pt');
+          $detbrg = $this->ProdukKeluar_m->getsubpk(strip_tags(trim($idbrg)));
+          $detpm = $this->Admin_m->detail_data('produkkeluar','id_pk',strip_tags(trim($idpk)));
+          if ($detpm == TRUE && $detbrg == TRUE) {
+            $data['title'] = 'Produk yang akan dikirim Keluar dari '.$infopt->nama_info_pt;
+            $data['brand'] = $infopt->logo_pt;
+            $data['infopt'] = $infopt;
+            $data['users'] = $getuser;
+            $data['aside'] = 'nav/nav';
+            $data['detail'] = $getuser;
+            $data['status'] = $status;
+            $data['dtpt'] = $dftrpt;
+            $data['detpm'] = $detpm;
+            $data['detbrg'] = $detbrg;
+            $data['page'] = 'admin/produkkeluar/listproduk-v';
+            $this->load->view('admin/dashboard-v',$data);
+          }else{
+            $pesan = 'Kode struk dan kode sub struk tidak di temukan, harap priksa kembali kode anda';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url());
+          }
+        }
+      }else{
+        $pesan = 'Login terlebih dahulu';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/login'));
+      }
+    }
     public function detail($id){
         if ($this->ion_auth->logged_in()) {
             $level = array('admin','karyawan');
