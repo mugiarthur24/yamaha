@@ -463,6 +463,29 @@ class ProdukKeluar extends CI_Controller {
           $detbrg = $this->ProdukKeluar_m->getsubpk(strip_tags(trim($idbrg)));
           $detpm = $this->Admin_m->detail_data('produkkeluar','id_pk',strip_tags(trim($idpk)));
           if ($detpm == TRUE && $detbrg == TRUE) {
+            $search_text = "";
+            if($post == TRUE ){
+             $search_text = $post;
+             $this->session->set_userdata($post);
+            }else{
+              $post = array();
+              if($this->session->userdata('id_info_pt_asal') != NULL){
+                $post['id_info_pt_asal'] = $this->session->userdata('id_info_pt_asal');
+              }
+              if($this->session->userdata('id_info_pt_tujuan') != NULL){
+               $post['id_info_pt_tujuan'] = $this->session->userdata('id_info_pt_tujuan');
+              }
+              $search_text = $post;
+            }
+            if ($getuser->id_info_pt !== '1') {
+              $gudangasal = $this->ProdukKeluar_m->brgtypediinfo($detpm->id_info_pt_asal,$detbrg->id_type);
+            }else{
+              if (@$search_text['id_info_pt_asal'] == TRUE) {
+                $gudangasal = $this->ProdukKeluar_m->brgtypediinfo($search_text['id_info_pt_asal'],$detbrg->id_type);
+              }else{
+                $gudangasal = $this->ProdukKeluar_m->brgtypediinfo($detpm->id_info_pt_asal,$detbrg->id_type);
+              }
+            }
             $data['title'] = 'Produk yang akan dikirim Keluar dari '.$infopt->nama_info_pt;
             $data['brand'] = $infopt->logo_pt;
             $data['infopt'] = $infopt;
@@ -473,7 +496,15 @@ class ProdukKeluar extends CI_Controller {
             $data['dtpt'] = $dftrpt;
             $data['detpm'] = $detpm;
             $data['detbrg'] = $detbrg;
+            $data['gudangasal'] = $gudangasal;
+            if ($search_text == TRUE) {
+              $infoptlain = $this->Admin_m->info_pt($search_text['id_info_pt_tujuan']);
+              $gudanglain = $this->ProdukKeluar_m->brgtypediinfo($infoptlain->id_info_pt,$detbrg->id_type);
+              $data['gudanglain'] = $gudanglain;
+            }
+            $data['post'] = $search_text;
             $data['page'] = 'admin/produkkeluar/listproduk-v';
+            // echo "<pre>";print_r($data['gudangasal']);echo "</pre>";exit();
             $this->load->view('admin/dashboard-v',$data);
           }else{
             $pesan = 'Kode struk dan kode sub struk tidak di temukan, harap priksa kembali kode anda';
