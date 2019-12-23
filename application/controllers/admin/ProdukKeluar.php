@@ -501,6 +501,8 @@ class ProdukKeluar extends CI_Controller {
               $infoptlain = $this->Admin_m->info_pt($search_text['id_info_pt_tujuan']);
               $gudanglain = $this->ProdukKeluar_m->brgtypediinfo($infoptlain->id_info_pt,$detbrg->id_type);
               $data['gudanglain'] = $gudanglain;
+            }else{
+              $data['gudanglain'] = "";
             }
             $data['post'] = $search_text;
             $data['page'] = 'admin/produkkeluar/listproduk-v';
