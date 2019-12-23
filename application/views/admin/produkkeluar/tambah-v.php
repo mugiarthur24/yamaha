@@ -60,7 +60,13 @@
 										<?php endif ?> onchange="this.form.submit()">
 									</td>
 									<td><label class="badge badge-warning"><?php echo $data->jml_input; ?></label></td>
-									<td><a href="<?php echo base_url('index.php/admin/produkkeluar/addsubproduk/'.$detail->id_pk.'/'.$data->id_brg_pk) ?>" class="text-info">Detail</a></td>
+									<td>
+										<?php if ($data->cc !=='0' && $data->warna !==NULL && $data->jml_brg !=='0' && $detail->id_info_pt_tujuan !=='0'): ?>
+											<a href="<?php echo base_url('index.php/admin/produkkeluar/addsubproduk/'.$detail->id_pk.'/'.$data->id_brg_pk) ?>" class="text-info">Detail</a>
+										<?php else: ?>
+											<span class="text-secondary">Detail</sapn>
+										<?php endif ?>
+									</td>
 									<td>
 										<?php if ($data->jml_input >0): ?>
 											<a href="#" class="text-secondary">Hapus</a>

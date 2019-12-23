@@ -632,7 +632,7 @@ class ProdukKeluar extends CI_Controller {
             redirect(base_url('index.php/admin/login'));
         }
     }
-    public function delpm($idpm){
+    public function delpk($idpm){
       if ($this->ion_auth->logged_in()) {
         $level = array('admin');
         if (!$this->ion_auth->in_group($level)) {
