@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Des 2019 pada 13.51
+-- Waktu pembuatan: 23 Des 2019 pada 08.26
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.1.28
 
@@ -21,6 +21,23 @@ SET time_zone = "+00:00";
 --
 -- Database: `dealeryamaha`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `brg_pk`
+--
+
+CREATE TABLE `brg_pk` (
+  `id_brg_pk` int(11) NOT NULL,
+  `id_pk` int(11) NOT NULL,
+  `id_type` int(11) NOT NULL,
+  `cc` int(11) NOT NULL,
+  `jml_brg` int(11) NOT NULL,
+  `jml_input` int(11) NOT NULL,
+  `warna` varchar(50) NOT NULL,
+  `id_status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -50,7 +67,8 @@ INSERT INTO `brg_pm` (`id_brg_pm`, `id_pm`, `id_type`, `cc`, `jml_brg`, `jml_inp
 (6, 4, 2, 250, 10, 1, 'Kuning', 0),
 (7, 4, 1, 125, 10, 0, 'Hitam', 0),
 (8, 5, 1, 125, 10, 2, 'Biru', 0),
-(9, 6, 2, 125, 25, 1, 'Putih', 0);
+(9, 6, 2, 125, 25, 1, 'Putih', 0),
+(12, 8, 1, 125, 12, 1, 'HItam', 0);
 
 -- --------------------------------------------------------
 
@@ -262,7 +280,26 @@ INSERT INTO `produk` (`id_produk`, `id_pm`, `id_brg_pm`, `id_info_pt`, `no_rangk
 (1, 4, 6, 1, '1203205402366', '38485934959294', '', 1, 1, 2, 2019, '2019-12-19', '0000-00-00', '250', 'Bensin', 'Kuning', 0, 1),
 (3, 5, 8, 2, '91994553452455', '3012303034012', '', 1, 1, 1, 2019, '2019-12-19', '0000-00-00', '125', 'Bensin', 'Biru', 1, 1),
 (4, 5, 8, 1, '1203205402366', '9989796979821', '', 1, 1, 1, 2019, '2019-12-19', '0000-00-00', '125', 'Bensin', 'Biru', 1, 1),
-(5, 6, 9, 1, '3842834824858', '6849675849681', '', 1, 1, 2, 2019, '2019-12-19', '0000-00-00', '125', 'Bensin', 'Putih', 1, 1);
+(5, 6, 9, 1, '3842834824858', '6849675849681', '', 1, 1, 2, 2019, '2019-12-19', '0000-00-00', '125', 'Bensin', 'Putih', 1, 1),
+(7, 8, 12, 1, '1203205402366', '38485934959294', '', 1, 1, 1, 2019, '2019-12-20', '0000-00-00', '125', 'Bensin', 'HItam', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `produkkeluar`
+--
+
+CREATE TABLE `produkkeluar` (
+  `id_pk` int(11) NOT NULL,
+  `kode_pk` varchar(12) NOT NULL,
+  `id_info_pt_asal` int(11) NOT NULL,
+  `id_info_pt_tujuan` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `nm_user` varchar(114) NOT NULL,
+  `tgl_buat` date NOT NULL,
+  `waktu_buat` time NOT NULL,
+  `id_status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -292,7 +329,21 @@ INSERT INTO `produkmasuk` (`id_pm`, `id_info_pt`, `tgl_create`, `waktu_create`, 
 (3, 1, '2019-12-17', '14:16:03', '', 'S-BAU/19/12/DS5', 69555, 67316, '2019-12-11', '2019-12-11', 1),
 (4, 1, '2019-12-18', '18:26:28', '', 'S-BAU/20/12/K28', 69123, 98316, '2019-12-19', '2019-12-19', 0),
 (5, 2, '2019-12-19', '01:21:48', '', 'S-BAU/07/24/KS5', 42345, 67574, '2019-12-18', '2019-12-18', 0),
-(6, 1, '2019-12-19', '13:26:06', '', 'S-BAU/19/12/FGH', 124353, 757897, '2019-12-19', '2019-12-19', 0);
+(6, 1, '2019-12-19', '13:26:06', '', 'S-BAU/19/12/FGH', 124353, 757897, '2019-12-19', '2019-12-19', 0),
+(8, 1, '2019-12-20', '08:36:33', '', 'S-BAU/19/12/DS5', 12345, 12344, '2019-12-20', '2019-12-20', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `r_brg_pk`
+--
+
+CREATE TABLE `r_brg_pk` (
+  `id_r_brg_pk` int(11) NOT NULL,
+  `id_pk` int(11) NOT NULL,
+  `id_brg_pk` int(11) NOT NULL,
+  `id_produk` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -375,10 +426,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `repassword`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `jk`, `company`, `id_info_pt`, `phone`, `profile`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$12$QFxx7D9v0OHPtAi3QvMD5eUaGGHstO6tipOQeiO2U6YO09CCQFT8C', '', 'admin@admin.com', NULL, '', NULL, NULL, NULL, '29b6ed5f88caaef2fdc884a18e9625e062b6ff16', '$2y$10$YcqWdrafMwRRELqwTY6Y0eJwpnXm9hTZHPrhcdCR8JNc/geIhAsO6', 1268889823, 1576758239, 1, 'La Ode Agus Salim Nur', 'istrator', 'L', 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 1, '082343211234', 'default.png'),
+(1, '127.0.0.1', 'administrator', '$2y$12$QFxx7D9v0OHPtAi3QvMD5eUaGGHstO6tipOQeiO2U6YO09CCQFT8C', '', 'admin@admin.com', NULL, '', NULL, NULL, NULL, '3350d5217d8210cb49efbdaf056b8d16f09c6019', '$2y$10$BOUHGMF/FMylXnt09ideSOKBbGNcEtqIMcyQG/cCBzqJWLHRxXKvW', 1268889823, 1577069251, 1, 'La Ode Agus Salim Nur', 'istrator', 'L', 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 1, '082343211234', 'default.png'),
 (2, '::1', '201912122', '$2y$10$d1tsA6D4ZUm1w0vgVv9eLOKXTAk/bPodzTGXpzXdYrJolhvm..84.', 'mandatizamrud2412', 'rezarafiqmz@gmail.com', NULL, NULL, NULL, NULL, NULL, '9b0c10fad0a45a1ff1bda8116541c56c8e07ff01', '$2y$10$mkpAuIM1M43IaHed6WcH4uagctbusLkc0o860Qb7PJ/Wuf/m39TVm', 1576150007, 1576301529, 1, 'Reza Rafiq', '', 'L', 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 1, '082312341234', 'default.png'),
 (3, '::1', '201912123', '$2y$10$II5PSdysl1jb5VUInlmcCuQrtjznHoJcb5qUfO6q94Vsvdo/a3DyC', 'hardina321', 'peserta@unidayan.ac.id', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576150686, NULL, 1, 'Hardina Kaimudin', '', 'P', 'Raha Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 2, '082245126655', 'default.png'),
-(4, '::1', '201912124', '$2y$12$Ml36MPLajwxG5DXbCkhOR.fTf0XI5CFlYk2vd/wQHzp6XOVzi2pZG', 'ali1234', 'raha@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576171050, 1576758824, 1, 'Ali Akbar', '', 'L', 'Raha Dealer Resmi Kendaraan Roda 2 - Merk Yamaha	', 2, '081222224222', 'default.png');
+(4, '::1', '201912124', '$2y$12$Ml36MPLajwxG5DXbCkhOR.fTf0XI5CFlYk2vd/wQHzp6XOVzi2pZG', 'ali1234', 'raha@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576171050, 1576804332, 1, 'Ali Akbar', '', 'L', 'Raha Dealer Resmi Kendaraan Roda 2 - Merk Yamaha	', 2, '081222224222', 'default.png');
 
 -- --------------------------------------------------------
 
@@ -405,6 +456,12 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `brg_pk`
+--
+ALTER TABLE `brg_pk`
+  ADD PRIMARY KEY (`id_brg_pk`);
 
 --
 -- Indeks untuk tabel `brg_pm`
@@ -461,10 +518,22 @@ ALTER TABLE `produk`
   ADD PRIMARY KEY (`id_produk`);
 
 --
+-- Indeks untuk tabel `produkkeluar`
+--
+ALTER TABLE `produkkeluar`
+  ADD PRIMARY KEY (`id_pk`);
+
+--
 -- Indeks untuk tabel `produkmasuk`
 --
 ALTER TABLE `produkmasuk`
   ADD PRIMARY KEY (`id_pm`);
+
+--
+-- Indeks untuk tabel `r_brg_pk`
+--
+ALTER TABLE `r_brg_pk`
+  ADD PRIMARY KEY (`id_r_brg_pk`);
 
 --
 -- Indeks untuk tabel `status`
@@ -502,10 +571,16 @@ ALTER TABLE `users_groups`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `brg_pk`
+--
+ALTER TABLE `brg_pk`
+  MODIFY `id_brg_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT untuk tabel `brg_pm`
 --
 ALTER TABLE `brg_pm`
-  MODIFY `id_brg_pm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_brg_pm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `groups`
@@ -529,7 +604,7 @@ ALTER TABLE `jenis`
 -- AUTO_INCREMENT untuk tabel `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `merk`
@@ -553,13 +628,25 @@ ALTER TABLE `pembeli`
 -- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT untuk tabel `produkkeluar`
+--
+ALTER TABLE `produkkeluar`
+  MODIFY `id_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `produkmasuk`
 --
 ALTER TABLE `produkmasuk`
-  MODIFY `id_pm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_pm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT untuk tabel `r_brg_pk`
+--
+ALTER TABLE `r_brg_pk`
+  MODIFY `id_r_brg_pk` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `status`
