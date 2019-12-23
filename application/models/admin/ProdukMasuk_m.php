@@ -144,7 +144,7 @@ class ProdukMasuk_m extends CI_Model
 		$this->db->join('type', 'type.id_type = produk.id_type');
 		$this->db->join('info_pt', 'info_pt.id_info_pt = produk.id_info_pt');
 		$this->db->order_by('produk.id_produk','desc');
-		$query = $this->db->get('produk');
+		$query = $this->db->get('r_brg_pk');
 		return $query->result();
 	}
 	public function gettype($id){

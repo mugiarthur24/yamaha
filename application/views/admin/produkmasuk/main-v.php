@@ -40,7 +40,7 @@
 					<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
 				</div>
 				<div class="col-md-2">
-					<select name="id_info_pt" class="form-control">
+					<select name="id_status" class="form-control">
 						<?php if (!empty($post['id_status'])): ?>
 							<option value="<?php echo $post['id_status'] ?>"><?php echo $this->Admin_m->detail_data('status','id_status',$post['id_status'])->nm_status ?></option>
 							<option value="">Semua Status</option>

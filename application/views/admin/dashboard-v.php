@@ -324,7 +324,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="<?php echo base_url('index.php/admin/produkkeluar') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-package"></i></span>
                                         <span class="pcoded-mtext">Produk Keluar</span>
                                     </a>
