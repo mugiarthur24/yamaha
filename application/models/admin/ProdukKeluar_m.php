@@ -170,6 +170,13 @@ class ProdukKeluar_m extends CI_Model
 		$query = $this->db->get('brg_pk');
 		return $query->row();
 	}
+	function jmlproduk($idpt,$idtype){
+		$this->db->where('produk.id_type',$idtype->id_type);
+		$this->db->where('produk.id_info_pt',$idpt);
+		$this->db->where('produk.cc',$idtype->cc);
+		$this->db->like('produk.warna',$idtype->warna);
+		return $this->db->get('produk')->num_rows();
+	}
 	public function brgtypediinfo($idpt,$idtype){
 		$this->db->select('produk.*,type.nm_type,jenis.nm_jenis,merk.nm_merk');
 		$this->db->join('type', 'type.id_type =produk.id_type');

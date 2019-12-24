@@ -75,6 +75,17 @@
 										<?php endif ?>
 									</td>
 								</tr>
+								<tr>
+									<td colspan="2"></td>
+									<td colspan="3">
+										<?php $getkml = $this->ProdukKeluar_m->jmlproduk($detail->id_info_pt_asal,$data) ?>
+										<?php if ($getkml == TRUE): ?>
+											<i class="text-success">Produk dengan spesifikasi di atas ditemukan sejumlah <?php echo $getkml; ?> Unit</i>
+										<?php else: ?>
+											<i class="text-danger">Produk dengan spesifikasi di atas tidak di temukan</i>
+										<?php endif ?>
+									</td>
+								</tr>
 							</form>
 						<?php else: ?>
 							<tr>
@@ -97,55 +108,60 @@
 		</div>
 	</div>
 	<div class="col-md-6">
-		<div class="card">
-			<div class="card-header">
-				<div class="row">
-					<div class="col">
-						<b>Daftar Type Produk</b>
-						<span class="text-muted">Daftar Produk pada masing masing Perusahaan / Cabang</span>
+		<?php if ($detail->id_info_pt_tujuan !=='0'): ?>
+			<div class="card">
+				<div class="card-header">
+					<div class="row">
+						<div class="col">
+							<b>Daftar Type Produk</b>
+							<span class="text-muted">Daftar Produk pada masing masing Perusahaan / Cabang</span>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<form action="<?php echo base_url('index.php/admin/produkkeluar/create/') ?>" method="post">
+						<input type="text" name="string" class="form-control" placeholder="masukan nomor rangka produk" style="width: 100%" <?php if (!empty($post['string']) ): ?>
+									value="<?php echo $post['string'] ?>"
+								<?php endif ?>>
+						<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
+					</form>
+					<table class="table mt-2">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>Type</th>
+								<th></th>
+							</tr>
+							<tbody>
+								<?php $no = 1 ?>
+								<?php foreach ($hasil as $data): ?>
+									<form action="<?php echo base_url('index.php/admin/produkkeluar/addproduk/'.$data['id_type']) ?>" method="post">
+										<tr>
+											<td><?php echo $no; ?></td>
+											<td>
+												<?php echo $data['nm_type']; ?>
+												<input type="hidden" name="id_pk" value="<?php echo $detail->id_pk ?>">
+												<input type="hidden" name="id_type" value="<?php echo $data['id_type'] ?>">
+											</td>
+											<td><button type="submit" name="submit" value="submit" class="btn btn-success btn-sm">Pilih</button></td>
+										</tr>
+									</form>
+								<?php $no++ ?>
+								<?php endforeach ?>
+							</tbody>
+						</thead>
+					</table>
+					<div class="row mt-2">
+						<div class="col">
+							<?php echo $pagination; ?>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="card-body">
-				<form action="<?php echo base_url('index.php/admin/produkkeluar/create/') ?>" method="post">
-					<input type="text" name="string" class="form-control" placeholder="masukan nomor rangka produk" style="width: 100%" <?php if (!empty($post['string']) ): ?>
-								value="<?php echo $post['string'] ?>"
-							<?php endif ?>>
-					<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
-				</form>
-				<table class="table mt-2">
-					<thead>
-						<tr>
-							<th>No</th>
-							<th>Type</th>
-							<th></th>
-						</tr>
-						<tbody>
-							<?php $no = 1 ?>
-							<?php foreach ($hasil as $data): ?>
-								<form action="<?php echo base_url('index.php/admin/produkkeluar/addproduk/'.$data['id_type']) ?>" method="post">
-									<tr>
-										<td><?php echo $no; ?></td>
-										<td>
-											<?php echo $data['nm_type']; ?>
-											<input type="hidden" name="id_pk" value="<?php echo $detail->id_pk ?>">
-											<input type="hidden" name="id_type" value="<?php echo $data['id_type'] ?>">
-										</td>
-										<td><button type="submit" name="submit" value="submit" class="btn btn-success btn-sm">Pilih</button></td>
-									</tr>
-								</form>
-							<?php $no++ ?>
-							<?php endforeach ?>
-						</tbody>
-					</thead>
-				</table>
-				<div class="row mt-2">
-					<div class="col">
-						<?php echo $pagination; ?>
-					</div>
-				</div>
-			</div>
-		</div>
+		<?php else: ?>
+			<div class="alert alert-danger">Tujuan Pengeriman belum di atur, atur telebih dahulu Tujuan pengiriman agar dapat menambahkan Type Produk yang akan dikirim</div>
+		<?php endif ?>
+			
 	</div>
 	<div class="col-md-6">
 		<div class="card">
