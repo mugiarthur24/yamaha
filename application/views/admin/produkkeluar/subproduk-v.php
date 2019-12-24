@@ -101,7 +101,6 @@
 				<th>Type</th>
 				<th>Warna</th>
 				<th>Delaer</th>
-				<th>Status</th>
 				<th></th>
 			</tr>
 			<?php if ($hasil == TRUE): ?>
@@ -115,20 +114,11 @@
 						<td><?php echo ucfirst($data->warna); ?></td>
 						<td><?php echo $data->nama_info_pt; ?></td>
 						<td>
-							<?php if ($data->id_validasi == '1' ): ?>
-								<span class="pcoded-badge label label-success">Ada</span>
-								<a href="<?php echo base_url('index.php/admin/produkmasuk/changetoempty/'.$detpm->id_pk.'/'.$detbrg->id_brg_pk.'/'.$data->id_produk) ?>" class="pcoded-badge label label-inverse-info-border">Tidak Ada</a>
-							<?php else: ?>
-								<a href="<?php echo base_url('index.php/admin/produkmasuk/changetofull/'.$detpm->id_pk.'/'.$detbrg->id_brg_pk.'/'.$data->id_produk) ?>" class="pcoded-badge label label-inverse-info-border">Ada</a>
-								<span  class="pcoded-badge label label-danger">Tidak Ada</span>
-							<?php endif ?>
-						</td>
-						<td>
 							<?php if ($users->id_info_pt == '1'): ?>
 								<?php if ($data->id_validasi =='1'): ?>
 									<a href="#" class="text-secondary">Hapus</a>
 								<?php else: ?>
-									<a href="<?php echo base_url('index.php/admin/produkmasuk/delsubproduk/'.$detpm->id_pk.'/'.$detbrg->id_brg_pk.'/'.$data->id_produk) ?>" class='text-danger'>Hapus</a>
+									<a href="<?php echo base_url('index.php/admin/produkmasuk/delrbrgpk/'.$detpm->id_pk.'/'.$detbrg->id_brg_pk.'/'.$data->id_r_brg_pk) ?>" class='text-danger'>Batalkan</a>
 								<?php endif ?>
 							<?php endif ?>
 						</td>

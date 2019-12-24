@@ -76,7 +76,7 @@
 						<td><?php echo $data->cc; ?></td>
 						<td><?php echo $data->warna; ?></td>
 						<td>
-							<a href="<?php echo base_url('index.php/admin/produkkeluar/delrbrgpk/'.$detpm->id_pk.'/'.$detbrg->id_brg_pk.'/'.$data->id_r_brg_pk) ?>" class="text-danger">Batal</a>
+							<a href="<?php echo base_url('index.php/admin/produkkeluar/delrbrgpk/'.$detpm->id_pk.'/'.$detbrg->id_brg_pk.'/'.$data->id_r_brg_pk) ?>" class="text-danger">Batalkan</a>
 						</td>
 					</tr>
 					<?php $no++ ?>
