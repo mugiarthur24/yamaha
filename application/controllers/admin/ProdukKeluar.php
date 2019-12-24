@@ -478,14 +478,15 @@ class ProdukKeluar extends CI_Controller {
               $search_text = $post;
             }
             if ($getuser->id_info_pt !== '1') {
-              $gudangasal = $this->ProdukKeluar_m->brgtypediinfo($detpm->id_info_pt_asal,$detbrg->id_type);
+              $gudangasal = $this->ProdukKeluar_m->brgtypediinfo($detpm->id_info_pt_asal,$detbrg);
             }else{
               if (@$search_text['id_info_pt_asal'] == TRUE) {
-                $gudangasal = $this->ProdukKeluar_m->brgtypediinfo($search_text['id_info_pt_asal'],$detbrg->id_type);
+                $gudangasal = $this->ProdukKeluar_m->brgtypediinfo($search_text['id_info_pt_asal'],$detbrg);
               }else{
-                $gudangasal = $this->ProdukKeluar_m->brgtypediinfo($detpm->id_info_pt_asal,$detbrg->id_type);
+                $gudangasal = $this->ProdukKeluar_m->brgtypediinfo($detpm->id_info_pt_asal,$detbrg);
               }
             }
+            $hasil = $this->ProdukKeluar_m->getsubproduk($detpm->id_pk,$detbrg->id_brg_pk);
             $data['title'] = 'Produk yang akan dikirim Keluar dari '.$infopt->nama_info_pt;
             $data['brand'] = $infopt->logo_pt;
             $data['infopt'] = $infopt;
@@ -499,14 +500,15 @@ class ProdukKeluar extends CI_Controller {
             $data['gudangasal'] = $gudangasal;
             if ($search_text == TRUE) {
               $infoptlain = $this->Admin_m->info_pt($search_text['id_info_pt_tujuan']);
-              $gudanglain = $this->ProdukKeluar_m->brgtypediinfo($infoptlain->id_info_pt,$detbrg->id_type);
+              $gudanglain = $this->ProdukKeluar_m->brgtypediinfo($infoptlain->id_info_pt,$detbrg);
               $data['gudanglain'] = $gudanglain;
             }else{
               $data['gudanglain'] = "";
             }
             $data['post'] = $search_text;
+            $data['hasil'] = $hasil;
             $data['page'] = 'admin/produkkeluar/listproduk-v';
-            // echo "<pre>";print_r($data['gudangasal']);echo "</pre>";exit();
+            // echo "<pre>";print_r($data['hasil']);echo "</pre>";exit();
             $this->load->view('admin/dashboard-v',$data);
           }else{
             $pesan = 'Kode struk dan kode sub struk tidak di temukan, harap priksa kembali kode anda';
@@ -705,6 +707,66 @@ class ProdukKeluar extends CI_Controller {
             redirect(base_url('index.php/admin/login'));
         }
     }
+    public function addprdkeluar($idpk,$idbrg){
+        if ($this->ion_auth->logged_in()) {
+            $level = array('admin','karyawan');
+            if (!$this->ion_auth->in_group($level)) {
+                $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/dashboard'));
+            }else{
+              $post = $this->input->post();
+              $getuser = $this->ion_auth->user()->row();
+              $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+              $detbrg = $this->Admin_m->detail_data('brg_pk','id_brg_pk',strip_tags(trim($idbrg)));
+              $detpm = $this->Admin_m->detail_data('produkkeluar','id_pk',strip_tags(trim($idpk)));
+              $type = $this->ProdukKeluar_m->gettype(strip_tags(trim($detbrg->id_type)));
+              if ($detbrg == TRUE && $detpm == TRUE) {
+                $this->form_validation->set_rules('pilih', 'Kode Produk', '|trim|numeric');
+                if ($this->form_validation->run() == FALSE){
+                  $pesan = $pesan = validation_errors();
+                  $this->session->set_flashdata('message', $pesan );
+                  redirect(base_url('index.php/admin/produkkeluar/addsubpk/'.$idpk.'/'.$idbrg));
+                }else{
+                  foreach ($post['pilih'] as $key) {
+                    $data = array(
+                      'id_pk' => preg_replace("/[^0-9]/", "",trim($idpk)),
+                      'id_brg_pk' => preg_replace("/[^0-9]/", "",trim($idbrg)),
+                      'id_info_pt_asal' => preg_replace("/[^0-9]/", "",trim($detpm->id_info_pt_asal)),
+                      'id_info_pt_tujuan' => preg_replace("/[^0-9]/", "",trim($detpm->id_info_pt_tujuan)),
+                      'id_produk' => preg_replace("/[^0-9]/", "",trim($key)),
+                    );
+                    $resdata[] = $data;
+                  }
+                  // echo "<pre>";print_r($resdata);echo "</pre>";exit();
+                  $this->db->insert_batch('r_brg_pk',$resdata);
+                  foreach ($resdata as $value) {
+                    $datas = array(
+                      'id_produk' => preg_replace("/[^0-9]/", "",trim($value['id_produk'])),
+                      'id_info_pt' => preg_replace("/[^0-9]/", "",trim($detpm->id_info_pt_tujuan)),
+                      'id_validasi' => trim('0'),
+                    );
+                    $updatas[] = $datas;
+                    $upbrgpk['jml_input'] = $detbrg->jml_input+1;
+                    $this->Admin_m->update('brg_pk','id_brg_pk',$detbrg->id_brg_pk,$upbrgpk);
+                  }
+                  $this->db->update_batch('produk', $updatas, 'id_produk');
+                  $pesan = 'Produk Baru Berhasil ditambahkan';
+                  $this->session->set_flashdata('message', $pesan);
+                  redirect(base_url('index.php/admin/produkkeluar/addsubpk/'.$detpm->id_pk.'/'.$detbrg->id_brg_pk));
+                }
+              }else{
+                $pesan = 'Kode struk dan kode sub struk tidak di temukan, harap priksa kembali kode anda';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/produkkeluar/addsubpk/'.$idpk.'/'.$idbrg));
+              }
+            }
+        }else{
+            $pesan = 'Login terlebih dahulu';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/login'));
+        }
+    }
     public function delpk($idpm){
       if ($this->ion_auth->logged_in()) {
         $level = array('admin');
@@ -813,6 +875,55 @@ class ProdukKeluar extends CI_Controller {
             $pesan = 'Kode struk dan kode sub struk tidak di temukan, harap priksa kembali kode anda';
             $this->session->set_flashdata('message', $pesan );
             redirect(base_url('index.php/admin/produkkeluar/addsubproduk/'.$idpm.'/'.$idbrg));
+          }
+        }
+      }else{
+        $pesan = 'Login terlebih dahulu';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/login'));
+      }
+    }
+    public function delrbrgpk($idpm,$idbrg,$id){
+      if ($this->ion_auth->logged_in()) {
+        $level = array('admin');
+        if (!$this->ion_auth->in_group($level)) {
+          $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+          $this->session->set_flashdata('message', $pesan );
+          redirect(base_url('index.php/dashboard'));
+        }else{
+          $detbrg = $this->Admin_m->detail_data('brg_pk','id_brg_pk',strip_tags(trim($idbrg)));
+          $detpm = $this->Admin_m->detail_data('produkkeluar','id_pk',strip_tags(trim($idpm)));
+          if ($detbrg == TRUE && $detpm == TRUE) {
+            $kode = preg_replace("/[^0-9]/", "", $id);
+            $detrbrgpk = $this->Admin_m->detail_data('r_brg_pk','id_r_brg_pk',$kode);
+            $detail = $this->Admin_m->detail_data('produk','id_produk',$detrbrgpk->id_produk);
+            if ($detail == TRUE) {
+              if ($detail->id_validasi =='0') {
+                $retur = array(
+                  'id_info_pt'=>$detpm->id_info_pt_asal,
+                  'id_validasi'=>trim('1'),
+                );
+                $this->Admin_m->update('produk','id_produk',$detail->id_produk,$retur);
+                $this->Admin_m->delete('r_brg_pk','id_r_brg_pk',$kode);
+                $updata['jml_input'] = $detbrg->jml_input-1;
+                $this->Admin_m->update('brg_pk','id_brg_pk',$detbrg->id_brg_pk,$updata);
+                $pesan = 'Produk Berhasil dihapus';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/produkkeluar/addsubpk/'.$detpm->id_pk.'/'.$detbrg->id_brg_pk));
+              }else{
+                $pesan = 'Barang sudah tervalidasi keberadaannya sehingga tidak dapat di hapus';
+                $this->session->set_flashdata('message', $pesan );
+                redirect(base_url('index.php/admin/produkkeluar/addsubpk/'.$detpm->id_pk.'/'.$detbrg->id_brg_pk));
+              }
+            }else{
+              $pesan = 'Kode Produk tidak di temukan, harap priksa kembali kode anda';
+              $this->session->set_flashdata('message', $pesan );
+              redirect(base_url('index.php/admin/produkkeluar/addsubpk/'.$idpm.'/'.$idbrg));
+            }
+          }else{
+            $pesan = 'Kode struk dan kode sub struk tidak di temukan, harap priksa kembali kode anda';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin/produkkeluar/addsubpk/'.$idpm.'/'.$idbrg));
           }
         }
       }else{
