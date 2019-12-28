@@ -336,14 +336,33 @@ class ProdukKeluar extends CI_Controller {
                 //   $this->session->set_flashdata('message', $pesan );
                 //   redirect(base_url('index.php/admin/produkkeluar/create/'.$post['id_pk']));
                 // }else{
+                $getpk = $this->Admin_m->detail_data('produkkeluar','id_pk',$post['id_pk']);
+                if ($getpk == TRUE) {
+                  $waktucrt =date('Ymd-his'); 
                   $data = array(
                     'id_type' => $post['id_type'],
                     'id_pk' => $post['id_pk'],
+                    'waktu_create' => trim($waktucrt),
                   );
                   $this->Admin_m->create('brg_pk',$data);
+                  // buat brg_pm
+                  $getpm = $this->Admin_m->detail_data('produkmasuk','departemen',$getpk->kode_pk);
+                  $getbrgpk = $this->Admin_m->detail_data('brg_pk','waktu_create',trim($waktucrt));
+                  $data = array(
+                    'id_type' => $post['id_type'],
+                    'id_pm' => $getpm->id_pm,
+                    'id_brg_pk' => $getbrgpk->id_brg_pk,
+                    'waktu_create' => trim($waktucrt),
+                  );
+                  $this->Admin_m->create('brg_pm',$data);
                   $pesan = 'Produk <b>'.$detail->nm_type.'</b> Berhasil ditambahkan';
                   $this->session->set_flashdata('message', $pesan );
                   redirect(base_url('index.php/admin/produkkeluar/create/'.$post['id_pk']));
+                }else{
+                  $pesan = 'Kode Produk keluar tidak ditemukan, periksa kembali kode produk anda';
+                  $this->session->set_flashdata('message', $pesan );
+                  redirect(base_url('index.php/admin/produkkeluar/'));
+                }
                 // } 
               }
             }
@@ -390,7 +409,28 @@ class ProdukKeluar extends CI_Controller {
                     );
                   }
                   $this->Admin_m->update('produkkeluar','id_pk',$id,$data);
-                  $pesan = 'Produk  Berhasil diubah';
+                  // buat produkmasuk di info_pt_tujuan
+                  $date = date('Y-m-d');
+                  $time = date('H:i:s');
+                  $inftujuan = array(
+                    'tgl_create' => $date,
+                    'waktu_create' => $time,
+                    'id_info_pt' => trim($post['id_info_pt_tujuan']),
+                    'departemen' => trim($cek->kode_pk),
+                    'so_ref' => trim($cek->kode_pk),
+                    'so_no' => str_pad(trim($cek->id_pk), 5,"0",STR_PAD_LEFT),
+                    'ipdo_no' => str_pad(trim($cek->id_pk), 5,"0",STR_PAD_LEFT),
+                    'ipdo_date' => $date,
+                    'so_date' => $date,
+                    'id_status'=>'0'
+                  );
+                  $cekpm = $this->Admin_m->detail_data('produkmasuk','departemen',$cek->kode_pk);
+                  if ($cekpm == TRUE) {
+                    $this->Admin_m->update('produkmasuk','id_pm',$cekpm->id_pm,$inftujuan);
+                  }else{
+                    $this->Admin_m->create('produkmasuk',$inftujuan);
+                  }
+                  $pesan = 'Produk '.$cek->kode_pk.' Berhasil diubah';
                   $this->session->set_flashdata('message', $pesan );
                   redirect(base_url('index.php/admin/produkkeluar/create/'.$id));
                 } 
@@ -422,23 +462,44 @@ class ProdukKeluar extends CI_Controller {
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/produkkeluar/create/'.$post['id_pk']));
               }else{
-                $getuser= $this->ion_auth->user()->row();
-                $cek = $this->ProdukKeluar_m->cekbrgproduk($post['id_brg_pk']);
-                if ($cek == FALSE) {
-                  $pesan = 'Produk Yang di maksud tidak terdapat dalam daftar, harap periksa kembali kode unik anda';
-                  $this->session->set_flashdata('message', $pesan );
-                  redirect(base_url('index.php/admin/produkkeluar/create/'.$post['id_pk']));
+                $getpk = $this->Admin_m->detail_data('produkkeluar','id_pk',$post['id_pk']);
+                if ($getpk == TRUE) {
+                  $getuser= $this->ion_auth->user()->row();
+                  $cek = $this->ProdukKeluar_m->cekbrgproduk($post['id_brg_pk']);
+                  if ($cek == FALSE) {
+                    $pesan = 'Produk Yang di maksud tidak terdapat dalam daftar, harap periksa kembali kode unik anda';
+                    $this->session->set_flashdata('message', $pesan );
+                    redirect(base_url('index.php/admin/produkkeluar/create/'.$post['id_pk']));
+                  }else{
+                    $data = array(
+                      'cc' => $post['cc'],
+                      'warna' => $post['warna'],
+                      'jml_brg' => $post['jml_brg'],
+                    );
+                    $this->Admin_m->update('brg_pk','id_brg_pk',$post['id_brg_pk'],$data);
+                    // update brgpm
+                    $getbrgpm = $this->Admin_m->detail_data('brg_pm','id_brg_pk',$cek->id_brg_pk);
+                    if ($getbrgpm == TRUE) {
+                      $dtbrgpm = array(
+                        'cc' => $post['cc'],
+                        'warna' => $post['warna'],
+                        'jml_brg' => $post['jml_brg'],
+                      );
+                      $this->Admin_m->update('brg_pm','id_brg_pm',$getbrgpm->id_brg_pm,$dtbrgpm);
+                    }else{
+                      $pesan = 'Kode Produk Keluar pada Produk Masuk Tidak ditemukan, hapus dan ulangi penginputan anda';
+                      $this->session->set_flashdata('message', $pesan );
+                      redirect(base_url('index.php/admin/produkkeluar/create/'.$post['id_pk']));
+                    }
+                    $pesan = 'Produk  Berhasil diubah';
+                    $this->session->set_flashdata('message', $pesan );
+                    redirect(base_url('index.php/admin/produkkeluar/create/'.$post['id_pk']));
+                  } 
                 }else{
-                  $data = array(
-                    'cc' => $post['cc'],
-                    'warna' => $post['warna'],
-                    'jml_brg' => $post['jml_brg'],
-                  );
-                  $this->Admin_m->update('brg_pk','id_brg_pk',$post['id_brg_pk'],$data);
-                  $pesan = 'Produk  Berhasil diubah';
-                  $this->session->set_flashdata('message', $pesan );
-                  redirect(base_url('index.php/admin/produkkeluar/create/'.$post['id_pk']));
-                } 
+                  $pesan = 'Kode Produk tidak ditemukan, harap periksa kembali kode produk anda';
+                    $this->session->set_flashdata('message', $pesan );
+                    redirect(base_url('index.php/admin/produkkeluar/'));
+                }
               }
             }
         }else{
@@ -589,7 +650,7 @@ class ProdukKeluar extends CI_Controller {
     }
     public function prsaddsubproduk($idpm,$idbrg){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','members');
+            $level = array('admin');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -709,7 +770,7 @@ class ProdukKeluar extends CI_Controller {
     }
     public function addprdkeluar($idpk,$idbrg){
         if ($this->ion_auth->logged_in()) {
-            $level = array('admin','karyawan');
+            $level = array('admin');
             if (!$this->ion_auth->in_group($level)) {
                 $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
                 $this->session->set_flashdata('message', $pesan );
@@ -729,7 +790,10 @@ class ProdukKeluar extends CI_Controller {
                   redirect(base_url('index.php/admin/produkkeluar/addsubpk/'.$idpk.'/'.$idbrg));
                 }else{
                   foreach ($post['pilih'] as $key) {
+                    $getprdk = $this->Admin_m->detail_data('produk','id_produk',$key);
                     $data = array(
+                      'id_pm_asal' => preg_replace("/[^0-9]/", "",trim($getprdk->id_pm)),
+                      'id_brg_pm_asal' => preg_replace("/[^0-9]/", "",trim($getprdk->id_brg_pm)),
                       'id_pk' => preg_replace("/[^0-9]/", "",trim($idpk)),
                       'id_brg_pk' => preg_replace("/[^0-9]/", "",trim($idbrg)),
                       'id_info_pt_asal' => preg_replace("/[^0-9]/", "",trim($detpm->id_info_pt_asal)),
@@ -740,15 +804,20 @@ class ProdukKeluar extends CI_Controller {
                   }
                   // echo "<pre>";print_r($resdata);echo "</pre>";exit();
                   $this->db->insert_batch('r_brg_pk',$resdata);
+                  $detbrgpk = $this->Admin_m->detail_data('brg_pm','id_brg_pk',strip_tags(trim($detbrg->id_brg_pk)));
                   foreach ($resdata as $value) {
                     $datas = array(
                       'id_produk' => preg_replace("/[^0-9]/", "",trim($value['id_produk'])),
                       'id_info_pt' => preg_replace("/[^0-9]/", "",trim($detpm->id_info_pt_tujuan)),
                       'id_validasi' => trim('0'),
+                      'id_pm'=>$detbrgpk->id_pm,
+                      'id_brg_pm'=>$detbrgpk->id_brg_pm,
                     );
                     $updatas[] = $datas;
                     $upbrgpk['jml_input'] = $detbrg->jml_input+1;
+                    $upbrgpm['jml_input'] = $detbrgpk->jml_input+1;
                     $this->Admin_m->update('brg_pk','id_brg_pk',$detbrg->id_brg_pk,$upbrgpk);
+                    $this->Admin_m->update('brg_pm','id_brg_pm',$detbrgpk->id_brg_pm,$upbrgpm);
                   }
                   $this->db->update_batch('produk', $updatas, 'id_produk');
                   $pesan = 'Produk Baru Berhasil ditambahkan';

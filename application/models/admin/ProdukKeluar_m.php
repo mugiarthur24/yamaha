@@ -190,4 +190,11 @@ class ProdukKeluar_m extends CI_Model
 		$query = $this->db->get('produk');
 		return $query->result();
 	}
+	public function getbrgpm($pm,$type,$waktu){
+		$this->db->where('id_pm',$pm);
+		$this->db->where('id_type',$id);
+		$this->db->where('waktu_create',$waktu);
+		$query = $this->db->get('brg_pm');
+		return $query->row();
+	}
 }

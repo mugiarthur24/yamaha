@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Des 2019 pada 04.22
+-- Waktu pembuatan: 28 Des 2019 pada 05.37
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.1.28
 
@@ -36,6 +36,7 @@ CREATE TABLE `brg_pk` (
   `jml_brg` int(11) NOT NULL,
   `jml_input` int(11) NOT NULL,
   `warna` varchar(50) NOT NULL,
+  `waktu_create` varchar(20) DEFAULT NULL,
   `id_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -43,8 +44,9 @@ CREATE TABLE `brg_pk` (
 -- Dumping data untuk tabel `brg_pk`
 --
 
-INSERT INTO `brg_pk` (`id_brg_pk`, `id_pk`, `id_type`, `cc`, `jml_brg`, `jml_input`, `warna`, `id_status`) VALUES
-(5, 4, 1, 125, 1, 0, 'Merah', 0);
+INSERT INTO `brg_pk` (`id_brg_pk`, `id_pk`, `id_type`, `cc`, `jml_brg`, `jml_input`, `warna`, `waktu_create`, `id_status`) VALUES
+(1, 1, 1, 125, 1, 1, 'Hitam', '20191228-052544', 0),
+(2, 1, 2, 125, 1, 1, 'Putih', '20191228-053054', 0);
 
 -- --------------------------------------------------------
 
@@ -54,12 +56,14 @@ INSERT INTO `brg_pk` (`id_brg_pk`, `id_pk`, `id_type`, `cc`, `jml_brg`, `jml_inp
 
 CREATE TABLE `brg_pm` (
   `id_brg_pm` int(11) NOT NULL,
+  `id_brg_pk` int(11) NOT NULL,
   `id_pm` int(11) NOT NULL,
   `id_type` int(11) NOT NULL,
   `cc` int(11) NOT NULL,
   `jml_brg` int(11) NOT NULL,
   `jml_input` int(11) NOT NULL,
   `warna` varchar(114) NOT NULL,
+  `waktu_create` varchar(20) DEFAULT NULL,
   `id_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -67,15 +71,17 @@ CREATE TABLE `brg_pm` (
 -- Dumping data untuk tabel `brg_pm`
 --
 
-INSERT INTO `brg_pm` (`id_brg_pm`, `id_pm`, `id_type`, `cc`, `jml_brg`, `jml_input`, `warna`, `id_status`) VALUES
-(3, 3, 1, 125, 20, 0, 'hitam', 0),
-(4, 3, 2, 125, 30, 0, 'Merah', 0),
-(5, 3, 2, 250, 11, 0, 'Biru', 0),
-(6, 4, 2, 250, 10, 1, 'Kuning', 0),
-(7, 4, 1, 125, 10, 0, 'Hitam', 0),
-(8, 5, 1, 125, 10, 2, 'Biru', 0),
-(9, 6, 2, 125, 25, 1, 'Putih', 0),
-(12, 8, 1, 125, 12, 1, 'HItam', 0);
+INSERT INTO `brg_pm` (`id_brg_pm`, `id_brg_pk`, `id_pm`, `id_type`, `cc`, `jml_brg`, `jml_input`, `warna`, `waktu_create`, `id_status`) VALUES
+(3, 0, 3, 1, 125, 20, 0, 'hitam', NULL, 0),
+(4, 0, 3, 2, 125, 30, 0, 'Merah', NULL, 0),
+(5, 0, 3, 2, 250, 11, 0, 'Biru', NULL, 0),
+(6, 0, 4, 2, 250, 10, 1, 'Kuning', NULL, 0),
+(7, 0, 4, 1, 125, 10, 0, 'Hitam', NULL, 0),
+(8, 0, 5, 1, 125, 10, 2, 'Biru', NULL, 0),
+(9, 0, 6, 2, 125, 25, 1, 'Putih', NULL, 0),
+(12, 0, 8, 1, 125, 12, 1, 'HItam', NULL, 0),
+(15, 1, 10, 1, 125, 1, 0, 'Hitam', '20191228-052544', 0),
+(16, 2, 10, 2, 125, 1, 1, 'Putih', '20191228-053054', 0);
 
 -- --------------------------------------------------------
 
@@ -286,9 +292,9 @@ CREATE TABLE `produk` (
 INSERT INTO `produk` (`id_produk`, `id_pm`, `id_brg_pm`, `id_info_pt`, `no_rangka`, `no_mesin`, `no_pdi`, `id_jenis`, `id_merk`, `id_type`, `thn_produk`, `tgl_masuk`, `tgl_keluar`, `cc`, `bahan_bakar`, `warna`, `id_validasi`, `id_status`) VALUES
 (1, 4, 6, 1, '1203205402366', '38485934959294', '', 1, 1, 2, 2019, '2019-12-19', '0000-00-00', '250', 'Bensin', 'Kuning', 1, 1),
 (3, 5, 8, 2, '91994553452455', '3012303034012', '', 1, 1, 1, 2019, '2019-12-19', '0000-00-00', '125', 'Bensin', 'Biru', 1, 1),
-(4, 5, 8, 1, '1203205402366', '9989796979821', '', 1, 1, 1, 2019, '2019-12-19', '0000-00-00', '125', 'Bensin', 'Merah', 1, 1),
-(5, 6, 9, 1, '3842834824858', '6849675849681', '', 1, 1, 2, 2019, '2019-12-19', '0000-00-00', '125', 'Bensin', 'Putih', 1, 1),
-(7, 8, 12, 1, '1203205402366', '38485934959294', '', 1, 1, 1, 2019, '2019-12-20', '0000-00-00', '125', 'Bensin', 'HItam', 1, 1);
+(4, 5, 8, 1, '1203205402366', '9989796979821', '', 1, 1, 1, 2019, '2019-12-19', '0000-00-00', '125', 'Bensin', 'Biru', 1, 1),
+(5, 10, 16, 2, '3842834824858', '6849675849681', '', 1, 1, 2, 2019, '2019-12-19', '0000-00-00', '125', 'Bensin', 'Putih', 0, 1),
+(7, 10, 15, 2, '1203205402366', '38485934959294', '', 1, 1, 1, 2019, '2019-12-20', '0000-00-00', '125', 'Bensin', 'HItam', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -313,7 +319,7 @@ CREATE TABLE `produkkeluar` (
 --
 
 INSERT INTO `produkkeluar` (`id_pk`, `kode_pk`, `id_info_pt_asal`, `id_info_pt_tujuan`, `id_user`, `nm_user`, `tgl_buat`, `waktu_buat`, `id_status`) VALUES
-(4, 'PK2412190001', 1, 2, 1, 'La Ode Agus Salim Nur', '2019-12-24', '03:57:47', 0);
+(1, 'PK2812190001', 1, 2, 1, 'La Ode Agus Salim Nur', '2019-12-28', '05:25:00', 0);
 
 -- --------------------------------------------------------
 
@@ -344,7 +350,8 @@ INSERT INTO `produkmasuk` (`id_pm`, `id_info_pt`, `tgl_create`, `waktu_create`, 
 (4, 1, '2019-12-18', '18:26:28', '', 'S-BAU/20/12/K28', 69123, 98316, '2019-12-19', '2019-12-19', 0),
 (5, 2, '2019-12-19', '01:21:48', '', 'S-BAU/07/24/KS5', 42345, 67574, '2019-12-18', '2019-12-18', 0),
 (6, 1, '2019-12-19', '13:26:06', '', 'S-BAU/19/12/FGH', 124353, 757897, '2019-12-19', '2019-12-19', 0),
-(8, 1, '2019-12-20', '08:36:33', '', 'S-BAU/19/12/DS5', 12345, 12344, '2019-12-20', '2019-12-20', 0);
+(8, 1, '2019-12-20', '08:36:33', '', 'S-BAU/19/12/DS5', 12345, 12344, '2019-12-20', '2019-12-20', 0),
+(10, 2, '2019-12-28', '05:25:29', 'PK2812190001', 'PK2812190001', 1, 1, '2019-12-28', '2019-12-28', 0);
 
 -- --------------------------------------------------------
 
@@ -354,12 +361,22 @@ INSERT INTO `produkmasuk` (`id_pm`, `id_info_pt`, `tgl_create`, `waktu_create`, 
 
 CREATE TABLE `r_brg_pk` (
   `id_r_brg_pk` int(11) NOT NULL,
+  `id_pm_asal` int(11) NOT NULL,
+  `id_brg_pm_asal` int(11) NOT NULL,
   `id_pk` int(11) NOT NULL,
   `id_info_pt_asal` int(11) NOT NULL,
   `id_info_pt_tujuan` int(11) NOT NULL,
   `id_brg_pk` int(11) NOT NULL,
   `id_produk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `r_brg_pk`
+--
+
+INSERT INTO `r_brg_pk` (`id_r_brg_pk`, `id_pm_asal`, `id_brg_pm_asal`, `id_pk`, `id_info_pt_asal`, `id_info_pt_tujuan`, `id_brg_pk`, `id_produk`) VALUES
+(2, 8, 12, 1, 1, 2, 1, 7),
+(3, 6, 9, 1, 1, 2, 2, 5);
 
 -- --------------------------------------------------------
 
@@ -442,7 +459,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `repassword`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `jk`, `company`, `id_info_pt`, `phone`, `profile`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$12$QFxx7D9v0OHPtAi3QvMD5eUaGGHstO6tipOQeiO2U6YO09CCQFT8C', '', 'admin@admin.com', NULL, '', NULL, NULL, NULL, '3350d5217d8210cb49efbdaf056b8d16f09c6019', '$2y$10$BOUHGMF/FMylXnt09ideSOKBbGNcEtqIMcyQG/cCBzqJWLHRxXKvW', 1268889823, 1577148747, 1, 'La Ode Agus Salim Nur', 'istrator', 'L', 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 1, '082343211234', 'default.png'),
+(1, '127.0.0.1', 'administrator', '$2y$12$QFxx7D9v0OHPtAi3QvMD5eUaGGHstO6tipOQeiO2U6YO09CCQFT8C', '', 'admin@admin.com', NULL, '', NULL, NULL, NULL, '1651ad2ecc41e9dc1e37ed2157778383e99da6ef', '$2y$10$gNsDG.U13cjtXTvIZMynV.HC62NhGghzkv2Um.xFFlNNv.JFOrDpC', 1268889823, 1577499579, 1, 'La Ode Agus Salim Nur', 'istrator', 'L', 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 1, '082343211234', 'default.png'),
 (2, '::1', '201912122', '$2y$10$d1tsA6D4ZUm1w0vgVv9eLOKXTAk/bPodzTGXpzXdYrJolhvm..84.', 'mandatizamrud2412', 'rezarafiqmz@gmail.com', NULL, NULL, NULL, NULL, NULL, '9b0c10fad0a45a1ff1bda8116541c56c8e07ff01', '$2y$10$mkpAuIM1M43IaHed6WcH4uagctbusLkc0o860Qb7PJ/Wuf/m39TVm', 1576150007, 1576301529, 1, 'Reza Rafiq', '', 'L', 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 1, '082312341234', 'default.png'),
 (3, '::1', '201912123', '$2y$10$II5PSdysl1jb5VUInlmcCuQrtjznHoJcb5qUfO6q94Vsvdo/a3DyC', 'hardina321', 'peserta@unidayan.ac.id', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576150686, NULL, 1, 'Hardina Kaimudin', '', 'P', 'Raha Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 2, '082245126655', 'default.png'),
 (4, '::1', '201912124', '$2y$12$Ml36MPLajwxG5DXbCkhOR.fTf0XI5CFlYk2vd/wQHzp6XOVzi2pZG', 'ali1234', 'raha@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576171050, 1576804332, 1, 'Ali Akbar', '', 'L', 'Raha Dealer Resmi Kendaraan Roda 2 - Merk Yamaha	', 2, '081222224222', 'default.png');
@@ -590,13 +607,13 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT untuk tabel `brg_pk`
 --
 ALTER TABLE `brg_pk`
-  MODIFY `id_brg_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_brg_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `brg_pm`
 --
 ALTER TABLE `brg_pm`
-  MODIFY `id_brg_pm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_brg_pm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `groups`
@@ -650,19 +667,19 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT untuk tabel `produkkeluar`
 --
 ALTER TABLE `produkkeluar`
-  MODIFY `id_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `produkmasuk`
 --
 ALTER TABLE `produkmasuk`
-  MODIFY `id_pm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_pm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `r_brg_pk`
 --
 ALTER TABLE `r_brg_pk`
-  MODIFY `id_r_brg_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_r_brg_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `status`
