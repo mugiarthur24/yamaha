@@ -104,10 +104,12 @@
 								<?php endif ?>
 							</td>
 							<td>
-								<?php if ($data['id_status'] == '1'): ?>
-									<a href="#" class="text-secondary">Hapus</a>
-								<?php else: ?>
-									<a href="<?php echo base_url('index.php/admin/produkmasuk/delpm/'.$data['id_pm']) ?>" class="text-danger">Hapus</a>
+								<?php if ($users->id_info_pt =='1'): ?>
+									<?php if ($data['id_status'] == '1'): ?>
+										<a href="#" class="text-secondary">Hapus</a>
+									<?php else: ?>
+										<a href="<?php echo base_url('index.php/admin/produkmasuk/delpm/'.$data['id_pm']) ?>" class="text-danger">Hapus</a>
+									<?php endif ?>
 								<?php endif ?>
 							</td>
 						</tr>

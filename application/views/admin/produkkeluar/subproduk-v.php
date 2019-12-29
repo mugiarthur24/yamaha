@@ -116,9 +116,9 @@
 						<td>
 							<?php if ($users->id_info_pt == '1'): ?>
 								<?php if ($data->id_validasi =='1'): ?>
-									<a href="#" class="text-secondary">Hapus</a>
+									<span href="#" class="text-success">Terkirim</span>
 								<?php else: ?>
-									<a href="<?php echo base_url('index.php/admin/produkmasuk/delrbrgpk/'.$detpm->id_pk.'/'.$detbrg->id_brg_pk.'/'.$data->id_r_brg_pk) ?>" class='text-danger'>Batalkan</a>
+									<span class="text-danger">Menunggu</span>
 								<?php endif ?>
 							<?php endif ?>
 						</td>

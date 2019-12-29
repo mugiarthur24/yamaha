@@ -970,6 +970,8 @@ class ProdukKeluar extends CI_Controller {
               if ($detail->id_validasi =='0') {
                 $retur = array(
                   'id_info_pt'=>$detpm->id_info_pt_asal,
+                  'id_pm'=>$detrbrgpk->id_pm_asal,
+                  'id_brg_pm'=>$detrbrgpk->id_brg_pm_asal,
                   'id_validasi'=>trim('1'),
                 );
                 $this->Admin_m->update('produk','id_produk',$detail->id_produk,$retur);
@@ -980,7 +982,7 @@ class ProdukKeluar extends CI_Controller {
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/produkkeluar/addsubpk/'.$detpm->id_pk.'/'.$detbrg->id_brg_pk));
               }else{
-                $pesan = 'Barang sudah tervalidasi keberadaannya sehingga tidak dapat di hapus';
+                $pesan = 'Barang sudah tervalidasi keberadaannya sehingga tidak dapat di hapus atau di batalkan';
                 $this->session->set_flashdata('message', $pesan );
                 redirect(base_url('index.php/admin/produkkeluar/addsubpk/'.$detpm->id_pk.'/'.$detbrg->id_brg_pk));
               }

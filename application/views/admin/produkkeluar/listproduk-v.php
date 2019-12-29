@@ -76,7 +76,11 @@
 						<td><?php echo $data->cc; ?></td>
 						<td><?php echo $data->warna; ?></td>
 						<td>
-							<a href="<?php echo base_url('index.php/admin/produkkeluar/delrbrgpk/'.$detpm->id_pk.'/'.$detbrg->id_brg_pk.'/'.$data->id_r_brg_pk) ?>" class="text-danger">Batalkan</a>
+							<?php if ($data->id_validasi !=='1'): ?>
+								<a href="<?php echo base_url('index.php/admin/produkkeluar/delrbrgpk/'.$detpm->id_pk.'/'.$detbrg->id_brg_pk.'/'.$data->id_r_brg_pk) ?>" class="text-danger">Batalkan</a>
+							<?php else: ?>
+								<span class="text-secondary">Batalkan</span>
+							<?php endif ?>
 						</td>
 					</tr>
 					<?php $no++ ?>

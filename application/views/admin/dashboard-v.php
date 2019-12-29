@@ -346,7 +346,7 @@
                                     </a>
                                 </li>
                                 <li class=" ">
-                                    <a href="form-picker.htm">
+                                    <a href="#">
                                         <span class="pcoded-micon"><i class="feather icon-edit-1"></i></span>
                                         <span class="pcoded-mtext">Lap. Penjualan</span>
                                         <span class="pcoded-badge label label-warning">NEW</span>
@@ -356,7 +356,7 @@
                             <div class="pcoded-navigatio-lavel">Counter</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="<?php echo base_url('index.php/admin/penjualan') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-credit-card"></i></span>
                                         <span class="pcoded-mtext">Penjualan</span>
                                     </a>
