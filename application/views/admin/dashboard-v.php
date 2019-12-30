@@ -372,6 +372,13 @@
                                     
                                 </li>
                                 <li>
+                                    <a href="<?php echo base_url('index.php/admin/finance') ?>">
+                                        <span class="pcoded-micon"><i class="feather icon-sliders"></i></span>
+                                        <span class="pcoded-mtext">Finance</span>
+                                    </a>
+                                    
+                                </li>
+                                <li>
                                     <a href="<?php echo base_url('index.php/admin/type') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-map"></i></span>
                                         <span class="pcoded-mtext">Type Produk</span>
