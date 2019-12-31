@@ -14,7 +14,7 @@
 				</div>
 			</div>
 			<div class="card-body">
-				<form action="<?php echo base_url('index.php/admin/penjualan/tambah/') ?>" method="post">
+				<form action="<?php echo base_url('index.php/admin/penjualan/tambah/'.$detail->no_nota_keluar) ?>" method="post">
 					<div class="row">
 						<div class="col-md-12">
 							<select name="id_type" class="form-control">
@@ -57,7 +57,7 @@
 						<?php if ($hasil == TRUE): ?>
 							<?php $no = 1+$row ?>
 							<?php foreach ($hasil as $data): ?>
-								<form>
+								<form action="<?php echo base_url('index.php/admin/penjualan/addproduk/'.$detail->no_nota_keluar) ?>" method="post">
 									<tr>
 										<td><?php echo $no; ?></td>
 										<td>
@@ -132,8 +132,12 @@
 								<td>
 									<?php echo $detailproduk->nm_type; ?><br/>		
 								</td>
-								<td>Harga Awal</td>
-								<td>Harga Jual</td>
+								<td>Rp.</td>
+								<td>
+									<form>
+										<input type="text" name="harga_jual">
+									</form>
+								</td>
 								<td></td>
 							</tr>
 						<?php endif ?>

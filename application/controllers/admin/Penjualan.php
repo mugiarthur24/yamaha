@@ -59,16 +59,10 @@ class Penjualan extends CI_Controller {
                    if($rowno != 0){
                      $rowno = ($rowno-1) * $rowperpage;
                  }
-                if ($getuser->id_info_pt =='1') {
-                   $allcount = $this->Penjualan_m->getrecordCount($hariini,$search_text);
-                   // Get records
-                   $users_record = $this->Penjualan_m->getData($hariini,$rowno,$rowperpage,$search_text);
-                }else{
-                    // All records count
-                    $allcount = $this->Penjualan_m->getrecordCountid($hariini,$getuser->id_info_pt,$search_text);
-                    // Get records
-                    $users_record = $this->Penjualan_m->getDataid($hariini,$getuser->id_info_pt,$rowno,$rowperpage,$search_text);
-                }
+                // All records count
+                $allcount = $this->Penjualan_m->getrecordCountid($hariini,$getuser->id_info_pt,$search_text);
+                // Get records
+                $users_record = $this->Penjualan_m->getDataid($hariini,$getuser->id_info_pt,$rowno,$rowperpage,$search_text);
                 // Pagination Configuration
                  $config['base_url'] = base_url().'index.php/admin/penjualan';
                  $config['use_page_numbers'] = TRUE;
@@ -157,6 +151,7 @@ class Penjualan extends CI_Controller {
         $getnonota = preg_replace("/[^a-zA-Z0-9]/","",$nonota);
         // echo "<pre>";print_r($getnonota);echo "</pre>";exit();
         $ceknota = $this->Admin_m->detail_data('nota_keluar','no_nota_keluar',trim($getnonota));
+        // echo "<pre>";print_r($ceknota);echo "</pre>";exit();
         if ($ceknota == TRUE) {
           $post = $this->input->post();
           $getuser = $this->ion_auth->user()->row();

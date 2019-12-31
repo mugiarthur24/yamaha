@@ -44,14 +44,37 @@
 					<?php foreach ($hasil as $data): ?>
 						<tr>
 							<td><?php echo $no; ?></td>
-							<td><?php echo $data['no_nota_keluar']; ?></td>
+							<td><a href="<?php echo base_url('index.php/admin/penjualan/tambah/'.$data['no_nota_keluar']) ?>" class="pcoded-badge label label-primary"><?php echo $data['no_nota_keluar']; ?></a></td>
 							<td>
-								<a href="<?php echo base_url('index.php/admin/users/detail/'.$data['id_nota_keluar']) ?>"><b><?php echo $data['nm_type']; ?></b></a><br/>
-								<?php echo $data['no_rangka']; ?>
+								<?php if ($data['id_produk'] !=='0' ): ?>
+									<?php $getp = $this->Penjualan_m->detailproduk($data['id_produk']) ?>
+									<a href="<?php echo base_url('index.php/admin/penjualan/tambah/'.$data['id_nota_keluar']) ?>"><b><?php echo $data['nm_type']; ?></b></a><br/>
+									<?php echo $data['no_rangka']; ?>
+								<?php else: ?>
+									<span class="pcoded-badge label label-warning">Belum di setting</span>
+								<?php endif ?>
+								
 							</td>
-							<td><?php echo $data['nm_p_ktp'].'<br/>'.$data['no_ktp_p']; ?></td>
-							<td><?php echo $data['jk_p']; ?></td>
-							<td><?php echo substr($data['nama_info_pt'],0,35).' ...' ; ?></td>
+							<td>
+								<?php if ($data['nm_p_ktp'] == TRUE): ?>
+									<?php echo $data['nm_p_ktp'].'<br/>'.$data['no_ktp_p']; ?>
+								<?php else: ?>
+									<span class="pcoded-badge label label-warning">Belum di setting</span>
+								<?php endif ?>
+							</td>
+							<td>
+								<?php if ($data['jk_p'] == TRUE): ?>
+									<?php echo $data['jk_p']; ?>
+								<?php else: ?>
+									<span class="pcoded-badge label label-warning">-</span>
+								<?php endif ?>
+							</td>
+							<td>
+								<?php if ($data['id_info_pt']!=='0'): ?>
+									<?php $getpt = $this->Admin_m->detail_data('info_pt','id_info_pt',$data['id_info_pt']); ?>
+									<?php echo substr($getpt->nama_info_pt,0,35).' ...' ; ?>
+								<?php endif ?>
+							</td>
 							<td>
 								<?php if ($data['id_leasing'] == '0'): ?>
 									<span class="pcoded-badge label label-success">Cash</span>
@@ -64,6 +87,13 @@
 									<span class="pcoded-badge label label-success">Selesai</span>
 								<?php else: ?>
 									<span class="pcoded-badge label label-danger">Belum Selesai</span>
+								<?php endif ?>
+							</td>
+							<td>
+								<?php if ($data['id_status'] == '1' ): ?>
+									<a href="#" class="text-secondary">Hapus</a>
+								<?php else: ?>
+									<a href="<?php echo base_url('index.php/admin/penjualan/delnota/'.$data['no_nota_keluar']) ?>" class="text-danger">Hapus</a>
 								<?php endif ?>
 							</td>
 						</tr>
