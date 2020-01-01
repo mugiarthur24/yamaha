@@ -515,8 +515,8 @@ class ProdukMasuk extends CI_Controller {
                 $detpm = $this->Admin_m->detail_data('produkmasuk','id_pm',strip_tags(trim($idpm)));
                 $type = $this->ProdukMasuk_m->gettype(strip_tags(trim($detbrg->id_type)));
                 if ($detbrg == TRUE && $detpm == TRUE) {
-                  $this->form_validation->set_rules('no_rangka', 'Nomor Rangka', 'required|trim|numeric');
-                  $this->form_validation->set_rules('no_mesin', 'Nomor Mesin ', 'required|trim|numeric');
+                  $this->form_validation->set_rules('no_rangka', 'Nomor Rangka', 'required|trim|alpha_numeric');
+                  $this->form_validation->set_rules('no_mesin', 'Nomor Mesin ', 'required|trim|alpha_dash');
                   $this->form_validation->set_rules('thn_produk', 'Tahun Produk ', 'required|trim|numeric|min_length[4]|max_length[4]');
                   $this->form_validation->set_rules('bahan_bakar', 'bahan bakar ', 'required|trim|alpha_numeric_spaces');
                   if ($this->form_validation->run() == FALSE){
@@ -735,6 +735,116 @@ class ProdukMasuk extends CI_Controller {
         $this->session->set_flashdata('message', $pesan );
         redirect(base_url('index.php/login'));
       }
+    }
+    function uploadexcel(){
+      $this->load->library('Excel');
+      $post = $this->input->post();
+      if (!is_dir('assets/upload/')) {
+        mkdir('assets/upload/');
+      }
+      if (!preg_match("/.(xls|xlsx)$/i", $_FILES["fileupload"]["name"]) ) {
+
+        echo "pastikan file yang anda pilih xls|xlsx";
+        exit();
+
+      } else {
+        move_uploaded_file($_FILES["fileupload"]["tmp_name"],'assets/upload/'.$_FILES['fileupload']['name']);
+        $semester = array("fileupload"=>$_FILES["fileupload"]["name"]);
+
+      }
+      $objPHPExcel = PHPExcel_IOFactory::load('assets/upload/'.$_FILES['fileupload']['name']);
+      $data = $objPHPExcel->getActiveSheet()->toArray();
+      $error_count = 0;
+      $error = array();
+      $sukses = 0;
+      $getuser= $this->ion_auth->user()->row();
+      $date = date('Y-m-d');
+      $time = date('H:i:s');
+      foreach ($data as $key => $val) {
+        if ($key>0){
+          if ($val[0]!='') {
+            $ceksoref = $this->Admin_m->detail_data('produkmasuk','so_ref',trim(filter_var($val[1], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH)));
+            if ($ceksoref == TRUE) {
+              $newsoref = $ceksoref;
+            }else{
+              $inpsoref = array(
+                'tgl_create' => $date,
+                'waktu_create' => $time,
+                'id_info_pt' => $getuser->id_info_pt,
+                'so_ref' => trim(filter_var($val[1], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH)),
+                'so_no' => preg_replace("/[^a-zA-Z0-9]/", "",trim(filter_var($val[2], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
+                'ipdo_no' => preg_replace("/[^a-zA-Z0-9]/", "",trim(filter_var($val[3], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
+                'ipdo_date' => $date,
+                'so_date' => $date,
+              );
+              $this->Admin_m->create('produkmasuk',$inpsoref);
+              $newsoref = $this->Admin_m->detail_data('produkmasuk','so_ref',trim(filter_var($val[1], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH)));
+            }
+            $ceknmtype = $this->Admin_m->detail_data('type','nm_type',trim(filter_var($val[5], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH)));
+            if ($ceknmtype == TRUE) {
+              $nmtype = $ceknmtype;
+            }else{
+              $inptype = array(
+                'nm_type'=>trim(filter_var($val[5], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH)),
+                'id_merk'=>'1',
+                'id_jenis'=>'1',
+                'kode_type'=>preg_replace("/[^a-zA-Z0-9]/", "",trim(filter_var($val[5], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
+                'ket_type'=>preg_replace("/[^a-zA-Z0-9]/", "",trim(filter_var($val[5], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
+              );
+              $this->Admin_m->create('type',$inptype);
+              $newtype = $this->Admin_m->detail_data('type','nm_type',trim(filter_var($val[5], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH)));
+              $nmtype = $newtype;
+            }
+            $cetype = $this->ProdukMasuk_m->cektype($newsoref->id_pm,trim(filter_var($val[4], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH)),$nmtype->id_type,trim(filter_var($val[10], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH)));
+            if ($cetype == TRUE) {
+              $newbrgpm = $cetype;
+            }else{
+              $inptpm = array(
+                'id_pm' =>preg_replace("/[^a-zA-Z0-9]/", "",trim($newsoref->id_pm)),
+                'cc' => preg_replace("/[^0-9]/", "",trim(filter_var($val[4], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
+                'warna' => preg_replace("/[^a-zA-Z0-9]/", "",trim(filter_var($val[10], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
+                'id_type' => $nmtype->id_type,
+              );
+              $this->Admin_m->create('brg_pm',$inptpm);
+
+              $newbrgpm = $this->ProdukMasuk_m->cektype($newsoref->id_pm,trim(filter_var($val[4], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH)),$nmtype->id_type,trim(filter_var($val[10], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH)));
+            }
+            // echo "<pre>";print_r($nmtype);echo "</pre>";exit();
+            $dttype = $this->Admin_m->detail_data('type','id_type',strip_tags(trim($newbrgpm->id_type)));
+            $cekrangka = $this->Admin_m->detail_data('produk','no_rangka',preg_replace("/[^a-zA-Z0-9]/", "",trim(filter_var($val[7], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))));
+            if ($cekrangka == FALSE) {
+              $data = array(
+                'id_pm' => strip_tags($newsoref->id_pm),
+                'id_brg_pm' => strip_tags(trim($newbrgpm->id_brg_pm)),
+                'id_info_pt' => strip_tags(trim($getuser->id_info_pt)),
+                'no_rangka' => preg_replace("/[^a-zA-Z0-9]/", "",trim(filter_var($val[7], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
+                'no_mesin' => strip_tags(trim(filter_var($val[9], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
+                'no_faktur' => strip_tags(trim(filter_var($val[8], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
+                'id_jenis' => strip_tags(trim($dttype->id_jenis)),
+                'id_merk' => strip_tags(trim($dttype->id_merk)),
+                'id_type' => strip_tags(trim($newbrgpm->id_type)),
+                'thn_produk' => preg_replace("/[^0-9]/", "",trim(filter_var($val[11], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
+                'tgl_masuk' => trim(date('Y-m-d')),
+                'cc' => strip_tags(trim($newbrgpm->cc)),
+                'bahan_bakar' => preg_replace("/[^a-zA-Z0-9]/", "",trim(filter_var($val[12], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
+                'warna' => strip_tags(trim($newbrgpm->warna)),
+                'id_validasi' => '0',
+                'id_status' => '1',
+              );
+              $this->Admin_m->create('produk',$data);
+              //update jumlah produk
+              $updata['jml_input'] = $newbrgpm->jml_input+1;
+              $updata['jml_brg'] = $newbrgpm->jml_brg+1;
+              $this->Admin_m->update('brg_pm','id_brg_pm',$newbrgpm->id_brg_pm,$updata);
+              $sukses++;
+            }
+          }
+        }
+      }
+      unlink("assets/upload/".$_FILES['fileupload']['name']);
+      $msg = $sukses.' Produk berhasil di tambahkan';
+      $this->session->set_flashdata('message', $msg);
+      redirect(base_url('index.php/admin/produkmasuk/'));
     }
 }
 ?>

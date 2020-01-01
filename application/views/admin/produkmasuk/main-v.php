@@ -7,7 +7,15 @@
 			</div>
 			<?php if ($this->ion_auth->in_group(array('admin')) && $users->id_info_pt == '1'): ?>
 				<div class="col">
-					<a href="<?php echo base_url('index.php/admin/produkmasuk/crtprodukmasuk') ?>" class="btn btn-grd-success btn-sm float-right">Tambah Produk Masuk</a>
+					<div class="btn-group float-right mb-2">
+						<button type="button" class="btn btn-success btn-sm  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Tambah Produk Masuk
+						</button>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="<?php echo base_url('index.php/admin/produkmasuk/crtprodukmasuk') ?>">Manual</a>
+							<a class="dropdown-item" data-toggle="modal" href="#" data-target="#excel">Mengunakan Excel</a>
+						</div>
+					</div>
 				</div>
 			<?php endif ?>
 		</div>
@@ -125,5 +133,31 @@
 				<?php echo $pagination; ?>
 			</div>
 		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="excel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<form action="<?php echo base_url('index.php/admin/produkmasuk/uploadexcel') ?>" enctype="multipart/form-data" method="post">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Menggunakan Data Excel</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>File Excel</label>
+						<input type="file" class="form-control" name="fileupload" placeholder="Masukan bahan bakar" value="Bensin">
+						<small class="form-text text-muted">Hanya dapat menggunakan format .xls</small>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+					<button type="submit" name="submit" value="submit" class="btn btn-primary">Upload File Excel</button>
+				</div>
+			</div>
+		</form>
 	</div>
 </div>

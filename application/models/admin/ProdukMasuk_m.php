@@ -155,4 +155,12 @@ class ProdukMasuk_m extends CI_Model
 		$query = $this->db->get('type');
 		return $query->row();
 	}
+	public function cektype($idpm,$cc,$type,$warna){
+		$this->db->where('id_pm',$idpm);
+		$this->db->where('cc',$cc);
+		$this->db->where('id_type',$type);
+		$this->db->where('warna',$warna);
+		$query = $this->db->get('brg_pm');
+		return $query->row();
+	}
 }
