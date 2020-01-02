@@ -413,10 +413,12 @@
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
                             <div class="main-body">
-                                <?php if ($this->session->flashdata('message') == TRUE): ?>
-                                  <div class="alert alert-info bg-info text-white"><?php echo $this->session->flashdata('message'); ?></div>
-                                <?php endif ?>
-                                <?php $this->load->view($page) ?>
+                                <div class="page-wrapper">
+                                    <?php if ($this->session->flashdata('message') == TRUE): ?>
+                                      <div class="alert alert-info bg-info text-white"><?php echo $this->session->flashdata('message'); ?></div>
+                                  <?php endif ?>
+                                  <?php $this->load->view($page) ?>
+                              </div>
                             </div>
                         </div>
                     </div>
