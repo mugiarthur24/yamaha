@@ -50,7 +50,7 @@
 					</select>
 					<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
 				</div> -->
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<select name="id_type" class="form-control">
 						<?php if (!empty($post['id_type'])): ?>
 							<option value="<?php echo $post['id_type'] ?>"><?php echo $this->Admin_m->detail_data('type','id_type',$post['id_type'])->nm_type ?></option>
@@ -64,19 +64,42 @@
 					</select>
 					<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<select name="id_info_pt" class="form-control">
 						<?php if (!empty($post['id_info_pt'])): ?>
 							<option value="<?php echo $post['id_info_pt'] ?>"><?php echo $this->Admin_m->detail_data('info_pt','id_info_pt',$post['id_info_pt'])->nama_info_pt ?></option>
-							<option value="">Semua Perusahaan</option>
+							<option value="">Semua Daerah</option>
 						<?php else: ?>
-							<option value="">Semua Perusahaan</option>
+							<option value="">Semua Daerah</option>
 						<?php endif ?>
 						<?php foreach ($dtpt as $data): ?>
 							<option value="<?php echo $data->id_info_pt ?>"><?php echo $data->kode_pt ?></option>
 						<?php endforeach ?>
 					</select>
 					<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
+				</div>
+				<div class="col-md-2">
+					<select name="id_status" class="form-control">
+						<?php if (!empty($post['id_status'])): ?>
+							<option value="<?php echo $post['id_status'] ?>">
+								<?php if ($post['id_status'] == '0'): ?>
+									Tidak tersedia
+								<?php endif ?>
+								<?php if ($post['id_status'] == '1'): ?>
+									Tersedia
+								<?php endif ?>
+								<?php if ($post['id_status'] == '2'): ?>
+									Terjual
+								<?php endif ?>
+							</option>
+							<option value="">Semua Status</option>
+						<?php else: ?>
+							<option value="">Semua Status</option>
+						<?php endif ?>
+						<option value="0">Tidak tersedia</option>
+						<option value="1">Tersedia</option>
+						<option value="2">Terjual</option>
+					</select>
 				</div>
 				<div class="col-md-1">
 					<button type="submit" name="submit" value="submit" class="btn btn-success btn-sm">Cari</button>
@@ -103,19 +126,19 @@
 							<td><?php echo $no; ?></td>
 							<td><?php echo $data['no_rangka']; ?></td>
 							<td><?php echo $data['no_mesin']; ?></td>
-							<td><span class="pcoded-badge label label-info"><?php echo $data['nm_merk']; ?></span></td>
+							<td><span class="pcoded-badge label label-primary"><?php echo $data['nm_merk']; ?></span></td>
 							<td><?php echo $data['nm_type']; ?></td>
 							<td><?php echo ucfirst($data['warna']); ?></td>
 							<td><span class="pcoded-badge label label-inverse"><?php echo $data['kode_pt']; ?></span></td>
 							<td><?php echo 'Rp.'.number_format($data['hrg_jual']); ?></td>
 							<td>
 								<?php if ($data['id_status'] == '1' ): ?>
-									<span class="pcoded-badge label label-success">Ready</span>
+									<span class="pcoded-badge label label-info">Tersedia</span>
 								<?php else: ?>
 									<?php if ($data['id_status'] == '0'): ?>
 										<span class="pcoded-badge label label-danger">Tidak Tersedia</span>
 									<?php else: ?>
-										<span class="pcoded-badge label label-info">Sell</span>
+										<span class="pcoded-badge label label-success">Terjual</span>
 									<?php endif ?>
 								<?php endif ?>
 							</td>

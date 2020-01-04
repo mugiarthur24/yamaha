@@ -40,12 +40,6 @@ class Produk extends CI_Controller {
                        $this->session->set_userdata($post);
                    }else{
                        $post = array();
-                       if($this->session->userdata('id_jenis') != NULL){
-                        $post['id_jenis'] = $this->session->userdata('id_jenis');
-                       }
-                       if($this->session->userdata('id_merk') != NULL){
-                        $post['id_merk'] = $this->session->userdata('id_merk');
-                       }
                        if($this->session->userdata('id_type') != NULL){
                         $post['id_type'] = $this->session->userdata('id_type');
                        }
@@ -57,6 +51,9 @@ class Produk extends CI_Controller {
                        }
                        if($this->session->userdata('id_info_pt') != NULL){
                         $post['id_info_pt'] = $this->session->userdata('id_info_pt');
+                       }
+                       if($this->session->userdata('id_status') != NULL){
+                        $post['id_status'] = $this->session->userdata('id_status');
                        }
                        $search_text = $post;
                    }

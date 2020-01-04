@@ -48,7 +48,7 @@
 							<td>
 								<?php if ($data['id_produk'] !=='0' ): ?>
 									<?php $getp = $this->Penjualan_m->detailproduk($data['id_produk']) ?>
-									<a href="<?php echo base_url('index.php/admin/penjualan/tambah/'.$data['id_nota_keluar']) ?>"><b><?php echo $data['nm_type']; ?></b></a><br/>
+									<a href="<?php echo base_url('index.php/admin/penjualan/tambah/'.$data['id_nota_keluar']) ?>"><b><?php echo $getp->nm_type; ?></b></a><br/>
 									<?php echo $data['no_rangka']; ?>
 								<?php else: ?>
 									<span class="pcoded-badge label label-warning">Belum di setting</span>
@@ -72,7 +72,7 @@
 							<td>
 								<?php if ($data['id_info_pt']!=='0'): ?>
 									<?php $getpt = $this->Admin_m->detail_data('info_pt','id_info_pt',$data['id_info_pt']); ?>
-									<?php echo substr($getpt->nama_info_pt,0,35).' ...' ; ?>
+									<?php echo substr($getpt->kode_pt,0,35).' ...' ; ?>
 								<?php endif ?>
 							</td>
 							<td>

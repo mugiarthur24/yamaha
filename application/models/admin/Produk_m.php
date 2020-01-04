@@ -3,17 +3,12 @@ class Produk_m extends CI_Model
 {
 	// Fetch records
 	public function getData($rowno,$rowperpage,$search) {
+		$this->db->select('produk.*,jenis.nm_jenis,merk.nm_merk,type.nm_type,info_pt.nama_info_pt,info_pt.kode_pt');
 		$this->db->from('produk');
 		$this->db->join('jenis', 'jenis.id_jenis = produk.id_jenis');
 		$this->db->join('merk', 'merk.id_merk = produk.id_merk');
 		$this->db->join('type', 'type.id_type = produk.id_type');
 		$this->db->join('info_pt', 'info_pt.id_info_pt = produk.id_info_pt');
-		if (!empty($search['id_jenis'])) {
-			$this->db->where('produk.id_jenis',$search['id_jenis']);
-		}
-		if (!empty($search['id_merk'])) {
-			$this->db->where('produk.id_merk',$search['id_merk']);
-		}
 		if (!empty($search['id_type'])) {
 			$this->db->where('produk.id_type',$search['id_type']);
 		}
@@ -25,6 +20,9 @@ class Produk_m extends CI_Model
 		}
 		if (!empty($search['id_info_pt'])) {
 			$this->db->where('produk.id_info_pt',$search['id_info_pt']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('produk.id_status',$search['id_status']);
 		}
 		$this->db->where('produk.id_validasi','1');
 		$this->db->limit($rowperpage, $rowno);
@@ -41,12 +39,6 @@ class Produk_m extends CI_Model
 		$this->db->join('merk', 'merk.id_merk = produk.id_merk');
 		$this->db->join('type', 'type.id_type = produk.id_type');
 		$this->db->join('info_pt', 'info_pt.id_info_pt = produk.id_info_pt');
-		if (!empty($search['id_jenis'])) {
-			$this->db->where('produk.id_jenis',$search['id_jenis']);
-		}
-		if (!empty($search['id_merk'])) {
-			$this->db->where('produk.id_merk',$search['id_merk']);
-		}
 		if (!empty($search['id_type'])) {
 			$this->db->where('produk.id_type',$search['id_type']);
 		}
@@ -59,6 +51,9 @@ class Produk_m extends CI_Model
 		if (!empty($search['id_info_pt'])) {
 			$this->db->where('produk.id_info_pt',$search['id_info_pt']);
 		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('produk.id_status',$search['id_status']);
+		}
 		$this->db->where('produk.id_validasi','1');
 		$this->db->order_by('produk.id_produk','desc');
 		$query = $this->db->get();
@@ -67,17 +62,12 @@ class Produk_m extends CI_Model
 	}
 	// Fetch records
 	public function getDataid($idinfopt,$rowno,$rowperpage,$search) {
+		$this->db->select('produk.*,jenis.nm_jenis,merk.nm_merk,type.nm_type,info_pt.nama_info_pt,info_pt.kode_pt');
 		$this->db->from('produk');
 		$this->db->join('jenis', 'jenis.id_jenis = produk.id_jenis');
 		$this->db->join('merk', 'merk.id_merk = produk.id_merk');
 		$this->db->join('type', 'type.id_type = produk.id_type');
 		$this->db->join('info_pt', 'info_pt.id_info_pt = produk.id_info_pt');
-		if (!empty($search['id_jenis'])) {
-			$this->db->where('produk.id_jenis',$search['id_jenis']);
-		}
-		if (!empty($search['id_merk'])) {
-			$this->db->where('produk.id_merk',$search['id_merk']);
-		}
 		if (!empty($search['id_type'])) {
 			$this->db->where('produk.id_type',$search['id_type']);
 		}
@@ -86,6 +76,9 @@ class Produk_m extends CI_Model
 		}
 		if (!empty($search['no_mesin'])) {
 			$this->db->where('produk.no_mesin',$search['no_mesin']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('produk.id_status',$search['id_status']);
 		}
 		$this->db->where('produk.id_info_pt',$idinfopt);
 		$this->db->where('produk.id_validasi','1');
@@ -103,12 +96,6 @@ class Produk_m extends CI_Model
 		$this->db->join('merk', 'merk.id_merk = produk.id_merk');
 		$this->db->join('type', 'type.id_type = produk.id_type');
 		$this->db->join('info_pt', 'info_pt.id_info_pt = produk.id_info_pt');
-		if (!empty($search['id_jenis'])) {
-			$this->db->where('id_jenis',$search['id_jenis']);
-		}
-		if (!empty($search['id_merk'])) {
-			$this->db->where('produk.id_merk',$search['id_merk']);
-		}
 		if (!empty($search['id_type'])) {
 			$this->db->where('produk.id_type',$search['id_type']);
 		}
@@ -117,6 +104,9 @@ class Produk_m extends CI_Model
 		}
 		if (!empty($search['no_mesin'])) {
 			$this->db->where('produk.no_mesin',$search['no_mesin']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('produk.id_status',$search['id_status']);
 		}
 		$this->db->where('produk.id_info_pt',$idinfopt);
 		$this->db->where('produk.id_validasi','1');

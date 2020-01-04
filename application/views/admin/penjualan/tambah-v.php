@@ -47,7 +47,8 @@
 							</div>
 						</div>
 					</form>
-					<table class="table mt-4" style="font-size: 13px;">
+					<div class="mt-4">Jumlah produk di temukan sebanyak <label class="label label-success"><?php echo $jmldata.' Produk'; ?></label></div>
+					<table class="table mt-2" style="font-size: 13px;">
 						<tr>
 							<th>No</th>
 							<th>No Rangka / Mesin</th>
@@ -75,25 +76,31 @@
 											<div class="btn  btn-secondary btn-sm">Tambah</div>
 										</td>
 									</tr>
+								<?php else: ?>
+									<form action="<?php echo base_url('index.php/admin/penjualan/addproduk/'.$detail->no_nota_keluar) ?>" method="post">
+										<tr>
+											<td><?php echo $no; ?></td>
+											<td>
+												<input type="hidden" name="id_produk" value="<?php echo $data['id_produk'] ?>">
+												<?php echo 'R : '.$data['no_rangka']; ?><br/>
+												<?php echo 'M : '.$data['no_mesin']; ?>
+											</td>
+											<td>
+												<?php echo $data['nm_type']; ?><br/>
+												<?php echo $data['cc'].' / '.$data['warna']; ?>
+											</td>
+											<td><?php echo 'Rp.'.number_format($data['hrg_jual']); ?></td>
+											<td>
+												<?php if ($detail->id_produk !=='0'): ?>
+													<div class="btn  btn-secondary btn-sm">Tambah</div>
+												<?php else: ?>
+													<button type="submit" name="submit" value="submit" class="btn  btn-success btn-sm">Tambah</button>
+												<?php endif ?>
+												
+											</td>
+										</tr>
+									</form>
 								<?php endif ?>
-								<form action="<?php echo base_url('index.php/admin/penjualan/addproduk/'.$detail->no_nota_keluar) ?>" method="post">
-									<tr>
-										<td><?php echo $no; ?></td>
-										<td>
-											<input type="hidden" name="id_produk" value="<?php echo $data['id_produk'] ?>">
-											<?php echo 'R : '.$data['no_rangka']; ?><br/>
-											<?php echo 'M : '.$data['no_mesin']; ?>
-										</td>
-										<td>
-											<?php echo $data['nm_type']; ?><br/>
-											<?php echo $data['cc'].' / '.$data['warna']; ?>
-										</td>
-										<td><?php echo 'Rp.'.number_format($data['hrg_jual']); ?></td>
-										<td>
-											<button type="submit" name="submit" value="submit" class="btn  btn-success btn-sm">Tambah</button>
-										</td>
-									</tr>
-								</form>
 								<?php $no++ ?>
 							<?php endforeach ?>
 						<?php else: ?>
@@ -151,10 +158,58 @@
 									<?php echo $detproduk->nm_merk.' '.$detproduk->nm_type.'<br/>'.$detproduk->cc.' '.$detproduk->warna.' Thn '.$detproduk->thn_produk; ?>
 								</td>
 								<td><?php echo 'Rp.'.number_format($detproduk->hrg_jual); ?></td>
-								<td><a href="#" class="text-danger">Batal</a></td>
+								<td><a href="<?php echo base_url('index.php/admin/penjualan/delprodukjual/'.$detail->no_nota_keluar) ?>" class="text-danger">Batal</a></td>
 							</tr>
 						<?php endif ?>
 					</table>
+				</div>
+			</div>
+			<div class="card mt-4">
+				<div class="card-header">
+					<div class="row">
+						<div class="col">
+							<b>Identitas Pembeli</b>
+							<span class="text-muted">Identitas Lengkap pembeli Pada Nota, <?php echo $detail->no_nota_keluar; ?></span>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="form-group">
+						<label>Nama Pembeli Buku Uang</label>
+						<input type="text" class="form-control" name="nm_p_bku_uang" placeholder="Masukan Nama Pembeli Buku Uang">
+					</div>
+					<div class="form-group">
+						<label>Nama Pembeli Sesuai KTP</label>
+						<input type="text" class="form-control" name="nm_p_ktp" placeholder="Masukan Nama Pembeli Sesuai KTP">
+					</div>
+					<div class="form-group">
+						<label>No KTP</label>
+						<input type="text" class="form-control" name="no_ktp" placeholder="Masukan Nomor KTP">
+					</div>
+					<div class="form-group">
+						<label>Tanggal Lahir Sesuai KTP</label>
+						<input type="date" class="form-control" name="tgl_lahir_p" placeholder="Masukan Nama Tanggal Lahir" value="<?php echo date('Y-m-d') ?>">
+					</div>
+					<div class="form-group">
+						<label>Nama Pembeli Sesuai KTP</label>
+						<input type="text" class="form-control" name="nm_p_ktp" placeholder="Masukan Nama Pembeli Sesuai KTP">
+					</div>
+					<div class="form-group">
+						<label>Propinsi</label>
+						<input type="text" class="form-control" name="propinsi_p" placeholder="Masukan Nama Propinsi Pembeli">
+					</div>
+					<div class="form-group">
+						<label>Kecamatan</label>
+						<input type="text" class="form-control" name="kecamatan_p" placeholder="Masukan Nama Kecamatan Pembeli">
+					</div>
+					<div class="form-group">
+						<label>Kelurahan</label>
+						<input type="text" class="form-control" name="kelurahan_p" placeholder="Masukan Nama Kelurahan Pembeli">
+					</div>
+					<div class="form-group">
+						<label>Propinsi</label>
+						<input type="text" class="form-control" name="propinsi_p" placeholder="Masukan Nama Propinsi Pembeli">
+					</div>
 				</div>
 			</div>
 		</div>

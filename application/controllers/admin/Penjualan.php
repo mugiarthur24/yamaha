@@ -261,19 +261,82 @@ class Penjualan extends CI_Controller {
           $cekproduk = $this->Penjualan_m->detailproduk($post['id_produk']);
           $hariini = date('Y-m-d');
           // echo "<pre>";print_r($nonota);echo "</pre>";exit();
-          if ($cekproduk == TRUE) {
-            $data = array(
-              'id_produk'=>$cekproduk->id_produk,
-              'no_rangka'=>$cekproduk->no_rangka,
-              'no_mesin'=>$cekproduk->no_mesin,
-              'harga_jual'=>$cekproduk->hrg_jual,
-            );
-            $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
-            $pesan = 'Produk '.$cekproduk->nm_type.' '.$cekproduk->cc.' '.$cekproduk->warna.' Berhasil ditambahkan kedalam Nota '.$ceknota->no_nota_keluar;
-            $this->session->set_flashdata('message', $pesan );
-            redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+          if ($ceknota->id_produk =='0') {
+            if ($cekproduk == TRUE) {
+              $data = array(
+                'id_produk'=>$cekproduk->id_produk,
+                'no_rangka'=>$cekproduk->no_rangka,
+                'no_mesin'=>$cekproduk->no_mesin,
+                'harga_jual'=>$cekproduk->hrg_jual,
+              );
+              $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
+              // update status produk
+              $upproduk = array(
+                'id_status'=>'2',
+                'tgl_keluar'=>$hariini,
+              );
+              $this->Admin_m->update('produk','id_produk',$cekproduk->id_produk,$upproduk);
+              $pesan = 'Produk '.$cekproduk->nm_type.' '.$cekproduk->cc.' '.$cekproduk->warna.' Berhasil ditambahkan kedalam Nota '.$ceknota->no_nota_keluar;
+              $this->session->set_flashdata('message', $pesan );
+              redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+            }else{
+              $pesan = 'Kode Khusus Produk tidak ditemukan, harap periksa kembali Kode Khusus Produk anda';
+              $this->session->set_flashdata('message',$pesan);
+              redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+            }
           }else{
-            $pesan = 'Kode Khusus Produk tidak ditemukan, harap periksa kembali Kode Khusus Produk anda';
+            $pesan = 'Tidak dapat menambahkan produk lain karena Nota '.$ceknota->no_nota_keluar.' sudah terdaftar memiliki produk';
+            $this->session->set_flashdata('message',$pesan);
+            redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+          }
+        }else{
+          $pesan = 'Nomor Nota tidak ditemukan, harap periksa kembali nomor nota anda';
+          $this->session->set_flashdata('message',$pesan);
+          redirect(base_url('index.php/admin/penjualan/'));
+        }
+      }
+    }else{
+      $pesan = 'Login terlebih dahulu';
+      $this->session->set_flashdata('message', $pesan );
+      redirect(base_url('index.php/login'));
+    }
+  }
+  public function delprodukjual($nota){
+    if ($this->ion_auth->logged_in()) {
+      $level = array('admin','members');
+      if (!$this->ion_auth->in_group($level)) {
+        $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/dashboard'));
+      }else{
+        $ceknota = $this->Admin_m->detail_data('nota_keluar','no_nota_keluar',preg_replace("/[^a-zA-Z0-9]/", "",trim($nota)));
+        if ($ceknota == TRUE) {
+          if ($ceknota->id_status == '0') {
+            // $cekproduk = $this->Penjualan_m->detailproduk($ceknota->id_produk);
+            // if ($cekproduk->id_status =='1' || $cekproduk->id_status =='0') {
+              $data = array(
+                'id_produk'=>'0',
+                'no_rangka'=>NULL,
+                'no_mesin'=>NULL,
+                'harga_jual'=>'0',
+              );
+              $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
+                            // update status produk
+              $upproduk = array(
+                'id_status'=>'1',
+                'tgl_keluar'=>'0000-00-00',
+              );
+              $this->Admin_m->update('produk','id_produk',$cekproduk->id_produk,$upproduk);
+              $pesan = 'Produk telah di hapus dari Nota '.$ceknota->no_nota_keluar;
+              $this->session->set_flashdata('message', $pesan );
+              redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+            // }else{
+            //   $pesan = 'Produk telah terjual sehingga tidak dapat melakukan pembatalan produk';
+            //   $this->session->set_flashdata('message',$pesan);
+            //   redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+            // }
+          }else{
+            $pesan = 'Nota Telah Berstatus terjual tidak dapat melakukan pembatalan produk';
             $this->session->set_flashdata('message',$pesan);
             redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
           }
