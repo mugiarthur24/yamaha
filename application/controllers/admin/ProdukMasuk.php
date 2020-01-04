@@ -827,7 +827,9 @@ class ProdukMasuk extends CI_Controller {
                 'tgl_masuk' => trim(date('Y-m-d')),
                 'cc' => strip_tags(trim($newbrgpm->cc)),
                 'bahan_bakar' => preg_replace("/[^a-zA-Z0-9]/", "",trim(filter_var($val[12], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
-                'warna' => strip_tags(trim($newbrgpm->warna)),
+                'warna' => strtoupper(strip_tags(trim($newbrgpm->warna))),
+                'hrg_awal' => preg_replace("/[^0-9]/", "",trim(filter_var($val[13], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
+                'hrg_jual' => preg_replace("/[^0-9]/", "",trim(filter_var($val[14], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
                 'id_validasi' => '0',
                 'id_status' => '1',
               );
@@ -837,6 +839,18 @@ class ProdukMasuk extends CI_Controller {
               $updata['jml_brg'] = $newbrgpm->jml_brg+1;
               $this->Admin_m->update('brg_pm','id_brg_pm',$newbrgpm->id_brg_pm,$updata);
               $sukses++;
+              // update history harga produk
+              $cekharga = $this->ProdukMasuk_m->cekhargaproduk(strip_tags(trim($newbrgpm->id_type)),preg_replace("/[^0-9]/", "",trim(filter_var($val[11], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),strip_tags(trim($newbrgpm->warna)),preg_replace("/[^0-9]/", "",trim(filter_var($val[14], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))));
+              if ($cekharga == FALSE) {
+                $addhh = array(
+                  'id_type'=>strip_tags(trim($newbrgpm->id_type)),
+                  'tahun_produk'=>preg_replace("/[^0-9]/", "",trim(filter_var($val[11], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
+                  'warna'=>strtoupper(strip_tags(trim($newbrgpm->warna))),
+                  'harga'=>preg_replace("/[^0-9]/", "",trim(filter_var($val[14], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH))),
+                  'tgl_create'=>date('Y-m-d'),
+                );
+                $this->Admin_m->create('histori_harga',$addhh);
+              }
             }
           }
         }

@@ -163,4 +163,12 @@ class ProdukMasuk_m extends CI_Model
 		$query = $this->db->get('brg_pm');
 		return $query->row();
 	}
+	public function cekhargaproduk($type,$thn,$warna,$harga){
+		$this->db->where('id_type',$type);
+		$this->db->where('tahun_produk',$thn);
+		$this->db->where('warna',$warna);
+		$this->db->where('harga',$harga);
+		$query = $this->db->get('histori_harga');
+		return $query->row();
+	}
 }

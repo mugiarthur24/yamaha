@@ -36,7 +36,7 @@
 					</select>
 					<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
 				</div> -->
-				<div class="col-md-2">
+				<!-- <div class="col-md-2">
 					<select name="id_merk" class="form-control">
 						<?php if (!empty($post['id_merk'])): ?>
 							<option value="<?php echo $post['id_merk'] ?>"><?php echo $this->Admin_m->detail_data('merk','id_merk',$post['id_merk'])->nm_merk ?></option>
@@ -49,8 +49,8 @@
 						<?php endforeach ?>
 					</select>
 					<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
-				</div>
-				<div class="col-md-2">
+				</div> -->
+				<div class="col-md-3">
 					<select name="id_type" class="form-control">
 						<?php if (!empty($post['id_type'])): ?>
 							<option value="<?php echo $post['id_type'] ?>"><?php echo $this->Admin_m->detail_data('type','id_type',$post['id_type'])->nm_type ?></option>
@@ -64,7 +64,7 @@
 					</select>
 					<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<select name="id_info_pt" class="form-control">
 						<?php if (!empty($post['id_info_pt'])): ?>
 							<option value="<?php echo $post['id_info_pt'] ?>"><?php echo $this->Admin_m->detail_data('info_pt','id_info_pt',$post['id_info_pt'])->nama_info_pt ?></option>
@@ -73,7 +73,7 @@
 							<option value="">Semua Perusahaan</option>
 						<?php endif ?>
 						<?php foreach ($dtpt as $data): ?>
-							<option value="<?php echo $data->id_info_pt ?>"><?php echo $data->nama_info_pt ?></option>
+							<option value="<?php echo $data->id_info_pt ?>"><?php echo $data->kode_pt ?></option>
 						<?php endforeach ?>
 					</select>
 					<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
@@ -92,7 +92,8 @@
 					<th>Merk</th>
 					<th>Type</th>
 					<th>Warna</th>
-					<th>Delaer</th>
+					<th>Wilayah</th>
+					<th>harga</th>
 					<th>Status</th>
 				</tr>
 				<?php if ($hasil == TRUE): ?>
@@ -105,7 +106,8 @@
 							<td><span class="pcoded-badge label label-info"><?php echo $data['nm_merk']; ?></span></td>
 							<td><?php echo $data['nm_type']; ?></td>
 							<td><?php echo ucfirst($data['warna']); ?></td>
-							<td><?php echo $data['nama_info_pt']; ?></td>
+							<td><span class="pcoded-badge label label-inverse"><?php echo $data['kode_pt']; ?></span></td>
+							<td><?php echo 'Rp.'.number_format($data['hrg_jual']); ?></td>
 							<td>
 								<?php if ($data['id_status'] == '1' ): ?>
 									<span class="pcoded-badge label label-success">Ready</span>

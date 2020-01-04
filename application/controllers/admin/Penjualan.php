@@ -245,5 +245,49 @@ class Penjualan extends CI_Controller {
       redirect(base_url('index.php/login'));
     }
   }
+  public function addproduk($nota){
+    if ($this->ion_auth->logged_in()) {
+      $level = array('admin','members');
+      if (!$this->ion_auth->in_group($level)) {
+        $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/dashboard'));
+      }else{
+        $ceknota = $this->Admin_m->detail_data('nota_keluar','no_nota_keluar',preg_replace("/[^a-zA-Z0-9]/", "",trim($nota)));
+        if ($ceknota == TRUE) {
+          $post = $this->input->post();
+          $getuser = $this->ion_auth->user()->row();
+          $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+          $cekproduk = $this->Penjualan_m->detailproduk($post['id_produk']);
+          $hariini = date('Y-m-d');
+          // echo "<pre>";print_r($nonota);echo "</pre>";exit();
+          if ($cekproduk == TRUE) {
+            $data = array(
+              'id_produk'=>$cekproduk->id_produk,
+              'no_rangka'=>$cekproduk->no_rangka,
+              'no_mesin'=>$cekproduk->no_mesin,
+              'harga_jual'=>$cekproduk->hrg_jual,
+            );
+            $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
+            $pesan = 'Produk '.$cekproduk->nm_type.' '.$cekproduk->cc.' '.$cekproduk->warna.' Berhasil ditambahkan kedalam Nota '.$ceknota->no_nota_keluar;
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+          }else{
+            $pesan = 'Kode Khusus Produk tidak ditemukan, harap periksa kembali Kode Khusus Produk anda';
+            $this->session->set_flashdata('message',$pesan);
+            redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+          }
+        }else{
+          $pesan = 'Nomor Nota tidak ditemukan, harap periksa kembali nomor nota anda';
+          $this->session->set_flashdata('message',$pesan);
+          redirect(base_url('index.php/admin/penjualan/'));
+        }
+      }
+    }else{
+      $pesan = 'Login terlebih dahulu';
+      $this->session->set_flashdata('message', $pesan );
+      redirect(base_url('index.php/login'));
+    }
+  }
 }
 ?>

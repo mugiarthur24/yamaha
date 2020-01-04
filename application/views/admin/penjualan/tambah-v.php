@@ -52,15 +52,17 @@
 							<th>No</th>
 							<th>No Rangka / Mesin</th>
 							<th>Type</th>
+							<th>Harga</th>
 							<th></th>
 						</tr>
 						<?php if ($hasil == TRUE): ?>
 							<?php $no = 1+$row ?>
 							<?php foreach ($hasil as $data): ?>
-								<form action="<?php echo base_url('index.php/admin/penjualan/addproduk/'.$detail->no_nota_keluar) ?>" method="post">
-									<tr>
+								<?php if ($data['id_produk'] == $detail->id_produk): ?>
+									<tr class="table-info">
 										<td><?php echo $no; ?></td>
 										<td>
+											<input type="hidden" name="id_produk" value="<?php echo $data['id_produk'] ?>">
 											<?php echo 'R : '.$data['no_rangka']; ?><br/>
 											<?php echo 'M : '.$data['no_mesin']; ?>
 										</td>
@@ -68,6 +70,25 @@
 											<?php echo $data['nm_type']; ?><br/>
 											<?php echo $data['cc'].' / '.$data['warna']; ?>
 										</td>
+										<td><?php echo 'Rp.'.number_format($data['hrg_jual']); ?></td>
+										<td>
+											<div class="btn  btn-secondary btn-sm">Tambah</div>
+										</td>
+									</tr>
+								<?php endif ?>
+								<form action="<?php echo base_url('index.php/admin/penjualan/addproduk/'.$detail->no_nota_keluar) ?>" method="post">
+									<tr>
+										<td><?php echo $no; ?></td>
+										<td>
+											<input type="hidden" name="id_produk" value="<?php echo $data['id_produk'] ?>">
+											<?php echo 'R : '.$data['no_rangka']; ?><br/>
+											<?php echo 'M : '.$data['no_mesin']; ?>
+										</td>
+										<td>
+											<?php echo $data['nm_type']; ?><br/>
+											<?php echo $data['cc'].' / '.$data['warna']; ?>
+										</td>
+										<td><?php echo 'Rp.'.number_format($data['hrg_jual']); ?></td>
 										<td>
 											<button type="submit" name="submit" value="submit" class="btn  btn-success btn-sm">Tambah</button>
 										</td>
@@ -115,10 +136,8 @@
 							<td colspan="5" class="text-center"><b>Detail Pemesanan</b></td>
 						</tr>
 						<tr>
-							<td>No</td>
 							<td>Produk</td>
-							<td>Harga Awal</td>
-							<td>Harga Jual</td>
+							<td>Harga</td>
 							<td></td>
 						</tr>
 						<?php if ($detail->id_produk =='0'): ?>
@@ -128,17 +147,11 @@
 						<?php else: ?>
 							<?php $detproduk = $this->Penjualan_m->detailproduk($detail->id_produk) ?>
 							<tr>
-								<td>1</td>
 								<td>
-									<?php echo $detailproduk->nm_type; ?><br/>		
+									<?php echo $detproduk->nm_merk.' '.$detproduk->nm_type.'<br/>'.$detproduk->cc.' '.$detproduk->warna.' Thn '.$detproduk->thn_produk; ?>
 								</td>
-								<td>Rp.</td>
-								<td>
-									<form>
-										<input type="text" name="harga_jual">
-									</form>
-								</td>
-								<td></td>
+								<td><?php echo 'Rp.'.number_format($detproduk->hrg_jual); ?></td>
+								<td><a href="#" class="text-danger">Batal</a></td>
 							</tr>
 						<?php endif ?>
 					</table>

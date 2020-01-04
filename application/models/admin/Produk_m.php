@@ -35,7 +35,7 @@ class Produk_m extends CI_Model
 
 	  // Select total records
 	public function getrecordCount($search) {
-		$this->db->select('count(*) as allcount,produk.*,jenis.nm_jenis,merk.nm_merk,type.nm_type,info_pt.nama_info_pt');
+		$this->db->select('count(*) as allcount,produk.*,jenis.nm_jenis,merk.nm_merk,type.nm_type,info_pt.nama_info_pt,info_pt.kode_pt');
 		$this->db->from('produk');
 		$this->db->join('jenis', 'jenis.id_jenis = produk.id_jenis');
 		$this->db->join('merk', 'merk.id_merk = produk.id_merk');
@@ -97,7 +97,7 @@ class Produk_m extends CI_Model
 
 	  // Select total records
 	public function getrecordCountid($idinfopt,$search) {
-		$this->db->select('count(*) as allcount,produk.*,jenis.nm_jenis,merk.nm_merk,type.nm_type,info_pt.nama_info_pt');
+		$this->db->select('count(*) as allcount,produk.*,jenis.nm_jenis,merk.nm_merk,type.nm_type,info_pt.nama_info_pt,info_pt.kode_pt');
 		$this->db->from('produk');
 		$this->db->join('jenis', 'jenis.id_jenis = produk.id_jenis');
 		$this->db->join('merk', 'merk.id_merk = produk.id_merk');
