@@ -352,5 +352,111 @@ class Penjualan extends CI_Controller {
       redirect(base_url('index.php/login'));
     }
   }
+   public function updatapembeli($nota){
+    if ($this->ion_auth->logged_in()) {
+      $level = array('admin','members');
+      if (!$this->ion_auth->in_group($level)) {
+        $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/dashboard'));
+      }else{
+        $ceknota = $this->Admin_m->detail_data('nota_keluar','no_nota_keluar',preg_replace("/[^a-zA-Z0-9]/", "",trim($nota)));
+        if ($ceknota == TRUE) {
+          // validasi
+          $this->form_validation->set_rules('nm_p_ktp', 'Nama Pembeli Sesuai KTP', 'required|alpha_numeric_spaces');
+          $this->form_validation->set_rules('alamat_1_p', 'Alamat Pertama', 'required|alpha_numeric_spaces');
+          if ($this->form_validation->run() == FALSE){
+              $pesan = validation_errors();
+              $this->session->set_flashdata('message',$pesan); 
+              redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+          }else{
+            $post = $this->input->post();
+            $getuser = $this->ion_auth->user()->row();
+            $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+            $data = array(
+              'nm_p_ktp'=>$post['nm_p_ktp'],
+              'alamat_1_p'=>$post['alamat_1_p'],
+            );
+            $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
+            $pesan = 'Data Pembeli pada Nota '.$ceknota->no_nota_keluar.' Berhasil ditambahkan disimpan';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+          }
+        }else{
+          $pesan = 'Nomor Nota tidak ditemukan, harap periksa kembali nomor nota anda';
+          $this->session->set_flashdata('message',$pesan);
+          redirect(base_url('index.php/admin/penjualan/'));
+        }
+      }
+    }else{
+      $pesan = 'Login terlebih dahulu';
+      $this->session->set_flashdata('message', $pesan );
+      redirect(base_url('index.php/login'));
+    }
+  }
+  public function updatapembelilengkap($nota){
+    if ($this->ion_auth->logged_in()) {
+      $level = array('admin','members');
+      if (!$this->ion_auth->in_group($level)) {
+        $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/dashboard'));
+      }else{
+        $ceknota = $this->Admin_m->detail_data('nota_keluar','no_nota_keluar',preg_replace("/[^a-zA-Z0-9]/", "",trim($nota)));
+        if ($ceknota == TRUE) {
+          // validasi
+          $this->form_validation->set_rules('nm_p_bku_uang', 'Nama Pada Buku Uang', 'required|alpha_numeric_spaces');
+          $this->form_validation->set_rules('no_ktp_p', 'Nomor KTP', 'required|numeric');
+          $this->form_validation->set_rules('tlp_p', 'Nomor Telepon', 'required|numeric');
+          $this->form_validation->set_rules('jk_p', 'Jenis Kelamin', 'required|alpha_numeric_spaces');
+          $this->form_validation->set_rules('tgl_lahir_p', 'Tanggal Lahir', 'required|alpha_dash');
+          $this->form_validation->set_rules('pekerjaan_p', 'Pekerjaan', 'required|alpha_numeric_spaces');
+          $this->form_validation->set_rules('pendidikan_p', 'Pendidikan', 'required|alpha_numeric_spaces');
+          $this->form_validation->set_rules('pengeluaran_p', 'Pengeluaran', 'required|alpha_numeric_spaces');
+          $this->form_validation->set_rules('propinsi_p', 'Propinsi', 'required|alpha_numeric_spaces');
+          $this->form_validation->set_rules('kecamatan_p', 'Kecamatan', 'required|alpha_numeric_spaces');
+          $this->form_validation->set_rules('kelurahan_p', 'kelurahan', 'required|alpha_numeric_spaces');
+          $this->form_validation->set_rules('kode_pos_p', 'Kode Pos', 'required|alpha_dash');
+          $this->form_validation->set_rules('alamat_2_p', 'Alamat Tambahan', 'required|alpha_numeric_spaces');
+          if ($this->form_validation->run() == FALSE){
+              $pesan = validation_errors();
+              $this->session->set_flashdata('message',$pesan); 
+              redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+          }else{
+            $post = $this->input->post();
+            $getuser = $this->ion_auth->user()->row();
+            $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+            $data = array(
+              'nm_p_bku_uang'=>$post['nm_p_bku_uang'],
+              'no_ktp_p'=>$post['no_ktp_p'],
+              'tlp_p'=>$post['tlp_p'],
+              'jk_p'=>$post['jk_p'],
+              'tgl_lahir_p'=>$post['tgl_lahir_p'],
+              'pekerjaan_p'=>$post['pekerjaan_p'],
+              'pendidikan_p'=>$post['pendidikan_p'],
+              'pengeluaran_p'=>$post['pengeluaran_p'],
+              'propinsi_p'=>$post['propinsi_p'],
+              'kecamatan_p'=>$post['kecamatan_p'],
+              'kelurahan_p'=>$post['kelurahan_p'],
+              'kode_pos_p'=>$post['kode_pos_p'],
+              'alamat_2_p'=>$post['alamat_2_p']
+            );
+            $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
+            $pesan = 'Data Pembeli pada Nota '.$ceknota->no_nota_keluar.' Berhasil ditambahkan disimpan';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+          }
+        }else{
+          $pesan = 'Nomor Nota tidak ditemukan, harap periksa kembali nomor nota anda';
+          $this->session->set_flashdata('message',$pesan);
+          redirect(base_url('index.php/admin/penjualan/'));
+        }
+      }
+    }else{
+      $pesan = 'Login terlebih dahulu';
+      $this->session->set_flashdata('message', $pesan );
+      redirect(base_url('index.php/login'));
+    }
+  }
 }
 ?>

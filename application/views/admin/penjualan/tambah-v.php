@@ -190,22 +190,25 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label>Nama Sesuai KTP (Pembeli)</label>
-								<input type="text" class="form-control" name="nm_p_ktp" placeholder="Masukan Nama Pembeli Sesuai KTP">
+					<form action="<?php echo base_url('index.php/admin/penjualan/updatapembeli/'.$detail->no_nota_keluar) ?>" method="post">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label>Nama Sesuai KTP (Pembeli)</label>
+									<input type="text" class="form-control" name="nm_p_ktp" placeholder="Masukan Nama Pembeli Sesuai KTP" value="<?php echo $detail->nm_p_ktp ?>">
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label>Alamat 1</label>
-								<input type="text" class="form-control" name="alamat_1_p" placeholder="Alamat 1">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label>Alamat 1</label>
+									<input type="text" class="form-control" name="alamat_1_p" placeholder="Alamat 1" value="<?php echo $detail->alamat_1_p ?>">
+								</div>
 							</div>
 						</div>
-					</div>
+						<button type="submit" value="submit" name="submit" class="btn btn-success btn-sm">Simpan Data Pembeli</button>
+					</form>
 				</div>
 			</div>
 			<div class="card mt-4">
@@ -228,7 +231,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Tgl Reg STNK</label>
-								<input type="date" class="form-control" name="tgl_reg_stnk" placeholder="Masukan Nama Tanggal Lahir" value="<?php echo date('Y-m-d') ?>">
+								<input type="date" class="form-control" name="tgl_reg_stnk" placeholder="Masukan Nama Tanggal Lahir" value="<?php echo date('Y-m-d') ?>" value="<?php echo $detail->tgl_reg_stnk ?>">
 							</div>
 						</div>
 						
@@ -237,13 +240,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Harga STNK</label>
-								<input type="text" class="form-control" name="uang_muka" placeholder="Harga STNK">
+								<input type="text" class="form-control" name="harga_stnk" placeholder="Harga STNK" value="<?php echo $detail->harga_stnk ?>">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Uang Muka</label>
-								<input type="text" class="form-control" name="kelurahan_p" placeholder="Uang Muka">
+								<input type="text" class="form-control" name="uang_muka" placeholder="Uang Muka" value="<?php echo $detail->uang_muka ?>">
 							</div>
 						</div>
 					</div>
@@ -251,13 +254,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Jangka Bayar</label>
-								<input type="text" class="form-control" name="jangka_bayar" placeholder="Jangka Bayar">
+								<input type="text" class="form-control" name="jangka_bayar" value="<?php echo $detail->jangka_bayar ?>" placeholder="Jangka Bayar">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Angsuran</label>
-								<input type="text" class="form-control" name="angsuran" placeholder="Angsuran">
+								<input type="text" class="form-control" name="angsuran" placeholder="Angsuran" value="<?php echo $detail->angsuran ?>">
 							</div>
 						</div>
 					</div>
@@ -265,7 +268,7 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<label>Surveyor</label>
-								<input type="text" class="form-control" name="id_surveyor" placeholder="Surveyor">
+								<input type="text" class="form-control" name="id_surveyor" placeholder="Surveyor" value="<?php echo $detail->id_surveyor ?>">
 							</div>
 						</div>
 					</div>
@@ -285,99 +288,112 @@
 						</div>
 					</div>
 					<div class="card-body">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>Nama di Buku Uang</label>
-									<input type="text" class="form-control" name="nm_p_bku_uang" placeholder="Masukan Nama Untuk STNK">
+						<form action="<?php echo base_url('index.php/admin/penjualan/updatapembelilengkap/'.$detail->no_nota_keluar) ?>" method='post'>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Nama di Buku Uang</label>
+										<input type="text" class="form-control" name="nm_p_bku_uang" placeholder="Masukan Nama Untuk STNK" value="<?php echo $detail->nm_p_bku_uang ?>">
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>No KTP Pembeli</label>
-									<input type="text" class="form-control" name="no_ktp" placeholder="Masukan Nomor KTP Pembeli">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>No KTP Pembeli</label>
+										<input type="text" class="form-control" name="no_ktp_p" placeholder="Masukan Nomor KTP Pembeli" value="<?php echo $detail->no_ktp_p ?>">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>No Telepon</label>
+										<input type="text" class="form-control" name="tlp_p" placeholder="Masukan Nomor KTP Pembeli" value="<?php echo $detail->tlp_p ?>">
+									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>No Telepon</label>
-									<input type="text" class="form-control" name="tlp_p" placeholder="Masukan Nomor KTP Pembeli">
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label>Jenis Kelamin</label>
+										<select name="jk_p" class="form-control">
+											<?php if ($detail->jk_p == TRUE): ?>
+												<?php if ($detail->jk_p == 'L'): ?>
+													<option value="L">-- Laki-Laki --</option>
+													<option value="P">Perempuan</option>
+												<?php else: ?>
+													<option value="P">-- Perempuan --</option>
+													<option value="L">Laki-laki</option>
+												<?php endif ?>
+											<?php else: ?>
+												<option value="L">Laki-Laki</option>
+												<option value="P">Perempuan</option>
+											<?php endif ?>
+										</select>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col">
-								<div class="form-group">
-									<label>Jenis Kelamin</label>
-									<select name="jk_p" class="form-control">
-										<option value="L">Laki-Laki</option>
-										<option value="P">Perempuan</option>
-									</select>
+							<div class="form-group">
+								<label>Tanggal Lahir Sesuai KTP</label>
+								<input type="date" class="form-control" name="tgl_lahir_p" placeholder="Masukan Nama Tanggal Lahir" value="<?php echo date('Y-m-d') ?>" value="<?php echo $detail->tgl_lahir_p ?>">
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Pekerjaan</label>
+										<input type="text" class="form-control" name="pekerjaan_p" placeholder="Pekerjaan"value="<?php echo $detail->pekerjaan_p ?>">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Pendidikan</label>
+										<input type="text" class="form-control" name="pendidikan_p" placeholder="Pendidikan" value="<?php echo $detail->pendidikan_p ?>">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Pengeluaran</label>
+										<input type="text" class="form-control" name="pengeluaran_p" placeholder="Pengeluaran" value="<?php echo $detail->pengeluaran_p ?>">
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label>Tanggal Lahir Sesuai KTP</label>
-							<input type="date" class="form-control" name="tgl_lahir_p" placeholder="Masukan Nama Tanggal Lahir" value="<?php echo date('Y-m-d') ?>">
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Pekerjaan</label>
-									<input type="text" class="form-control" name="pekerjaan_p" placeholder="Pekerjaan">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Propinsi</label>
+										<input type="text" class="form-control" name="propinsi_p" placeholder="Masukan Nama Propinsi Pembeli" value="<?php echo $detail->propinsi_p ?>">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Kecamatan</label>
+										<input type="text" class="form-control" name="kecamatan_p" placeholder="Masukan Nama Kecamatan Pembeli" value="<?php echo $detail->kecamatan_p ?>">
+									</div>
 								</div>
 							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Pendidikan</label>
-									<input type="text" class="form-control" name="pendidikan_p" placeholder="Pendidikan">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Kelurahan</label>
+										<input type="text" class="form-control" name="kelurahan_p" placeholder="Masukan Nama Kelurahan Pembeli" value="<?php echo $detail->kelurahan_p ?>">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Kode Pos</label>
+										<input type="text" class="form-control" name="kode_pos_p" placeholder="Kode Pos" value="<?php echo $detail->kode_pos_p ?>">
+									</div>
 								</div>
 							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Pengeluaran</label>
-									<input type="text" class="form-control" name="pengeluaran_p" placeholder="Pengeluaran">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Alamat 2</label>
+										<input type="text" class="form-control" name="alamat_2_p" placeholder="Alamat 2" value="<?php echo $detail->alamat_2_p ?>">
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Propinsi</label>
-									<input type="text" class="form-control" name="propinsi_p" placeholder="Masukan Nama Propinsi Pembeli">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Kecamatan</label>
-									<input type="text" class="form-control" name="kecamatan_p" placeholder="Masukan Nama Kecamatan Pembeli">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Kelurahan</label>
-									<input type="text" class="form-control" name="kelurahan_p" placeholder="Masukan Nama Kelurahan Pembeli">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Kode Pos</label>
-									<input type="text" class="form-control" name="kode_pos_p" placeholder="Kode Pos">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>Alamat 2</label>
-									<input type="text" class="form-control" name="alamat_2_p" placeholder="Alamat 2">
-								</div>
-							</div>
-						</div>	
+							<button type="submit" name="submit" value="submit" class="btn btn-success btn-sm">Simpan Kelengkapan tambahan Pembeli</button>
+						</form>
 					</div>
 				</div>
 			</div>
