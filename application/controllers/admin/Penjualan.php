@@ -528,7 +528,7 @@ class Penjualan extends CI_Controller {
           $getuser = $this->ion_auth->user()->row();
           $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
           $detail = $ceknota;
-          $data['title'] = 'Cetak Nota Pembelian , '.$ceknota->no_nota_keluar;
+          $data['title'] = 'Cetak Nota Penjualan , '.$ceknota->no_nota_keluar;
           $data['infopt'] = $infopt;
           $data['users'] = $getuser;
           $data['aside'] = 'nav/nav';
