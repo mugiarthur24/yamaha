@@ -36,7 +36,8 @@
 					<th>JK</th>
 					<th>Dealer</th>
 					<th>Leasing</th>
-					<th>Status</th>
+					<th>Stat Nota</th>
+					<th>Stat STNK</th>
 					<th></th>
 				</tr>
 				<?php if ($hasil == TRUE): ?>
@@ -84,6 +85,13 @@
 							</td>
 							<td>
 								<?php if ($data['id_status'] == '1' ): ?>
+									<span class="pcoded-badge label label-success">Di Bayar</span>
+								<?php else: ?>
+									<span class="pcoded-badge label label-danger">Belum Dibayar</span>
+								<?php endif ?>
+							</td>
+							<td>
+								<?php if ($data['id_status_stnk'] == '1' ): ?>
 									<span class="pcoded-badge label label-success">Selesai</span>
 								<?php else: ?>
 									<span class="pcoded-badge label label-danger">Belum Selesai</span>
@@ -101,7 +109,7 @@
 					<?php endforeach ?>
 				<?php else: ?>
 					<tr>
-						<td colspan="9" align="center">Belum ada penjualan hari ini.</td>
+						<td colspan="10" align="center">Belum ada penjualan hari ini.</td>
 					</tr>
 				<?php endif ?>
 			</table>
