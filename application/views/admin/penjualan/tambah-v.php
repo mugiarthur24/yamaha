@@ -220,59 +220,80 @@
 						</div>
 					</div>
 				</div>
-				<div class="card-body">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>STNK</label>
-								<input type="text" class="form-control" name="stnk" placeholder="STNK">
+				<form action="<?php echo base_url('index.php/admin/penjualan/updataleasing/'.$detail->no_nota_keluar) ?>" method="post">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label><b>Pilih Leasing</b></label><br/>
+									<?php if ($detail->id_leasing =='0'): ?>
+										<input type="radio" name="id_leasing" value="0" checked> <span>Tidak Menggunakan Leasing / CASH</span><br/>
+									<?php else: ?>
+										<input type="radio" name="id_leasing" value="0"> <span>Tidak Menggunakan Leasing / CASH</span><br/>
+									<?php endif ?>
+									<?php foreach ($leasing as $leas): ?>
+										<?php if ($leas->id_leasing == $detail->id_leasing): ?>
+											<input type="radio" name="id_leasing" value="<?php echo $leas->id_leasing ?>" checked> <span><?php echo $leas->nm_leasing; ?></span><br/>
+										<?php else: ?>
+											<input type="radio" name="id_leasing" value="<?php echo $leas->id_leasing ?>"> <span><?php echo $leas->nm_leasing; ?></span><br/>
+										<?php endif ?>
+									<?php endforeach ?>
+								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Tgl Reg STNK</label>
-								<input type="date" class="form-control" name="tgl_reg_stnk" placeholder="Masukan Nama Tanggal Lahir" value="<?php echo date('Y-m-d') ?>" value="<?php echo $detail->tgl_reg_stnk ?>">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>STNK</label>
+									<input type="text" class="form-control" name="stnk" placeholder="STNK">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Tgl Reg STNK</label>
+									<input type="date" class="form-control" name="tgl_reg_stnk" placeholder="Masukan Nama Tanggal Lahir" value="<?php echo date('Y-m-d') ?>" value="<?php echo $detail->tgl_reg_stnk ?>">
+								</div>
 							</div>
 						</div>
-						
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Harga STNK</label>
+									<input type="text" class="form-control" name="harga_stnk" placeholder="Harga STNK" value="<?php echo $detail->harga_stnk ?>">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Uang Muka</label>
+									<input type="text" class="form-control" name="uang_muka" placeholder="Uang Muka" value="<?php echo $detail->uang_muka ?>">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Jangka Bayar</label>
+									<input type="text" class="form-control" name="jangka_bayar" value="<?php echo $detail->jangka_bayar ?>" placeholder="Jangka Bayar">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Angsuran</label>
+									<input type="text" class="form-control" name="angsuran" placeholder="Angsuran" value="<?php echo $detail->angsuran ?>">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label>Surveyor</label>
+									<input type="text" class="form-control" name="id_surveyor" placeholder="Surveyor" value="<?php echo $detail->id_surveyor ?>">
+								</div>
+							</div>
+						</div>
+						<button type="submit" value="submit" name="submit" class="btn btn-success btn-sm">Simpan Data Leasing</button>
 					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Harga STNK</label>
-								<input type="text" class="form-control" name="harga_stnk" placeholder="Harga STNK" value="<?php echo $detail->harga_stnk ?>">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Uang Muka</label>
-								<input type="text" class="form-control" name="uang_muka" placeholder="Uang Muka" value="<?php echo $detail->uang_muka ?>">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Jangka Bayar</label>
-								<input type="text" class="form-control" name="jangka_bayar" value="<?php echo $detail->jangka_bayar ?>" placeholder="Jangka Bayar">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Angsuran</label>
-								<input type="text" class="form-control" name="angsuran" placeholder="Angsuran" value="<?php echo $detail->angsuran ?>">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label>Surveyor</label>
-								<input type="text" class="form-control" name="id_surveyor" placeholder="Surveyor" value="<?php echo $detail->id_surveyor ?>">
-							</div>
-						</div>
-					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>

@@ -161,6 +161,7 @@ class Penjualan extends CI_Controller {
           $merk = $this->Admin_m->select_data('merk');
           $type = $this->Admin_m->select_data('type');
           $dtpt = $this->Admin_m->select_data('info_pt');
+          $leasing = $this->Penjualan_m->getleasing($infopt->kode_pt);
           $detail = $ceknota;
           $data['title'] = 'Tambah Penjualan hari ini, '.date('d F Y',strtotime($hariini));
           $data['infopt'] = $infopt;
@@ -170,6 +171,7 @@ class Penjualan extends CI_Controller {
           $data['merk'] = $merk;
           $data['type'] = $type;
           $data['dtpt'] = $dtpt;
+          $data['leasing'] = $leasing;
           $data['tgl'] = $hariini;
           $data['page'] = 'admin/penjualan/tambah-v';
           $search_text = "";
@@ -440,6 +442,60 @@ class Penjualan extends CI_Controller {
               'kelurahan_p'=>$post['kelurahan_p'],
               'kode_pos_p'=>$post['kode_pos_p'],
               'alamat_2_p'=>$post['alamat_2_p']
+            );
+            $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
+            $pesan = 'Data Pembeli pada Nota '.$ceknota->no_nota_keluar.' Berhasil ditambahkan disimpan';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+          }
+        }else{
+          $pesan = 'Nomor Nota tidak ditemukan, harap periksa kembali nomor nota anda';
+          $this->session->set_flashdata('message',$pesan);
+          redirect(base_url('index.php/admin/penjualan/'));
+        }
+      }
+    }else{
+      $pesan = 'Login terlebih dahulu';
+      $this->session->set_flashdata('message', $pesan );
+      redirect(base_url('index.php/login'));
+    }
+  }
+  public function updataleasing($nota){
+    if ($this->ion_auth->logged_in()) {
+      $level = array('admin','members');
+      if (!$this->ion_auth->in_group($level)) {
+        $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/dashboard'));
+      }else{
+        $ceknota = $this->Admin_m->detail_data('nota_keluar','no_nota_keluar',preg_replace("/[^a-zA-Z0-9]/", "",trim($nota)));
+        if ($ceknota == TRUE) {
+          // validasi
+          $this->form_validation->set_rules('id_leasing', 'Kode Leasing', 'required|numeric');
+          $this->form_validation->set_rules('stnk', 'STNK', 'alpha_numeric_spaces');
+          $this->form_validation->set_rules('tgl_reg_stnk', 'Tanggal Reg STNK', 'alpha_dash');
+          $this->form_validation->set_rules('harga_stnk', 'Harga STNK', 'numeric');
+          $this->form_validation->set_rules('uang_muka', 'Uang Muka', 'numeric');
+          $this->form_validation->set_rules('jangka_bayar', 'Jangka Bayar', 'alpha_numeric_spaces');
+          $this->form_validation->set_rules('angsuran', 'Angsuran', 'numeric');
+          $this->form_validation->set_rules('id_surveyor', 'Surveyor', 'alpha_numeric_spaces');
+          if ($this->form_validation->run() == FALSE){
+              $pesan = validation_errors();
+              $this->session->set_flashdata('message',$pesan); 
+              redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+          }else{
+            $post = $this->input->post();
+            $getuser = $this->ion_auth->user()->row();
+            $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+            $data = array(
+              'id_leasing'=>$post['id_leasing'],
+              'stnk'=>$post['stnk'],
+              'tgl_reg_stnk'=>$post['tgl_reg_stnk'],
+              'harga_stnk'=>$post['harga_stnk'],
+              'uang_muka'=>$post['uang_muka'],
+              'jangka_bayar'=>$post['jangka_bayar'],
+              'angsuran'=>$post['angsuran'],
+              'id_surveyor'=>$post['id_surveyor']
             );
             $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
             $pesan = 'Data Pembeli pada Nota '.$ceknota->no_nota_keluar.' Berhasil ditambahkan disimpan';

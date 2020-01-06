@@ -126,4 +126,11 @@ class Penjualan_m extends CI_Model
 		$query = $this->db->get('produk');
 		return $query->row();
 	}
+	public function getleasing($area) {
+		if (!empty($search['area'])) {
+			$this->db->like('area',$area);
+		}
+		$query = $this->db->get('leasing');
+		return $query->result();
+	}
 }

@@ -79,7 +79,7 @@
 								<?php if ($data['id_leasing'] == '0'): ?>
 									<span class="pcoded-badge label label-success">Cash</span>
 								<?php else: ?>
-									<b><?php echo $this->Admin_m->detail_data('leasing','id_leasing',$data['nm_leasing'])->nm_leasing; ?></b>
+									<b><?php echo $this->Admin_m->detail_data('leasing','id_leasing',$data['id_leasing'])->nm_leasing; ?></b>
 								<?php endif ?>
 							</td>
 							<td>
