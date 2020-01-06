@@ -514,6 +514,50 @@ class Penjualan extends CI_Controller {
       redirect(base_url('index.php/login'));
     }
   }
+  public function pembayaran($nota){
+    if ($this->ion_auth->logged_in()) {
+      $level = array('admin','members');
+      if (!$this->ion_auth->in_group($level)) {
+        $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/dashboard'));
+      }else{
+        $post = $this->input->post();
+        // echo "<pre>";print_r($post);echo "</pre>";exit();
+        $ceknota = $this->Admin_m->detail_data('nota_keluar','no_nota_keluar',preg_replace("/[^a-zA-Z0-9]/", "",trim($nota)));
+        if ($ceknota == TRUE) {
+          // validasi
+          $this->form_validation->set_rules('jml_bayar', 'Jumlah Harus Dibayar', 'required|numeric');
+          $this->form_validation->set_rules('jml_di_bayar', 'Uang Dari Pembeli', 'required|numeric');
+          if ($this->form_validation->run() == FALSE){
+              $pesan = validation_errors();
+              $this->session->set_flashdata('message',$pesan); 
+              redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+          }else{
+            $getuser = $this->ion_auth->user()->row();
+            $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+            $data = array(
+              'jml_bayar'=>$post['jml_bayar'],
+              'jml_di_bayar'=>$post['jml_di_bayar'],
+              'id_status'=>'1'
+            );
+            $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
+            $pesan = 'Data Pembeli pada Nota '.$ceknota->no_nota_keluar.' Berhasil ditambahkan disimpan';
+            $this->session->set_flashdata('message', $pesan );
+            redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
+          }
+        }else{
+          $pesan = 'Nomor Nota tidak ditemukan, harap periksa kembali nomor nota anda';
+          $this->session->set_flashdata('message',$pesan);
+          redirect(base_url('index.php/admin/penjualan/'));
+        }
+      }
+    }else{
+      $pesan = 'Login terlebih dahulu';
+      $this->session->set_flashdata('message', $pesan );
+      redirect(base_url('index.php/login'));
+    }
+  }
   public function cetaknota($nota){
     if ($this->ion_auth->logged_in()) {
       $level = array('admin','members');
