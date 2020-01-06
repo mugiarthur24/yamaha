@@ -97,16 +97,22 @@
 								<a href="<?php echo base_url('index.php/admin/penjualan/cetaknota/'.$detail->no_nota_keluar) ?>" class="btn btn-info btn-sm w-100" target="_blank">Cetak Nota Pembelian</a>
 							</td>
 						</tr>
-						<?php if ($detail->id_status =='0'): ?>
-							<tr>
-								<td colspan="6"></td>
-								<td colspan="2">
-									<button type="button" class="btn btn-success btn-sm w-100" data-toggle="modal" data-target="#bayar">
-									  Pembayaran
-									</button>
-								</td>
-							</tr>
-						<?php endif ?>
+							<?php if ($detail->id_status =='0'): ?>
+								<tr>
+									<td colspan="6"></td>
+									<td colspan="2">
+										<?php if ($detail->id_produk =='0'): ?>
+											<button type="button" class="btn btn-secondary btn-sm w-100">
+											  Pembayaran
+											</button>
+										<?php else: ?>
+											<button type="button" class="btn btn-success btn-sm w-100" data-toggle="modal" data-target="#bayar">
+											  Pembayaran
+											</button>
+										<?php endif ?>
+									</td>
+								</tr>
+							<?php endif ?>
 					</table>
 				</div>
 			</div>
@@ -463,57 +469,59 @@
 				</div>
 			</div>
 		</div>
-<!-- Modal -->
-<div class="modal fade" id="bayar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Pembayaran</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="<?php echo base_url('index.php/admin/penjualan/pembayaran/'.$detail->no_nota_keluar) ?>" method="post">
-      	<div class="modal-body">
-      		<?php if ($detail->id_leasing =='0'): ?>
-      			<div class="alert alert-success">
-      				<b>Perhatian</b><br/>
-      				<p>Nota <?php echo $detail->no_nota_keluar; ?> ini melakukan pebayaran secara Tunai / CASH atau tidak melaui pihak Leasing.</p>
-      			</div>
-      			<div class="form-group">
-      				<label>Jumlah Bayar</label>
-      				<div class="form-control"><?php echo 'Rp.'.number_format($detproduk->hrg_jual); ?></div>
-      				<input type="hidden" name="jml_bayar" value="<?php echo $detproduk->hrg_jual ?>">
-      				<small class="form-text text-muted">Tidak dapat di edit</small>
-      			</div>
-      			<div class="form-group">
-      				<label>Jumlah Uang di Beri</label>
-      				<input type="text" class="form-control" name="jml_di_bayar" value="<?php echo $detproduk->hrg_jual; ?>"  placeholder="Masukan Jumlah Uang">
-      				<small class="form-text text-muted">Hanya dapat menggunakan angka tanpa spasi titik dan koma</small>
-      			</div>
-      			<?php else: ?>
-      				<div class="alert alert-info">
-      					<b>Perhatian</b><br/>
-      					<p>Nota <?php echo $detail->no_nota_keluar; ?> Terdaftar menggunakan leasing sebagai media pembayaran, sehingga hanya memasukan jumlah <b>Uang Muka</b> Wajib Bayar yang dapat di isi pada <b>Data leasing</b>, pastikan data sudah sesuai sebelum melakukan pembayaran.</p>
-      				</div>
-      				<div class="form-group">
-      					<label>Jumlah Uang Muka Wajib di bayar</label>
-      					<div class="form-control"><?php echo 'Rp.'.number_format($detail->uang_muka); ?></div>
-      					<input type="hidden" name="jml_bayar" value="<?php echo $detail->uang_muka ?>">
-      					<small class="form-text text-muted">Tidak dapat di edit</small>
-      				</div>
-      				<div class="form-group">
-      					<label>Jumlah Uang di Beri</label>
-      					<input type="text" class="form-control" name="jml_di_bayar" value="<?php echo $detail->uang_muka; ?>"  placeholder="Masukan Jumlah Uang">
-      					<small class="form-text text-muted">Hanya dapat menggunakan angka tanpa spasi titik dan koma</small>
-      				</div>
-      			<?php endif ?>
-      		</div>
-      		<div class="modal-footer">
-      			<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
-      			<button type="submit" name="submit" value="submit" class="btn btn-primary btn-sm">lakukan Pembayaran</button>
-      		</div>
-      	</form>
-      </div>
-  </div>
-</div>
+<?php if ($detail->id_status =='0' && $detail->id_produk !=='0'): ?>
+	<!-- Modal -->
+	<div class="modal fade" id="bayar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Pembayaran</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form action="<?php echo base_url('index.php/admin/penjualan/pembayaran/'.$detail->no_nota_keluar) ?>" method="post">
+	      	<div class="modal-body">
+	      		<?php if ($detail->id_leasing =='0'): ?>
+	      			<div class="alert alert-success">
+	      				<b>Perhatian</b><br/>
+	      				<p>Nota <?php echo $detail->no_nota_keluar; ?> ini melakukan pebayaran secara Tunai / CASH atau tidak melaui pihak Leasing.</p>
+	      			</div>
+	      			<div class="form-group">
+	      				<label>Jumlah Bayar</label>
+	      				<div class="form-control"><?php echo 'Rp.'.number_format($detproduk->hrg_jual); ?></div>
+	      				<input type="hidden" name="jml_bayar" value="<?php echo $detproduk->hrg_jual ?>">
+	      				<small class="form-text text-muted">Tidak dapat di edit</small>
+	      			</div>
+	      			<div class="form-group">
+	      				<label>Jumlah Uang di Beri</label>
+	      				<input type="text" class="form-control" name="jml_di_bayar" value="<?php echo $detproduk->hrg_jual; ?>"  placeholder="Masukan Jumlah Uang">
+	      				<small class="form-text text-muted">Hanya dapat menggunakan angka tanpa spasi titik dan koma</small>
+	      			</div>
+	      			<?php else: ?>
+	      				<div class="alert alert-info">
+	      					<b>Perhatian</b><br/>
+	      					<p>Nota <?php echo $detail->no_nota_keluar; ?> Terdaftar menggunakan leasing sebagai media pembayaran, sehingga hanya memasukan jumlah <b>Uang Muka</b> Wajib Bayar yang dapat di isi pada <b>Data leasing</b>, pastikan data sudah sesuai sebelum melakukan pembayaran.</p>
+	      				</div>
+	      				<div class="form-group">
+	      					<label>Jumlah Uang Muka Wajib di bayar</label>
+	      					<div class="form-control"><?php echo 'Rp.'.number_format($detail->uang_muka); ?></div>
+	      					<input type="hidden" name="jml_bayar" value="<?php echo $detail->uang_muka ?>">
+	      					<small class="form-text text-muted">Tidak dapat di edit</small>
+	      				</div>
+	      				<div class="form-group">
+	      					<label>Jumlah Uang di Beri</label>
+	      					<input type="text" class="form-control" name="jml_di_bayar" value="<?php echo $detail->uang_muka; ?>"  placeholder="Masukan Jumlah Uang">
+	      					<small class="form-text text-muted">Hanya dapat menggunakan angka tanpa spasi titik dan koma</small>
+	      				</div>
+	      			<?php endif ?>
+	      		</div>
+	      		<div class="modal-footer">
+	      			<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
+	      			<button type="submit" name="submit" value="submit" class="btn btn-primary btn-sm">lakukan Pembayaran</button>
+	      		</div>
+	      	</form>
+	      </div>
+	  </div>
+	</div>
+<?php endif ?>
