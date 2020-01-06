@@ -514,5 +514,38 @@ class Penjualan extends CI_Controller {
       redirect(base_url('index.php/login'));
     }
   }
+  public function cetaknota($nota){
+    if ($this->ion_auth->logged_in()) {
+      $level = array('admin','members');
+      if (!$this->ion_auth->in_group($level)) {
+        $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/dashboard'));
+      }else{
+        $ceknota = $this->Admin_m->detail_data('nota_keluar','no_nota_keluar',preg_replace("/[^a-zA-Z0-9]/", "",trim($nota)));
+        if ($ceknota == TRUE) {
+          $post = $this->input->post();
+          $getuser = $this->ion_auth->user()->row();
+          $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+          $detail = $ceknota;
+          $data['title'] = 'Cetak Nota Pembelian , '.$ceknota->no_nota_keluar;
+          $data['infopt'] = $infopt;
+          $data['users'] = $getuser;
+          $data['aside'] = 'nav/nav';
+          $data['page'] = 'admin/penjualan/cetak-v';
+          $this->load->view('admin/dashboard-v',$data);
+        }else{
+          $pesan = 'Nomor Nota tidak ditemukan, harap periksa kembali nomor nota anda';
+          $this->session->set_flashdata('message',$pesan);
+          redirect(base_url('index.php/admin/penjualan/'));
+        }
+      }
+    }else{
+      $pesan = 'Login terlebih dahulu';
+      $this->session->set_flashdata('message', $pesan );
+      redirect(base_url('index.php/login'));
+    }
+  }
+
 }
 ?>

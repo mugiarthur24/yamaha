@@ -63,6 +63,18 @@
 								<td><a href="<?php echo base_url('index.php/admin/penjualan/delprodukjual/'.$detail->no_nota_keluar) ?>" class="text-danger">Batal</a></td>
 							</tr>
 						<?php endif ?>
+						<tr>
+							<td colspan="6"></td>
+							<td colspan="2">
+								<a href="<?php echo base_url('index.php/admin/penjualan/cetaknota/'.$detail->no_nota_keluar) ?>" class="btn btn-info btn-sm w-100" target="_blank">Cetak Nota Pembelian</a>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="6"></td>
+							<td colspan="2">
+								<a href="#" class="btn btn-success btn-sm w-100">Pembayaran</a>
+							</td>
+						</tr>
 					</table>
 				</div>
 			</div>
