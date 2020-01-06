@@ -532,8 +532,7 @@ class Penjualan extends CI_Controller {
           $data['infopt'] = $infopt;
           $data['users'] = $getuser;
           $data['aside'] = 'nav/nav';
-          $data['page'] = 'admin/penjualan/cetak-v';
-          $this->load->view('admin/dashboard-v',$data);
+          $this->load->view('admin/penjualan/cetak-v',$data);
         }else{
           $pesan = 'Nomor Nota tidak ditemukan, harap periksa kembali nomor nota anda';
           $this->session->set_flashdata('message',$pesan);
