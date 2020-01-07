@@ -1,3 +1,18 @@
+<!-- Favicon icon -->
+    <link rel="icon" href="<?php echo base_url('assets/adminty/files/') ?>\assets\images\favicon.ico" type="image/x-icon">
+    <!-- Google font--><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>\bower_components\bootstrap\css\bootstrap.min.css">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>\assets\icon\themify-icons\themify-icons.css">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>\assets\icon\icofont\css\icofont.css">
+    <!-- feather Awesome -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>\assets\icon\feather\css\feather.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>\assets\css\style.css">
+
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>\assets\css\jquery.mCustomScrollbar.css">
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
         <!-- Main-body start -->
@@ -19,25 +34,14 @@
                                                 <table class="table table-responsive invoice-table table-borderless">
                                                     <tbody>
                                                         <tr>
-                                                            <td><img src="..\files\assets\images\logo-blue.png" class="m-b-10" alt=""></td>
+                                                            <td><img src="<?php echo base_url('assets/img/lembaga/'.$infopt->logo_pt) ?>" class="m-b-10" alt=""></td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Compney Name</td>
+                                                            <td>CV. CITRA SELARAS </br>DEALER RESMI KENDARAAN RODA 2 - MERK YAMAHA</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>123 6th St. Melbourne, FL 32904 West Chicago, IL 60185</td>
+                                                            <td>Jl. Betoambari No. 74. Telp. (0402) 2825960 Fax. (0402) 2825961 </br>Baubau - Sulawesi Tenggara</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td><a href="..\..\..\cdn-cgi\l\email-protection.htm#99fdfcf4f6d9fef4f8f0f5b7faf6f4" target="_top"><span class="__cf_email__" data-cfemail="690d0c0406290e04080005470a0604">[email&#160;protected]</span></a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>+91 919-91-91-919</td>
-                                                        </tr>
-                                                                            <!-- <tr>
-                                                            <td><a href="#" target="_blank">www.demo.com</a>
-                                                            </td>
-                                                        </tr> -->
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -49,18 +53,18 @@
                                 <div class="card-block">
                                     <div class="row invoive-info">
                                         <div class="col-md-4 col-xs-12 invoice-client-info">
-                                            <h6>Client Information :</h6>
+                                            <h6>Informasi Pelanggan :</h6>
                                             <h6 class="m-0">Josephin Villa</h6>
                                             <p class="m-0 m-t-10">123 6th St. Melbourne, FL 32904 West Chicago, IL 60185</p>
                                             <p class="m-0">(1234) - 567891</p>
-                                            <p><a href="..\..\..\cdn-cgi\l\email-protection.htm" class="__cf_email__" data-cfemail="eb8f8e8684ab939291c5888486">[email&#160;protected]</a></p>
+                                            
                                         </div>
                                         <div class="col-md-4 col-sm-6">
-                                            <h6>Order Information :</h6>
+                                            <h6>Informasi Pembelian :</h6>
                                             <table class="table table-responsive invoice-table invoice-order table-borderless">
                                                 <tbody>
                                                     <tr>
-                                                        <th>Date :</th>
+                                                        <th>Tanggal :</th>
                                                         <td>November 14</td>
                                                     </tr>
                                                     <tr>
@@ -79,8 +83,8 @@
                                             </table>
                                         </div>
                                         <div class="col-md-4 col-sm-6">
-                                            <h6 class="m-b-20">Invoice Number <span>#12398521473</span></h6>
-                                            <h6 class="text-uppercase text-primary">Total Due :
+                                            <h6 class="m-b-20">No Nota <span>#12398521473</span></h6>
+                                            <h6 class="text-uppercase text-primary">Total :
                                                 <span>$900.00</span>
                                             </h6>
                                         </div>
@@ -91,9 +95,9 @@
                                                 <table class="table  invoice-detail-table">
                                                     <thead>
                                                         <tr class="thead-default">
-                                                            <th>Description</th>
-                                                            <th>Quantity</th>
-                                                            <th>Amount</th>
+                                                            <th>Keterangan</th>
+                                                            <th>Jml</th>
+                                                            <th>Harga</th>
                                                             <th>Total</th>
                                                         </tr>
                                                     </thead>
@@ -139,11 +143,11 @@
                                                         <td>$4725.00</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Taxes (10%) :</th>
+                                                        <th>Pajak (10%) :</th>
                                                         <td>$57.00</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Discount (5%) :</th>
+                                                        <th>Diskon (5%) :</th>
                                                         <td>$45.00</td>
                                                     </tr>
                                                     <tr class="text-info">
@@ -162,8 +166,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h6>Terms And Condition :</h6>
-                                            <p>lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor </p>
+                                            <h6>Informasi :</h6>
+                                            <p>1. Penggantian <b>Oli Garansi</b> Maksimal 1 Bulan atau 1.000 KM dari Tanggal Pembelian</br>2. Pengambilan BPKB Tidak Dapat di Wakilkan, Kecuali Membawa Surat Kuasa dan Bermaterai dari Pemilik Kendaraan</br>3. Surat-Surat Kendaraan dapat di ambil paling lama 1 - 3 Bulan untuk STNK Sedangkan BPKB 4 - 5 Bulan</p>
                                         </div>
                                     </div>
                                 </div>
@@ -184,8 +188,36 @@
         </div>
         <!-- Warning Section Starts -->
 
-        <div id="styleSelector">
-
-        </div>
+        
     </div>
 </div>
+<script data-cfasync="false" src="<?php echo base_url('assets/adminty/files/') ?>\cdn-cgi\scripts\5c5dd728\cloudflare-static\email-decode.min.js"></script><script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\jquery\js\jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\jquery-ui\js\jquery-ui.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\popper.js\js\popper.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\bootstrap\js\bootstrap.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\jquery-slimscroll\js\jquery.slimscroll.js"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\modernizr\js\modernizr.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\modernizr\js\css-scrollbars.js"></script>
+
+    <!-- i18next.min.js -->
+    <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\i18next\js\i18next.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\i18next-xhr-backend\js\i18nextXHRBackend.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\i18next-browser-languagedetector\js\i18nextBrowserLanguageDetector.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\bower_components\jquery-i18next\js\jquery-i18next.min.js"></script>
+    <!-- Custom js -->
+
+    <script src="<?php echo base_url('assets/adminty/files/') ?>\assets\js\pcoded.min.js"></script>
+    <script src="<?php echo base_url('assets/adminty/files/') ?>\assets\js\vartical-layout.min.js"></script>
+    <script src="<?php echo base_url('assets/adminty/files/') ?>\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\assets\js\script.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
