@@ -275,17 +275,40 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<label><b>Pilih Leasing</b></label><br/>
 									<?php if ($detail->id_leasing =='0'): ?>
-										<input type="radio" name="id_leasing" value="0" checked> <span>Tidak Menggunakan Leasing / CASH</span><br/>
+										<div class="checkbox-fade fade-in-primary d-">
+										    <label>
+										        <input type="radio" name="id_leasing" value="0" checked>
+										        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+										        <span class="text-inverse">Tidak Menggunakan Leasing / CASH</span></span>
+										    </label>
+										</div><br/>
 									<?php else: ?>
-										<input type="radio" name="id_leasing" value="0"> <span>Tidak Menggunakan Leasing / CASH</span><br/>
+										<div class="checkbox-fade fade-in-primary d-">
+										    <label>
+										        <input type="radio" name="id_leasing" value="0">
+										        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+										        <span class="text-inverse">Tidak Menggunakan Leasing / CASH</span>
+										    </label>
+										</div><br/>
 									<?php endif ?>
 									<?php foreach ($leasing as $leas): ?>
 										<?php if ($leas->id_leasing == $detail->id_leasing): ?>
-											<input type="radio" name="id_leasing" value="<?php echo $leas->id_leasing ?>" checked> <span><?php echo $leas->nm_leasing; ?></span><br/>
+											<div class="checkbox-fade fade-in-primary d-">
+											    <label>
+											        <input type="radio" name="id_leasing" value="<?php echo $leas->id_leasing ?>" checked>
+											        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+											        <span class="text-inverse"><?php echo $leas->nm_leasing; ?></span>
+											    </label>
+											</div><br/>
 										<?php else: ?>
-											<input type="radio" name="id_leasing" value="<?php echo $leas->id_leasing ?>"> <span><?php echo $leas->nm_leasing; ?></span><br/>
+											<div class="checkbox-fade fade-in-primary d-">
+											    <label>
+											        <input type="radio" name="id_leasing" value="<?php echo $leas->id_leasing ?>">
+											        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+											        <span class="text-inverse"><?php echo $leas->nm_leasing; ?></span>
+											    </label>
+											</div><br/>
 										<?php endif ?>
 									<?php endforeach ?>
 								</div>
