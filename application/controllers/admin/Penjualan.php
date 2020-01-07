@@ -430,7 +430,7 @@ class Penjualan extends CI_Controller {
             $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
             $data = array(
               'nm_p_bku_uang'=>$post['nm_p_bku_uang'],
-              'no_ktp_p'=>$post['no_ktp_p'],
+              'no_ktp_p'=>preg_replace("/[^0-9]/", "",$post['no_ktp_p']),
               'tlp_p'=>$post['tlp_p'],
               'jk_p'=>$post['jk_p'],
               'tgl_lahir_p'=>$post['tgl_lahir_p'],
@@ -440,7 +440,7 @@ class Penjualan extends CI_Controller {
               'propinsi_p'=>$post['propinsi_p'],
               'kecamatan_p'=>$post['kecamatan_p'],
               'kelurahan_p'=>$post['kelurahan_p'],
-              'kode_pos_p'=>$post['kode_pos_p'],
+              'kode_pos_p'=>preg_replace("/[^0-9]/", "",$post['kode_pos_p']),
               'alamat_2_p'=>$post['alamat_2_p']
             );
             $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
@@ -488,14 +488,14 @@ class Penjualan extends CI_Controller {
             $getuser = $this->ion_auth->user()->row();
             $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
             $data = array(
-              'id_leasing'=>$post['id_leasing'],
-              'stnk'=>$post['stnk'],
+              'id_leasing'=>preg_replace("/[^0-9]/", "",$post['id_leasing']),
+              'stnk'=>trim($post['stnk']),
               'tgl_reg_stnk'=>$post['tgl_reg_stnk'],
-              'harga_stnk'=>$post['harga_stnk'],
-              'uang_muka'=>$post['uang_muka'],
-              'jangka_bayar'=>$post['jangka_bayar'],
-              'angsuran'=>$post['angsuran'],
-              'id_surveyor'=>$post['id_surveyor']
+              'harga_stnk'=>preg_replace("/[^0-9]/", "",$post['harga_stnk']),
+              'uang_muka'=>preg_replace("/[^0-9]/", "",$post['uang_muka']),
+              'jangka_bayar'=>trim($post['jangka_bayar']),
+              'angsuran'=>preg_replace("/[^0-9]/", "",$post['angsuran']),
+              'id_surveyor'=>trim($post['id_surveyor'])
             );
             $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
             $pesan = 'Data Pembeli pada Nota '.$ceknota->no_nota_keluar.' Berhasil ditambahkan disimpan';
@@ -537,8 +537,8 @@ class Penjualan extends CI_Controller {
             $getuser = $this->ion_auth->user()->row();
             $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
             $data = array(
-              'jml_bayar'=>$post['jml_bayar'],
-              'jml_di_bayar'=>$post['jml_di_bayar'],
+              'jml_bayar'=>preg_replace("/[^0-9]/", "",$post['jml_bayar']),
+              'jml_di_bayar'=>preg_replace("/[^0-9]/", "",$post['jml_di_bayar']),
               'id_status'=>'1'
             );
             $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
