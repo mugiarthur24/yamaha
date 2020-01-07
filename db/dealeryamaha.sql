@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Jan 2020 pada 10.06
--- Versi server: 10.1.38-MariaDB
--- Versi PHP: 7.1.28
+-- Generation Time: 07 Jan 2020 pada 16.22
+-- Versi Server: 10.1.19-MariaDB
+-- PHP Version: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -105,7 +103,9 @@ CREATE TABLE `groups` (
 
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator'),
-(2, 'members', 'General User');
+(2, 'members', 'General User'),
+(3, 'gudang', 'Gudang'),
+(4, 'cs', 'CS');
 
 -- --------------------------------------------------------
 
@@ -168,8 +168,8 @@ CREATE TABLE `info_pt` (
 --
 
 INSERT INTO `info_pt` (`id_info_pt`, `nama_info_pt`, `kode_pt`, `img_header`, `kontak_1`, `kontak_2`, `kontak_3`, `kontak_4`, `alamat_pt`, `slogan`, `logo_pt`, `logo_kecil_pt`, `header_pt`, `id_status`) VALUES
-(1, 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 'Baubau', 'asd', '(0402)2825960', '(0402)2825961', 'asd', 'asd', 'Jalan Betoambari No 74, Baubau - Sulawesi Tenggara', 'asd', 'logo-dealer-resmi-kendaraan-roda-2-merk-yamaha-20191212-1576118210.png', 'logo.png', 'asd', 1),
-(2, 'Raha Dealer Resmi Kendaraan Roda 2 - Merk Yamaha	', 'Raha', '', '0402 2821424', '0402 2821424', '0402 2821424', '0402 2821424', 'Depan Badan Pemberdayaan Perempuan dan KB Jl Jenderal Gatot Subroto No 82 Raha', 'Tempat Nongkrong Berkualitas', 'logo-raha-dealer-resmi-kendaraan-roda-2-merk-yamaha-20191212-1576118793.png', '', '', 0);
+(1, 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 'Baubau', 'asd', '(0402)2825960', '(0402)2825961', 'asd', 'asd', 'Jalan Betoambari No 74, Baubau - Sulawesi Tenggara', 'asd', 'logo-dealer-resmi-kendaraan-roda-2-merk-yamaha-20191212-1576118210.png', 'logo.png', 'Yance Kongres', 1),
+(2, 'Raha Dealer Resmi Kendaraan Roda 2 - Merk Yamaha	', 'Raha', '', '0402 2821424', '0402 2821424', '0402 2821424', '0402 2821424', 'Depan Badan Pemberdayaan Perempuan dan KB Jl Jenderal Gatot Subroto No 82 Raha', 'Tempat Nongkrong Berkualitas', 'logo-raha-dealer-resmi-kendaraan-roda-2-merk-yamaha-20191212-1576118793.png', '', 'Yance Kongres', 0);
 
 -- --------------------------------------------------------
 
@@ -210,7 +210,9 @@ CREATE TABLE `leasing` (
 --
 
 INSERT INTO `leasing` (`id_leasing`, `nm_leasing`, `kode_leasing`, `ket_leasing`, `area`) VALUES
-(1, 'Mandala', 'B0001', 'Area Baubau', 'Baubau');
+(1, 'Mandala', 'B0001', 'Area Baubau', 'Baubau'),
+(2, 'BAF', 'BAF', 'Kota Baubau', 'Baubau'),
+(3, 'BAF', 'BAF', 'Area Raha', 'Raha');
 
 -- --------------------------------------------------------
 
@@ -261,6 +263,7 @@ CREATE TABLE `nota_keluar` (
   `request_date` varchar(20) DEFAULT NULL,
   `no_pdi` varchar(114) DEFAULT NULL,
   `nm_p_bku_uang` varchar(114) DEFAULT NULL,
+  `nm_stnk` varchar(114) DEFAULT NULL,
   `nm_p_ktp` varchar(114) DEFAULT NULL,
   `tgl_jual` date NOT NULL,
   `harga_jual` int(20) DEFAULT NULL,
@@ -279,6 +282,7 @@ CREATE TABLE `nota_keluar` (
   `kode_pos_p` varchar(20) DEFAULT NULL,
   `tlp_p` varchar(20) DEFAULT NULL,
   `stnk` varchar(50) DEFAULT NULL,
+  `no_polisi` varchar(20) DEFAULT NULL,
   `tgl_reg_stnk` date DEFAULT NULL,
   `harga_stnk` int(20) DEFAULT NULL,
   `id_leasing` int(11) NOT NULL,
@@ -299,10 +303,13 @@ CREATE TABLE `nota_keluar` (
 -- Dumping data untuk tabel `nota_keluar`
 --
 
-INSERT INTO `nota_keluar` (`id_nota_keluar`, `no_nota_keluar`, `id_produk`, `id_info_pt`, `no_mesin`, `no_rangka`, `request_date`, `no_pdi`, `nm_p_bku_uang`, `nm_p_ktp`, `tgl_jual`, `harga_jual`, `no_ktp_p`, `jk_p`, `tgl_lahir_p`, `pekerjaan_p`, `pendidikan_p`, `pengeluaran_p`, `tahun_produk`, `propinsi_p`, `kecamatan_p`, `kelurahan_p`, `alamat_1_p`, `alamat_2_p`, `kode_pos_p`, `tlp_p`, `stnk`, `tgl_reg_stnk`, `harga_stnk`, `id_leasing`, `uang_muka`, `jangka_bayar`, `angsuran`, `outlet`, `id_surveyor`, `id_user`, `qrcode_nk`, `jml_bayar`, `jml_di_bayar`, `id_status`, `id_status_stnk`) VALUES
-(1, 'NP0401200001', 127, 1, 'E3R2E-2406331', 'MH3SE88H0KJ089212', NULL, NULL, NULL, NULL, '2020-01-04', 18000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 1, NULL, 0, 0, 0, 0),
-(2, 'NP0501200002', 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 1, NULL, 0, 0, 0, 0),
-(3, 'NP0601200003', 147, 1, 'E3R2E-2484566', 'MH3SE88H0KJ118491', NULL, NULL, 'Reza Rafiq', 'Reza Rafiq', '2020-01-06', 18000000, '757486586496595', 'L', '1993-12-24', 'Swasta', 'S1', '1000000', NULL, 'Sulawesi Tenggara', 'Batulo', 'Wolio', 'Jalan Sultan Hasanuddin No 26 Batulo', 'Jalan Sultan Hasanuddin No 28 Baubau', '93717', '082395606666', '', '2020-01-06', 0, 0, 5000000, '2 Tahun', 700000, NULL, 'Kemal', 1, NULL, 18000000, 18000000, 1, 0);
+INSERT INTO `nota_keluar` (`id_nota_keluar`, `no_nota_keluar`, `id_produk`, `id_info_pt`, `no_mesin`, `no_rangka`, `request_date`, `no_pdi`, `nm_p_bku_uang`, `nm_stnk`, `nm_p_ktp`, `tgl_jual`, `harga_jual`, `no_ktp_p`, `jk_p`, `tgl_lahir_p`, `pekerjaan_p`, `pendidikan_p`, `pengeluaran_p`, `tahun_produk`, `propinsi_p`, `kecamatan_p`, `kelurahan_p`, `alamat_1_p`, `alamat_2_p`, `kode_pos_p`, `tlp_p`, `stnk`, `no_polisi`, `tgl_reg_stnk`, `harga_stnk`, `id_leasing`, `uang_muka`, `jangka_bayar`, `angsuran`, `outlet`, `id_surveyor`, `id_user`, `qrcode_nk`, `jml_bayar`, `jml_di_bayar`, `id_status`, `id_status_stnk`) VALUES
+(1, 'NP0401200001', 127, 1, 'E3R2E-2406331', 'MH3SE88H0KJ089212', NULL, NULL, NULL, NULL, NULL, '2020-01-04', 18000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 1, NULL, 0, 0, 0, 0),
+(2, 'NP0501200002', 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 1, NULL, 0, 0, 0, 0),
+(3, 'NP0601200003', 147, 1, 'E3R2E-2484566', 'MH3SE88H0KJ118491', NULL, NULL, 'Reza Rafiq', NULL, 'Reza Rafiq', '2020-01-06', 18000000, '757486586496595', 'L', '1993-12-24', 'Swasta', 'S1', '1000000', NULL, 'Sulawesi Tenggara', 'Batulo', 'Wolio', 'Jalan Sultan Hasanuddin No 26 Batulo', 'Jalan Sultan Hasanuddin No 28 Baubau', '93717', '082395606666', '', NULL, '2020-01-06', 0, 0, 5000000, '2 Tahun', 700000, NULL, 'Kemal', 1, NULL, 18000000, 18000000, 1, 0),
+(4, 'NP0601200004', 147, 1, 'E3R2E-2484566', 'MH3SE88H0KJ118491', NULL, NULL, NULL, NULL, NULL, '2020-01-06', 18000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, '2020-01-06', 0, 1, 5000000, '2 tahun', 700000, NULL, 'indah', 1, NULL, 0, 0, 0, 0),
+(5, 'NP0701200005', 146, 1, 'E3R2E-2484562', 'MH3SE88H0KJ118487', NULL, NULL, NULL, NULL, 'IINFAURINA', '2020-01-07', 18000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'JL MAY JEN SUPRAPTO', NULL, NULL, NULL, NULL, 'DT.5284.XY', NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 1, NULL, 18000000, 18000000, 1, 0),
+(6, 'NP0701200006', 66, 2, 'E3R2E-2419352', 'MH3SE88H0KJ094214', NULL, NULL, NULL, NULL, 'NENI IRNAWATI', '2020-01-07', 18000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DUSUN BARUTA NAPABALANO', NULL, NULL, NULL, '', NULL, '2020-01-07', 0, 3, 3400000, '2 THN', 1196000, NULL, 'JERI', 4, NULL, 3400000, 3400000, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -430,7 +437,7 @@ INSERT INTO `produk` (`id_produk`, `id_pm`, `id_brg_pm`, `id_info_pt`, `no_rangk
 (63, 2, 10, 1, 'MH3SE88H0KJ089142', 'E3R2E-2406258', '00857/SE/ZA2701-1039', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'HITAM', 17000000, 18000000, 0, 1),
 (64, 2, 10, 1, 'MH3SE88H0KJ089175', 'E3R2E-2406292', '00872/SE/ZA2701-1039', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'HITAM', 17000000, 18000000, 0, 1),
 (65, 4, 15, 2, 'MH3SE88H0KJ094201', 'E3R2E-2419338', '00730/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'BIRU', 17000000, 18000000, 1, 1),
-(66, 4, 15, 2, 'MH3SE88H0KJ094214', 'E3R2E-2419352', '00731/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'BIRU', 17000000, 18000000, 1, 1),
+(66, 4, 15, 2, 'MH3SE88H0KJ094214', 'E3R2E-2419352', '00731/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '2020-01-07', '125', 'Bensin', 'BIRU', 17000000, 18000000, 1, 2),
 (67, 2, 11, 1, 'MH3SE88H0KJ094215', 'E3R2E-2419353', '00732/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'BIRU', 17000000, 18000000, 0, 1),
 (68, 2, 11, 1, 'MH3SE88H0KJ094222', 'E3R2E-2419339', '00733/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'BIRU', 17000000, 18000000, 0, 1),
 (69, 2, 11, 1, 'MH3SE88H0KJ094229', 'E3R2E-2419364', '00736/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'BIRU', 17000000, 18000000, 0, 1),
@@ -510,7 +517,7 @@ INSERT INTO `produk` (`id_produk`, `id_pm`, `id_brg_pm`, `id_info_pt`, `no_rangk
 (143, 3, 14, 1, 'MH3SE88H0KJ118471', 'E3R2E-2484546', '00802/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'BIRU', 17000000, 18000000, 0, 1),
 (144, 3, 14, 1, 'MH3SE88H0KJ118480', 'E3R2E-2484555', '00804/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'BIRU', 17000000, 18000000, 1, 1),
 (145, 3, 14, 1, 'MH3SE88H0KJ118481', 'E3R2E-2484556', '00805/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'BIRU', 17000000, 18000000, 1, 1),
-(146, 3, 14, 1, 'MH3SE88H0KJ118487', 'E3R2E-2484562', '00807/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'BIRU', 17000000, 18000000, 1, 1),
+(146, 3, 14, 1, 'MH3SE88H0KJ118487', 'E3R2E-2484562', '00807/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '2020-01-07', '125', 'Bensin', 'BIRU', 17000000, 18000000, 1, 2),
 (147, 3, 14, 1, 'MH3SE88H0KJ118491', 'E3R2E-2484566', '00808/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '2020-01-06', '125', 'Bensin', 'BIRU', 17000000, 18000000, 1, 2);
 
 -- --------------------------------------------------------
@@ -679,10 +686,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `repassword`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `jk`, `company`, `id_info_pt`, `phone`, `profile`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$12$QFxx7D9v0OHPtAi3QvMD5eUaGGHstO6tipOQeiO2U6YO09CCQFT8C', '', 'admin@admin.com', NULL, '', NULL, NULL, NULL, 'c17a0e648c1b0c896985608055dadbc873b79c14', '$2y$10$NPlv9yKCt9I/zi8uLntRDeGBt2usPcjS39lYrkJcjTIG294V8KhZ2', 1268889823, 1578294314, 1, 'La Ode Agus Salim Nur', 'istrator', 'L', 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 1, '082343211234', 'default.png'),
+(1, '127.0.0.1', 'administrator', '$2y$12$QFxx7D9v0OHPtAi3QvMD5eUaGGHstO6tipOQeiO2U6YO09CCQFT8C', '', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1578403733, 1, 'La Ode Agus Salim Nur', 'istrator', 'L', 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 1, '082343211234', 'default.png'),
 (2, '::1', '201912122', '$2y$10$d1tsA6D4ZUm1w0vgVv9eLOKXTAk/bPodzTGXpzXdYrJolhvm..84.', 'mandatizamrud2412', 'rezarafiqmz@gmail.com', NULL, NULL, NULL, NULL, NULL, '9b0c10fad0a45a1ff1bda8116541c56c8e07ff01', '$2y$10$mkpAuIM1M43IaHed6WcH4uagctbusLkc0o860Qb7PJ/Wuf/m39TVm', 1576150007, 1576301529, 1, 'Reza Rafiq', '', 'L', 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 1, '082312341234', 'default.png'),
 (3, '::1', '201912123', '$2y$10$II5PSdysl1jb5VUInlmcCuQrtjznHoJcb5qUfO6q94Vsvdo/a3DyC', 'hardina321', 'peserta@unidayan.ac.id', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576150686, NULL, 1, 'Hardina Kaimudin', '', 'P', 'Raha Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 2, '082245126655', 'default.png'),
-(4, '::1', '201912124', '$2y$12$Ml36MPLajwxG5DXbCkhOR.fTf0XI5CFlYk2vd/wQHzp6XOVzi2pZG', 'ali1234', 'raha@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576171050, 1577625143, 1, 'Ali Akbar', '', 'L', 'Raha Dealer Resmi Kendaraan Roda 2 - Merk Yamaha	', 2, '081222224222', 'default.png');
+(4, '::1', '201912124', '$2y$12$Ml36MPLajwxG5DXbCkhOR.fTf0XI5CFlYk2vd/wQHzp6XOVzi2pZG', 'ali1234', 'raha@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576171050, 1578405873, 1, 'Ali Akbar', '', 'L', 'Raha Dealer Resmi Kendaraan Roda 2 - Merk Yamaha	', 2, '081222224222', 'default.png');
 
 -- --------------------------------------------------------
 
@@ -711,109 +718,109 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 --
 
 --
--- Indeks untuk tabel `brg_pk`
+-- Indexes for table `brg_pk`
 --
 ALTER TABLE `brg_pk`
   ADD PRIMARY KEY (`id_brg_pk`);
 
 --
--- Indeks untuk tabel `brg_pm`
+-- Indexes for table `brg_pm`
 --
 ALTER TABLE `brg_pm`
   ADD PRIMARY KEY (`id_brg_pm`);
 
 --
--- Indeks untuk tabel `groups`
+-- Indexes for table `groups`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `histori_harga`
+-- Indexes for table `histori_harga`
 --
 ALTER TABLE `histori_harga`
   ADD PRIMARY KEY (`id_hh`);
 
 --
--- Indeks untuk tabel `info_pt`
+-- Indexes for table `info_pt`
 --
 ALTER TABLE `info_pt`
   ADD PRIMARY KEY (`id_info_pt`);
 
 --
--- Indeks untuk tabel `jenis`
+-- Indexes for table `jenis`
 --
 ALTER TABLE `jenis`
   ADD PRIMARY KEY (`id_jenis`);
 
 --
--- Indeks untuk tabel `leasing`
+-- Indexes for table `leasing`
 --
 ALTER TABLE `leasing`
   ADD PRIMARY KEY (`id_leasing`);
 
 --
--- Indeks untuk tabel `login_attempts`
+-- Indexes for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `merk`
+-- Indexes for table `merk`
 --
 ALTER TABLE `merk`
   ADD PRIMARY KEY (`id_merk`);
 
 --
--- Indeks untuk tabel `nota_keluar`
+-- Indexes for table `nota_keluar`
 --
 ALTER TABLE `nota_keluar`
   ADD PRIMARY KEY (`id_nota_keluar`);
 
 --
--- Indeks untuk tabel `pembeli`
+-- Indexes for table `pembeli`
 --
 ALTER TABLE `pembeli`
   ADD PRIMARY KEY (`id_pembeli`);
 
 --
--- Indeks untuk tabel `produk`
+-- Indexes for table `produk`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`id_produk`);
 
 --
--- Indeks untuk tabel `produkkeluar`
+-- Indexes for table `produkkeluar`
 --
 ALTER TABLE `produkkeluar`
   ADD PRIMARY KEY (`id_pk`);
 
 --
--- Indeks untuk tabel `produkmasuk`
+-- Indexes for table `produkmasuk`
 --
 ALTER TABLE `produkmasuk`
   ADD PRIMARY KEY (`id_pm`);
 
 --
--- Indeks untuk tabel `r_brg_pk`
+-- Indexes for table `r_brg_pk`
 --
 ALTER TABLE `r_brg_pk`
   ADD PRIMARY KEY (`id_r_brg_pk`);
 
 --
--- Indeks untuk tabel `status`
+-- Indexes for table `status`
 --
 ALTER TABLE `status`
   ADD PRIMARY KEY (`id_status`);
 
 --
--- Indeks untuk tabel `type`
+-- Indexes for table `type`
 --
 ALTER TABLE `type`
   ADD PRIMARY KEY (`id_type`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -823,7 +830,7 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `uc_remember_selector` (`remember_selector`);
 
 --
--- Indeks untuk tabel `users_groups`
+-- Indexes for table `users_groups`
 --
 ALTER TABLE `users_groups`
   ADD PRIMARY KEY (`id`),
@@ -832,123 +839,104 @@ ALTER TABLE `users_groups`
   ADD KEY `fk_users_groups_groups1_idx` (`group_id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `brg_pk`
+-- AUTO_INCREMENT for table `brg_pk`
 --
 ALTER TABLE `brg_pk`
   MODIFY `id_brg_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
--- AUTO_INCREMENT untuk tabel `brg_pm`
+-- AUTO_INCREMENT for table `brg_pm`
 --
 ALTER TABLE `brg_pm`
   MODIFY `id_brg_pm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
 --
--- AUTO_INCREMENT untuk tabel `groups`
+-- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT untuk tabel `histori_harga`
+-- AUTO_INCREMENT for table `histori_harga`
 --
 ALTER TABLE `histori_harga`
   MODIFY `id_hh` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
 --
--- AUTO_INCREMENT untuk tabel `info_pt`
+-- AUTO_INCREMENT for table `info_pt`
 --
 ALTER TABLE `info_pt`
   MODIFY `id_info_pt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
--- AUTO_INCREMENT untuk tabel `jenis`
+-- AUTO_INCREMENT for table `jenis`
 --
 ALTER TABLE `jenis`
   MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
--- AUTO_INCREMENT untuk tabel `leasing`
+-- AUTO_INCREMENT for table `leasing`
 --
 ALTER TABLE `leasing`
-  MODIFY `id_leasing` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `id_leasing` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT untuk tabel `login_attempts`
+-- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT untuk tabel `merk`
+-- AUTO_INCREMENT for table `merk`
 --
 ALTER TABLE `merk`
   MODIFY `id_merk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
--- AUTO_INCREMENT untuk tabel `nota_keluar`
+-- AUTO_INCREMENT for table `nota_keluar`
 --
 ALTER TABLE `nota_keluar`
-  MODIFY `id_nota_keluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `id_nota_keluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT untuk tabel `pembeli`
+-- AUTO_INCREMENT for table `pembeli`
 --
 ALTER TABLE `pembeli`
   MODIFY `id_pembeli` int(11) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT untuk tabel `produk`
+-- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
   MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
-
 --
--- AUTO_INCREMENT untuk tabel `produkkeluar`
+-- AUTO_INCREMENT for table `produkkeluar`
 --
 ALTER TABLE `produkkeluar`
   MODIFY `id_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
--- AUTO_INCREMENT untuk tabel `produkmasuk`
+-- AUTO_INCREMENT for table `produkmasuk`
 --
 ALTER TABLE `produkmasuk`
   MODIFY `id_pm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
--- AUTO_INCREMENT untuk tabel `r_brg_pk`
+-- AUTO_INCREMENT for table `r_brg_pk`
 --
 ALTER TABLE `r_brg_pk`
   MODIFY `id_r_brg_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
--- AUTO_INCREMENT untuk tabel `status`
+-- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
   MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
--- AUTO_INCREMENT untuk tabel `type`
+-- AUTO_INCREMENT for table `type`
 --
 ALTER TABLE `type`
   MODIFY `id_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
--- AUTO_INCREMENT untuk tabel `users_groups`
+-- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
@@ -959,7 +947,6 @@ ALTER TABLE `users_groups`
 ALTER TABLE `users_groups`
   ADD CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

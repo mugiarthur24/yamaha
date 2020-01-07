@@ -129,7 +129,7 @@ class Penjualan_m extends CI_Model
 		return $query->row();
 	}
 	public function getleasing($area) {
-		if (!empty($search['area'])) {
+		if (!empty($area)) {
 			$this->db->like('area',$area);
 		}
 		$query = $this->db->get('leasing');

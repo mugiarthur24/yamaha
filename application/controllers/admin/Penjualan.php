@@ -162,6 +162,7 @@ class Penjualan extends CI_Controller {
           $type = $this->Admin_m->select_data('type');
           $dtpt = $this->Admin_m->select_data('info_pt');
           $leasing = $this->Penjualan_m->getleasing($infopt->kode_pt);
+          // echo "<pre>";print_r($leasing);echo "</pre>";exit();
           $detail = $ceknota;
           $data['title'] = 'Tambah Penjualan hari ini, '.date('d F Y',strtotime($hariini));
           $data['infopt'] = $infopt;
@@ -366,7 +367,8 @@ class Penjualan extends CI_Controller {
         if ($ceknota == TRUE) {
           // validasi
           $this->form_validation->set_rules('nm_p_ktp', 'Nama Pembeli Sesuai KTP', 'required|alpha_numeric_spaces');
-          $this->form_validation->set_rules('alamat_1_p', 'Alamat Pertama', 'required|alpha_numeric_spaces');
+          $this->form_validation->set_rules('alamat_1_p', 'Alamat Pertama', 'required');
+          $this->form_validation->set_rules('no_polisi', 'Nomor Polisi', 'required');
           if ($this->form_validation->run() == FALSE){
               $pesan = validation_errors();
               $this->session->set_flashdata('message',$pesan); 
@@ -376,8 +378,9 @@ class Penjualan extends CI_Controller {
             $getuser = $this->ion_auth->user()->row();
             $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
             $data = array(
-              'nm_p_ktp'=>$post['nm_p_ktp'],
-              'alamat_1_p'=>$post['alamat_1_p'],
+              'nm_p_ktp'=>preg_replace("/[^a-zA-Z0-9]/", "",trim($post['nm_p_ktp'])),
+              'alamat_1_p'=>strip_tags($post['alamat_1_p']),
+              'no_polisi'=>strip_tags($post['no_polisi'])
             );
             $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
             $pesan = 'Data Pembeli pada Nota '.$ceknota->no_nota_keluar.' Berhasil ditambahkan disimpan';
@@ -558,6 +561,44 @@ class Penjualan extends CI_Controller {
       redirect(base_url('index.php/login'));
     }
   }
+  public function previewnota($nota){
+    if ($this->ion_auth->logged_in()) {
+      $level = array('admin','members');
+      if (!$this->ion_auth->in_group($level)) {
+        $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/dashboard'));
+      }else{
+        $ceknota = $this->Admin_m->detail_data('nota_keluar','no_nota_keluar',preg_replace("/[^a-zA-Z0-9]/", "",trim($nota)));
+        if ($ceknota == TRUE) {
+          $post = $this->input->post();
+          $getuser = $this->ion_auth->user()->row();
+          $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+          $detail = $ceknota;
+          $getproduk= $this->Penjualan_m->detailproduk($detail->id_produk);
+          $data['title'] = 'Preview Nota Penjualan , '.$ceknota->no_nota_keluar;
+          $data['infopt'] = $infopt;
+          $data['users'] = $getuser;
+          $data['aside'] = 'nav/nav';
+          $data['detail'] = $detail;
+          if ($getproduk == TRUE) {
+            $data['detproduk'] = $getproduk;
+          }else{
+            $data['detproduk'] = FALSE;
+          }
+          $this->load->view('admin/penjualan/preview-v',$data);
+        }else{
+          $pesan = 'Nomor Nota tidak ditemukan, harap periksa kembali nomor nota anda';
+          $this->session->set_flashdata('message',$pesan);
+          redirect(base_url('index.php/admin/penjualan/'));
+        }
+      }
+    }else{
+      $pesan = 'Login terlebih dahulu';
+      $this->session->set_flashdata('message', $pesan );
+      redirect(base_url('index.php/login'));
+    }
+  }
   public function cetaknota($nota){
     if ($this->ion_auth->logged_in()) {
       $level = array('admin','members');
@@ -572,11 +613,23 @@ class Penjualan extends CI_Controller {
           $getuser = $this->ion_auth->user()->row();
           $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
           $detail = $ceknota;
+          $infoptutama = $this->Admin_m->info_pt('1');
+          $getproduk= $this->Penjualan_m->detailproduk($detail->id_produk);
           $data['title'] = 'Cetak Nota Penjualan , '.$ceknota->no_nota_keluar;
           $data['infopt'] = $infopt;
           $data['users'] = $getuser;
           $data['aside'] = 'nav/nav';
-          $this->load->view('admin/penjualan/preview-v',$data);
+          $data['detail'] = $detail;
+          $data['infoptutama'] = $infoptutama;
+          if ($getproduk == TRUE) {
+            $data['detproduk'] = $getproduk;
+          }else{
+            $data['detproduk'] = FALSE;
+          }
+          if ($detail->id_leasing !=='0') {
+            $data['leasing'] = $this->Admin_m->detail_data('leasing','id_leasing',$detail->id_leasing);
+          }
+          $this->load->view('admin/penjualan/cetak-v',$data);
         }else{
           $pesan = 'Nomor Nota tidak ditemukan, harap periksa kembali nomor nota anda';
           $this->session->set_flashdata('message',$pesan);
@@ -589,6 +642,5 @@ class Penjualan extends CI_Controller {
       redirect(base_url('index.php/login'));
     }
   }
-
 }
 ?>

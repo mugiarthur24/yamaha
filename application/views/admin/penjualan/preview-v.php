@@ -60,9 +60,9 @@
                                         <div class="row invoive-info">
                                             <div class="col-md-4 col-xs-12 invoice-client-info">
                                                 <h6>Informasi Pelanggan :</h6>
-                                                <h6 class="m-0">Josephin Villa</h6>
-                                                <p class="m-0 m-t-10">123 6th St. Melbourne, FL 32904 West Chicago, IL 60185</p>
-                                                <p class="m-0">(1234) - 567891</p>
+                                                <h6 class="m-0"><?php echo $detail->nm_p_ktp ?></h6>
+                                                <p class="m-0 m-t-10"><?php echo $detail->alamat_1_p ?></p>
+                                                <p class="m-0"><?php echo $detail->tlp_p ?></p>
                                                 
                                             </div>
                                             <div class="col-md-4 col-sm-6">
@@ -71,27 +71,35 @@
                                                     <tbody>
                                                         <tr>
                                                             <th>Tanggal :</th>
-                                                            <td>November 14</td>
+                                                            <td><?php echo date('d F Y',strtotime($detail->tgl_jual)); ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th>Status :</th>
                                                             <td>
-                                                                <span class="label label-warning">Pending</span>
+                                                                <span><?php if ($detail->id_status =='0'): ?>
+                                                                <span class="pcoded-badge label label-danger">Belum Dibayar</span>
+                                                                <?php else: ?>
+                                                                    <span class="pcoded-badge label label-success">Sudah Dibayar</span>
+                                                                    <?php endif ?></span>
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <th>Id :</th>
+                                                            <th>No Polisi :</th>
                                                             <td>
-                                                                #145698
+                                                                <?php echo $detail->no_polisi ?>
                                                             </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                             <div class="col-md-4 col-sm-6">
-                                                <h6 class="m-b-20">No Nota <span>#12398521473</span></h6>
+                                                <h6 class="m-b-20">No Nota : <span><?php echo $detail->no_nota_keluar; ?></span></h6>
                                                 <h6 class="text-uppercase text-primary">Total :
-                                                    <span>$900.00</span>
+                                                    <?php if ($detail->id_leasing !=='0'): ?>
+                                                        <td><?php echo 'Rp.'.number_format($detail->uang_muka); ?></td>
+                                                    <?php else: ?>
+                                                        <td><?php echo 'Rp.'.number_format($detproduk->hrg_jual); ?></td>
+                                                    <?php endif ?>
                                                 </h6>
                                             </div>
                                         </div>
@@ -101,39 +109,32 @@
                                                     <table class="table  invoice-detail-table">
                                                         <thead>
                                                             <tr class="thead-default">
-                                                                <th>Keterangan</th>
-                                                                <th>Jml</th>
-                                                                <th>Harga</th>
-                                                                <th>Total</th>
+                                                                <th>No Rangka</th>
+                                                                <th>No Mesin</th>
+                                                                <th>Produk</th>
+                                                                <th>Cc</th>
+                                                                <th>Warna</th>
+                                                                <th>Tahun</th>
+                                                                <?php if ($detail->id_leasing !=='0'): ?>
+                                                                    <th>Uang Muka</th>
+                                                                <?php else: ?>
+                                                                   <th>Harga</th> 
+                                                                <?php endif ?>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td>
-                                                                    <h6>Logo Design</h6>
-                                                                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt </p>
-                                                                </td>
-                                                                <td>6</td>
-                                                                <td>$200.00</td>
-                                                                <td>$1200.00</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h6>Logo Design</h6>
-                                                                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt </p>
-                                                                </td>
-                                                                <td>7</td>
-                                                                <td>$100.00</td>
-                                                                <td>$700.00</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h6>Logo Design</h6>
-                                                                    <p>lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt </p>
-                                                                </td>
-                                                                <td>5</td>
-                                                                <td>$150.00</td>
-                                                                <td>$750.00</td>
+                                                                <td><?php echo $detail->no_rangka; ?></td>
+                                                                <td><?php echo $detail->no_mesin; ?></td>
+                                                                <td><?php echo $detproduk->nm_merk.' '.$detproduk->nm_type; ?></td>
+                                                                <td><?php echo $detproduk->cc; ?></td>
+                                                                <td><?php echo $detproduk->warna; ?></td>
+                                                                <td><?php echo $detproduk->thn_produk; ?></td>
+                                                                <?php if ($detail->id_leasing !=='0'): ?>
+                                                                    <td><?php echo 'Rp.'.number_format($detail->uang_muka); ?></td>
+                                                                <?php else: ?>
+                                                                   <td><?php echo 'Rp.'.number_format($detproduk->hrg_jual); ?></td>
+                                                                <?php endif ?>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -144,18 +145,6 @@
                                             <div class="col-sm-12">
                                                 <table class="table table-responsive invoice-table invoice-total">
                                                     <tbody>
-                                                        <tr>
-                                                            <th>Sub Total :</th>
-                                                            <td>$4725.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Pajak (10%) :</th>
-                                                            <td>$57.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Diskon (5%) :</th>
-                                                            <td>$45.00</td>
-                                                        </tr>
                                                         <tr class="text-info">
                                                             <td>
                                                                 <hr>
@@ -163,7 +152,12 @@
                                                             </td>
                                                             <td>
                                                                 <hr>
-                                                                <h5 class="text-primary">$4827.00</h5>
+                                                                <?php if ($detail->id_leasing !=='0'): ?>
+                                                                    <h5 class="text-primary"><?php echo 'Rp.'.number_format($detail->uang_muka); ?></h5>
+                                                                <?php else: ?>
+                                                                   <h5 class="text-primary"><?php echo 'Rp.'.number_format($detproduk->hrg_jual); ?></h5>
+                                                                <?php endif ?>
+                                                                
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -181,7 +175,7 @@
                                 <!-- Invoice card end -->
                                 <div class="row text-center">
                                     <div class="col-sm-12 invoice-btn-group text-center">
-                                        <button type="button" class="btn btn-primary btn-print-invoice m-b-10 btn-sm waves-effect waves-light m-r-20">Print</button>
+                                        <a href="<?php echo base_url('index.php/admin/penjualan/cetaknota/'.$detail->no_nota_keluar) ?>" target="_blank" class="btn btn-primary btn-print-invoice m-b-10 btn-sm waves-effect waves-light m-r-20">Print</a>
                                         <button type="button" class="btn btn-danger waves-effect m-b-10 btn-sm waves-light">Cancel</button>
                                     </div>
                                 </div>
@@ -218,15 +212,6 @@
     <script src="<?php echo base_url('assets/adminty/files/') ?>\assets\js\vartical-layout.min.js"></script>
     <script src="<?php echo base_url('assets/adminty/files/') ?>\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/adminty/files/') ?>\assets\js\script.js"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-23581568-13');
-  </script>
 
 </body>
 </html>

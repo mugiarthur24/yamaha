@@ -94,7 +94,7 @@
 						<tr>
 							<td colspan="6"></td>
 							<td colspan="2">
-								<a href="<?php echo base_url('index.php/admin/penjualan/cetaknota/'.$detail->no_nota_keluar) ?>" class="btn btn-info btn-sm w-100" target="_blank">Cetak Nota Pembelian</a>
+								<a href="<?php echo base_url('index.php/admin/penjualan/previewnota/'.$detail->no_nota_keluar) ?>" class="btn btn-info btn-sm w-100" target="_blank">Cetak Nota Pembelian</a>
 							</td>
 						</tr>
 							<?php if ($detail->id_status =='0'): ?>
@@ -254,6 +254,14 @@
 								<div class="form-group">
 									<label>Alamat 1</label>
 									<input type="text" class="form-control" name="alamat_1_p" placeholder="Alamat 1" value="<?php echo $detail->alamat_1_p ?>">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label>No Polisi</label>
+									<input type="text" class="form-control" name="no_polisi" placeholder="Nomor Polisi" value="<?php echo $detail->no_polisi ?>">
 								</div>
 							</div>
 						</div>
