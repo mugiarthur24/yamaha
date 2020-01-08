@@ -40,7 +40,7 @@
                                                     <table class="table table-responsive invoice-table table-borderless">
                                                         <tbody>
                                                             <tr>
-                                                                <td><img src="<?php echo base_url('assets/img/lembaga/'.$infopt->logo_pt) ?>" class="m-b-10" alt=""></td>
+                                                                <td><img src="<?php echo base_url('assets/img/lembaga/REVS_YOUR_HEART-SEMAKIN_DI_DEPAN.png') ?>" class="m-b-10" alt="" width="120px"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>CV. CITRA SELARAS </br>DEALER RESMI KENDARAAN RODA 2 - MERK YAMAHA</td>

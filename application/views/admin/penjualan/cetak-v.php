@@ -20,12 +20,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 <body onload="window.print();">
-    <table class="">
+    <table class="text-center" align="center">
         <tbody>
             <tr>
-                <td><img src="<?php echo base_url('assets/img/lembaga/'.$infopt->logo_pt) ?>" class="m-b-10" alt=""></td>
-            </tr>
-            <tr>
+                <td rowspan="2"><img src="<?php echo base_url('assets/img/lembaga/REVS_YOUR_HEART-SEMAKIN_DI_DEPAN.png') ?>" class="m-b-10" alt="" width="200px"></td>
                 <td>CV. CITRA SELARAS </br>DEALER RESMI KENDARAAN RODA 2 - MERK YAMAHA</td>
             </tr>
             <tr>
@@ -33,6 +31,7 @@
             </tr>
         </tbody>
     </table>
+    <hr/>
     <table>
         <tr>
             <td class="">No Nota</td>
@@ -129,12 +128,10 @@
   </div>
 <?php if ($detail->id_leasing !=='0'): ?>
     <div class="page-break"></div>
-    <table class="">
+    <table class="text-center" align="center">
         <tbody>
             <tr>
-                <td><img src="<?php echo base_url('assets/img/lembaga/'.$infopt->logo_pt) ?>" class="m-b-10" alt=""></td>
-            </tr>
-            <tr>
+                <td rowspan="2"><img src="<?php echo base_url('assets/img/lembaga/REVS_YOUR_HEART-SEMAKIN_DI_DEPAN.png') ?>" class="m-b-10" alt="" width="200px"></td>
                 <td>CV. CITRA SELARAS </br>DEALER RESMI KENDARAAN RODA 2 - MERK YAMAHA</td>
             </tr>
             <tr>
@@ -142,6 +139,7 @@
             </tr>
         </tbody>
     </table>
+    <hr/>
     <div class="text-center"><h2><u>SURAT PERNYATAAN PENYERAHAN BPBK</u></h2></div>
     <table class="">
         <tbody>
@@ -224,11 +222,195 @@
               <u><b><?php echo $infoptutama->header_pt; ?></b></u>
           </div>
           <div class="text-center">
-              Counter Sales
+              
           </div>
       </div>
   </div>
+  <div class="page-break"></div>
+    <table class="text-center" align="center">
+        <tbody>
+            <tr>
+                <td rowspan="2"><img src="<?php echo base_url('assets/img/lembaga/REVS_YOUR_HEART-SEMAKIN_DI_DEPAN.png') ?>" class="m-b-10" alt="" width="200px"></td>
+                <td>CV. CITRA SELARAS </br>DEALER RESMI KENDARAAN RODA 2 - MERK YAMAHA</td>
+            </tr>
+            <tr>
+                <td>Jl. Betoambari No. 74. Telp. (0402) 2825960 Fax. (0402) 2825961 </br>Baubau - Sulawesi Tenggara</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr/>
+    
+    <div class="col border border-dark">
+        <table width="100%">
+            <tr>
+                <td width="15%">Sudah Terima Dari</td>
+                <td>:</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Jumlah Uang / Terbilang</td>
+                <td>:</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Buat Pembayaran</td>
+                <td>:</td>
+                <td>Uang Muka 1 (Satu) Unit Motor Yamaha :</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    <table>
+                        <tr>
+                <td></td>
+                <td></td>
+                <td>Type</td>
+                <td>:</td>
+                <td><?php echo $detproduk->nm_type; ?></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Tahun</td>
+                <td>:</td>
+                <td><?php echo $detproduk->thn_produk; ?></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Warna</td>
+                <td>:</td>
+                <td><?php echo $detproduk->warna; ?></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>No Rangka</td>
+                <td>:</td>
+                <td><?php echo $detail->no_rangka; ?></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>No Mesin</td>
+                <td>:</td>
+                <td><?php echo $detail->no_mesin; ?></td>
+            </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="row">
+            <div class="col-md-6">
+            <table>
+                <tr>
+                    <td>Terbilang</td>
+                    <td>:</td>
+                    <td><?php echo 'Rp.'.number_format($detail->uang_muka); ?></td>
+                </tr>
+            </table>
+            </div>
+            <div class="col-md-6">
+                <div class="text-center"><?php echo strtoupper($infopt->kode_pt).', '.date('d F Y',strtotime($detail->tgl_jual)); ?></div>
+          <br/><br/><br/>
+          <div class="text-center">
+              <u><b><?php echo $infoptutama->header_pt; ?></b></u>
+          </div>
+          <div class="text-center">
+              
+          </div>
+            </div> 
+        </div>
+    </div> 
+    <br/>
+    <div class="col border border-dark">
+        <table width="100%">
+            <tr>
+                <td width="15%">Sudah Terima Dari</td>
+                <td>:</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Jumlah Uang / Terbilang</td>
+                <td>:</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Buat Pembayaran</td>
+                <td>:</td>
+                <td>Pelunasan 1 (Satu) Unit Motor Yamaha :</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    <table>
+                        <tr>
+                <td></td>
+                <td></td>
+                <td>Type</td>
+                <td>:</td>
+                <td><?php echo $detproduk->nm_type; ?></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Tahun</td>
+                <td>:</td>
+                <td><?php echo $detproduk->thn_produk; ?></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Warna</td>
+                <td>:</td>
+                <td><?php echo $detproduk->warna; ?></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>No Rangka</td>
+                <td>:</td>
+                <td><?php echo $detail->no_rangka; ?></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>No Mesin</td>
+                <td>:</td>
+                <td><?php echo $detail->no_mesin; ?></td>
+            </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="row">
+            <div class="col-md-6">
+            <table>
+                <tr>
+                    <td>Terbilang</td>
+                    <td>:</td>
+                    <td></td>
+                </tr>
+            </table>
+            </div>
+            <div class="col-md-6">
+                <div class="text-center"><?php echo strtoupper($infopt->kode_pt).', '.date('d F Y',strtotime($detail->tgl_jual)); ?></div>
+          <br/><br/><br/>
+          <div class="text-center">
+              <u><b><?php echo $infoptutama->header_pt; ?></b></u>
+          </div>
+          <div class="text-center">
+              
+          </div>
+            </div> 
+        </div>
+        
+    </div> 
+    
 
 <?php endif ?>
+
 </body onload="window.print();">
 </html>
