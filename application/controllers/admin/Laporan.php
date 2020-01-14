@@ -17,7 +17,7 @@ class Laporan extends CI_Controller {
                 redirect(base_url('index.php/dashboard'));
             }else{
                 $post = $this->input->post();
-                $hariini = date('Y-m-d');
+                $tahunini = date('Y');
                 $getuser = $this->ion_auth->user()->row();
                 $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
                 $data['title'] = 'Laporan '.$infopt->nama_info_pt;
@@ -44,6 +44,11 @@ class Laporan extends CI_Controller {
                        }
                        if($this->session->userdata('id_status') != NULL){
                         $post['id_status'] = $this->session->userdata('id_status');
+                       }
+                       if($this->session->userdata('tahun') != NULL){
+                        $post['tahun'] = $this->session->userdata('tahun');
+                       }else{
+                        $post['tahun'] = $tahunini;
                        }
                        $search_text = $post;
                    }
@@ -90,11 +95,12 @@ class Laporan extends CI_Controller {
                 // Initialize
                  $this->pagination->initialize($config);
                   $data['hasil'] = $users_record;
+                  $data['stnktunda'] = $this->Laporan_m->stnk_tunda($search_text);
                   $data['row'] = $rowno;
                   $data['jmldata'] = $allcount;
                   $data['search'] = $search_text;
                   $data['post'] = $search_text;
-                $data['tgl'] = $hariini;
+                $data['tgl'] = $tahunini;
                $data['pagination'] = $this->pagination->create_links();
               $this->load->view('admin/dashboard-v',$data);
           }

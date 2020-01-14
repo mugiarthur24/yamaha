@@ -1,3 +1,89 @@
+<div class="row align-items-end">
+    <div class="col-lg-8">
+        <div class="page-header-title">
+            <div class="d-inline">
+                <h4>Laporan Penjualan Tahun <?php echo $tgl; ?></h4>
+                <span>Daftar Hasil Penjualan per tahun <?php echo $tgl; ?></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4"></div>
+</div>
+<div class="row mt-4">
+	<div class="col-xl-3 col-md-6">
+	    <div class="card bg-c-yellow update-card">
+	        <div class="card-block">
+	            <div class="row align-items-end">
+	                <div class="col-8">
+	                    <h4 class="text-white"><?php echo $jmldata; ?> Trx</h4>
+	                    <h6 class="text-white m-b-0">Trx Penjualan</h6>
+	                </div>
+	                <div class="col-4 text-right">
+	                    <canvas id="update-chart-1" height="50"></canvas>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="card-footer">
+	            <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : 2:15 am</p>
+	        </div>
+	    </div>
+	</div>
+	
+	<div class="col-xl-3 col-md-6">
+	    <div class="card bg-c-pink update-card">
+	        <div class="card-block">
+	            <div class="row align-items-end">
+	                <div class="col-8">
+	                    <h4 class="text-white"><?php echo $stnktunda; ?></h4>
+	                    <h6 class="text-white m-b-0">STNK Blm Selesai</h6>
+	                </div>
+	                <div class="col-4 text-right">
+	                    <canvas id="update-chart-3" height="50"></canvas>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="card-footer">
+	            <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : 2:15 am</p>
+	        </div>
+	    </div>
+	</div>
+	<div class="col-xl-3 col-md-6">
+	    <div class="card bg-c-lite-green update-card">
+	        <div class="card-block">
+	            <div class="row align-items-end">
+	                <div class="col-8">
+	                    <h4 class="text-white">500</h4>
+	                    <h6 class="text-white m-b-0">Bayar Chash</h6>
+	                </div>
+	                <div class="col-4 text-right">
+	                    <canvas id="update-chart-4" height="50"></canvas>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="card-footer">
+	            <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : 2:15 am</p>
+	        </div>
+	    </div>
+	</div>
+	<div class="col-xl-3 col-md-6">
+	    <div class="card bg-c-green update-card">
+	        <div class="card-block">
+	            <div class="row align-items-end">
+	                <div class="col-8">
+	                    <h4 class="text-white">290+</h4>
+	                    <h6 class="text-white m-b-0">Use Leasing</h6>
+	                </div>
+	                <div class="col-4 text-right">
+	                    <canvas id="update-chart-2" height="50"></canvas>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="card-footer">
+	            <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : 2:15 am</p>
+	        </div>
+	    </div>
+	</div>
+</div>
 <div class="card">
 	<div class="card-header">
 		<div class="row">
