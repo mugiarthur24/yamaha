@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 07 Jan 2020 pada 16.22
--- Versi Server: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Waktu pembuatan: 14 Jan 2020 pada 09.26
+-- Versi server: 10.1.38-MariaDB
+-- Versi PHP: 7.1.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -84,6 +86,36 @@ INSERT INTO `brg_pm` (`id_brg_pm`, `id_brg_pk`, `id_pm`, `id_type`, `cc`, `jml_b
 (13, 0, 3, 6, 125, 20, 20, 'HITAM', NULL, 0),
 (14, 0, 3, 6, 125, 20, 20, 'BIRU', NULL, 0),
 (15, 1, 4, 6, 125, 2, 1, 'Biru', '20200104-062343', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `bulan`
+--
+
+CREATE TABLE `bulan` (
+  `id_bulan` int(11) NOT NULL,
+  `nm_bulan` varchar(20) DEFAULT NULL,
+  `kode_bulan` varchar(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `bulan`
+--
+
+INSERT INTO `bulan` (`id_bulan`, `nm_bulan`, `kode_bulan`) VALUES
+(1, 'Januari', '01'),
+(2, 'Februari', '02'),
+(3, 'Maret', '03'),
+(4, 'April', '04'),
+(5, 'Mei', '05'),
+(6, 'Juni', '06'),
+(7, 'Juli', '07'),
+(8, 'Agustus', '08'),
+(9, 'September', '09'),
+(10, 'Oktober', '10'),
+(11, 'November', '11'),
+(12, 'Desember', '12');
 
 -- --------------------------------------------------------
 
@@ -309,7 +341,10 @@ INSERT INTO `nota_keluar` (`id_nota_keluar`, `no_nota_keluar`, `id_produk`, `id_
 (3, 'NP0601200003', 147, 1, 'E3R2E-2484566', 'MH3SE88H0KJ118491', NULL, NULL, 'Reza Rafiq', NULL, 'Reza Rafiq', '2020-01-06', 18000000, '757486586496595', 'L', '1993-12-24', 'Swasta', 'S1', '1000000', NULL, 'Sulawesi Tenggara', 'Batulo', 'Wolio', 'Jalan Sultan Hasanuddin No 26 Batulo', 'Jalan Sultan Hasanuddin No 28 Baubau', '93717', '082395606666', '', NULL, '2020-01-06', 0, 0, 5000000, '2 Tahun', 700000, NULL, 'Kemal', 1, NULL, 18000000, 18000000, 1, 0),
 (4, 'NP0601200004', 147, 1, 'E3R2E-2484566', 'MH3SE88H0KJ118491', NULL, NULL, NULL, NULL, NULL, '2020-01-06', 18000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, '2020-01-06', 0, 1, 5000000, '2 tahun', 700000, NULL, 'indah', 1, NULL, 0, 0, 0, 0),
 (5, 'NP0701200005', 146, 1, 'E3R2E-2484562', 'MH3SE88H0KJ118487', NULL, NULL, NULL, NULL, 'IINFAURINA', '2020-01-07', 18000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'JL MAY JEN SUPRAPTO', NULL, NULL, NULL, NULL, 'DT.5284.XY', NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 1, NULL, 18000000, 18000000, 1, 0),
-(6, 'NP0701200006', 66, 2, 'E3R2E-2419352', 'MH3SE88H0KJ094214', NULL, NULL, NULL, NULL, 'NENI IRNAWATI', '2020-01-07', 18000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DUSUN BARUTA NAPABALANO', NULL, NULL, NULL, '', NULL, '2020-01-07', 0, 3, 3400000, '2 THN', 1196000, NULL, 'JERI', 4, NULL, 3400000, 3400000, 1, 0);
+(6, 'NP0701200006', 66, 2, 'E3R2E-2419352', 'MH3SE88H0KJ094214', NULL, NULL, NULL, NULL, 'NENI IRNAWATI', '2020-01-07', 18000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DUSUN BARUTA NAPABALANO', NULL, NULL, NULL, '', NULL, '2020-01-07', 0, 3, 3400000, '2 THN', 1196000, NULL, 'JERI', 4, NULL, 3400000, 3400000, 1, 0),
+(7, 'NP0701200007', 145, 1, 'E3R2E-2484556', 'MH3SE88H0KJ118481', NULL, NULL, NULL, NULL, 'RezaRafiq', '2019-01-07', 18000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Jalan Sultan Hasanuddin No 26 Batulo', NULL, NULL, NULL, '', 'DT.1234.XY', '2020-01-07', 0, 2, 5000000, '2 Tahun', 700000, NULL, 'Iki', 1, NULL, 5000000, 5000000, 1, 0),
+(8, 'NP1401200008', 144, 1, 'E3R2E-2484555', 'MH3SE88H0KJ118480', NULL, NULL, 'Wa Ode Sitti Hajar', NULL, 'Wa Ode Sitti Hajar', '2020-01-14', 18000000, '757486586496595', 'P', '2000-01-14', 'Swasta', 'S1', '1000000', NULL, 'Sulawesi Tenggara', 'Batulo', 'Wolio', 'Jalan Sultan Hasanuddin No 26 Batulo', 'Jalan Sultan Hasanuddin No 28 Baubau', '93717', '082301238124', NULL, 'DT.1234.XY', NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 1, NULL, 18000000, 18000000, 1, 0),
+(9, 'NP1401200009', 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-14', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 1, NULL, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -515,8 +550,8 @@ INSERT INTO `produk` (`id_produk`, `id_pm`, `id_brg_pm`, `id_info_pt`, `no_rangk
 (141, 3, 14, 1, 'MH3SE88H0KJ118467', 'E3R2E-2484542', '00799/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'BIRU', 17000000, 18000000, 0, 1),
 (142, 3, 14, 1, 'MH3SE88H0KJ118469', 'E3R2E-2484544', '00801/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'BIRU', 17000000, 18000000, 0, 1),
 (143, 3, 14, 1, 'MH3SE88H0KJ118471', 'E3R2E-2484546', '00802/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'BIRU', 17000000, 18000000, 0, 1),
-(144, 3, 14, 1, 'MH3SE88H0KJ118480', 'E3R2E-2484555', '00804/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'BIRU', 17000000, 18000000, 1, 1),
-(145, 3, 14, 1, 'MH3SE88H0KJ118481', 'E3R2E-2484556', '00805/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '0000-00-00', '125', 'Bensin', 'BIRU', 17000000, 18000000, 1, 1),
+(144, 3, 14, 1, 'MH3SE88H0KJ118480', 'E3R2E-2484555', '00804/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '2020-01-14', '125', 'Bensin', 'BIRU', 17000000, 18000000, 1, 2),
+(145, 3, 14, 1, 'MH3SE88H0KJ118481', 'E3R2E-2484556', '00805/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '2020-01-07', '125', 'Bensin', 'BIRU', 17000000, 18000000, 1, 2),
 (146, 3, 14, 1, 'MH3SE88H0KJ118487', 'E3R2E-2484562', '00807/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '2020-01-07', '125', 'Bensin', 'BIRU', 17000000, 18000000, 1, 2),
 (147, 3, 14, 1, 'MH3SE88H0KJ118491', 'E3R2E-2484566', '00808/SE/ZA2701-1059', '', 1, 1, 6, 2019, '2020-01-04', '2020-01-06', '125', 'Bensin', 'BIRU', 17000000, 18000000, 1, 2);
 
@@ -624,6 +659,43 @@ INSERT INTO `status` (`id_status`, `nm_status`, `kode_status`, `ket_status`) VAL
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tahun`
+--
+
+CREATE TABLE `tahun` (
+  `id_tahun` int(11) NOT NULL,
+  `kode_tahun` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tahun`
+--
+
+INSERT INTO `tahun` (`id_tahun`, `kode_tahun`) VALUES
+(1, 2020);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tanggal`
+--
+
+CREATE TABLE `tanggal` (
+  `id_tanggal` int(11) NOT NULL,
+  `kode` date NOT NULL,
+  `total` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tanggal`
+--
+
+INSERT INTO `tanggal` (`id_tanggal`, `kode`, `total`) VALUES
+(1, '2020-01-14', 18000000);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `type`
 --
 
@@ -686,7 +758,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `repassword`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `jk`, `company`, `id_info_pt`, `phone`, `profile`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$12$QFxx7D9v0OHPtAi3QvMD5eUaGGHstO6tipOQeiO2U6YO09CCQFT8C', '', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1578403733, 1, 'La Ode Agus Salim Nur', 'istrator', 'L', 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 1, '082343211234', 'default.png'),
+(1, '127.0.0.1', 'administrator', '$2y$12$QFxx7D9v0OHPtAi3QvMD5eUaGGHstO6tipOQeiO2U6YO09CCQFT8C', '', 'admin@admin.com', NULL, '', NULL, NULL, NULL, '7a534506190a571a814d7900101359fdb9a11b10', '$2y$10$AV3u2q4nFT49UC8O79BJ8uIg89LAN3jCJbcadbsHUt6PNV3lzmKRS', 1268889823, 1578988473, 1, 'La Ode Agus Salim Nur', 'istrator', 'L', 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 1, '082343211234', 'default.png'),
 (2, '::1', '201912122', '$2y$10$d1tsA6D4ZUm1w0vgVv9eLOKXTAk/bPodzTGXpzXdYrJolhvm..84.', 'mandatizamrud2412', 'rezarafiqmz@gmail.com', NULL, NULL, NULL, NULL, NULL, '9b0c10fad0a45a1ff1bda8116541c56c8e07ff01', '$2y$10$mkpAuIM1M43IaHed6WcH4uagctbusLkc0o860Qb7PJ/Wuf/m39TVm', 1576150007, 1576301529, 1, 'Reza Rafiq', '', 'L', 'Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 1, '082312341234', 'default.png'),
 (3, '::1', '201912123', '$2y$10$II5PSdysl1jb5VUInlmcCuQrtjznHoJcb5qUfO6q94Vsvdo/a3DyC', 'hardina321', 'peserta@unidayan.ac.id', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576150686, NULL, 1, 'Hardina Kaimudin', '', 'P', 'Raha Dealer Resmi Kendaraan Roda 2 - Merk Yamaha', 2, '082245126655', 'default.png'),
 (4, '::1', '201912124', '$2y$12$Ml36MPLajwxG5DXbCkhOR.fTf0XI5CFlYk2vd/wQHzp6XOVzi2pZG', 'ali1234', 'raha@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576171050, 1578405873, 1, 'Ali Akbar', '', 'L', 'Raha Dealer Resmi Kendaraan Roda 2 - Merk Yamaha	', 2, '081222224222', 'default.png');
@@ -718,109 +790,127 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 --
 
 --
--- Indexes for table `brg_pk`
+-- Indeks untuk tabel `brg_pk`
 --
 ALTER TABLE `brg_pk`
   ADD PRIMARY KEY (`id_brg_pk`);
 
 --
--- Indexes for table `brg_pm`
+-- Indeks untuk tabel `brg_pm`
 --
 ALTER TABLE `brg_pm`
   ADD PRIMARY KEY (`id_brg_pm`);
 
 --
--- Indexes for table `groups`
+-- Indeks untuk tabel `bulan`
+--
+ALTER TABLE `bulan`
+  ADD PRIMARY KEY (`id_bulan`);
+
+--
+-- Indeks untuk tabel `groups`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `histori_harga`
+-- Indeks untuk tabel `histori_harga`
 --
 ALTER TABLE `histori_harga`
   ADD PRIMARY KEY (`id_hh`);
 
 --
--- Indexes for table `info_pt`
+-- Indeks untuk tabel `info_pt`
 --
 ALTER TABLE `info_pt`
   ADD PRIMARY KEY (`id_info_pt`);
 
 --
--- Indexes for table `jenis`
+-- Indeks untuk tabel `jenis`
 --
 ALTER TABLE `jenis`
   ADD PRIMARY KEY (`id_jenis`);
 
 --
--- Indexes for table `leasing`
+-- Indeks untuk tabel `leasing`
 --
 ALTER TABLE `leasing`
   ADD PRIMARY KEY (`id_leasing`);
 
 --
--- Indexes for table `login_attempts`
+-- Indeks untuk tabel `login_attempts`
 --
 ALTER TABLE `login_attempts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `merk`
+-- Indeks untuk tabel `merk`
 --
 ALTER TABLE `merk`
   ADD PRIMARY KEY (`id_merk`);
 
 --
--- Indexes for table `nota_keluar`
+-- Indeks untuk tabel `nota_keluar`
 --
 ALTER TABLE `nota_keluar`
   ADD PRIMARY KEY (`id_nota_keluar`);
 
 --
--- Indexes for table `pembeli`
+-- Indeks untuk tabel `pembeli`
 --
 ALTER TABLE `pembeli`
   ADD PRIMARY KEY (`id_pembeli`);
 
 --
--- Indexes for table `produk`
+-- Indeks untuk tabel `produk`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`id_produk`);
 
 --
--- Indexes for table `produkkeluar`
+-- Indeks untuk tabel `produkkeluar`
 --
 ALTER TABLE `produkkeluar`
   ADD PRIMARY KEY (`id_pk`);
 
 --
--- Indexes for table `produkmasuk`
+-- Indeks untuk tabel `produkmasuk`
 --
 ALTER TABLE `produkmasuk`
   ADD PRIMARY KEY (`id_pm`);
 
 --
--- Indexes for table `r_brg_pk`
+-- Indeks untuk tabel `r_brg_pk`
 --
 ALTER TABLE `r_brg_pk`
   ADD PRIMARY KEY (`id_r_brg_pk`);
 
 --
--- Indexes for table `status`
+-- Indeks untuk tabel `status`
 --
 ALTER TABLE `status`
   ADD PRIMARY KEY (`id_status`);
 
 --
--- Indexes for table `type`
+-- Indeks untuk tabel `tahun`
+--
+ALTER TABLE `tahun`
+  ADD PRIMARY KEY (`id_tahun`);
+
+--
+-- Indeks untuk tabel `tanggal`
+--
+ALTER TABLE `tanggal`
+  ADD PRIMARY KEY (`id_tanggal`);
+
+--
+-- Indeks untuk tabel `type`
 --
 ALTER TABLE `type`
   ADD PRIMARY KEY (`id_type`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -830,7 +920,7 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `uc_remember_selector` (`remember_selector`);
 
 --
--- Indexes for table `users_groups`
+-- Indeks untuk tabel `users_groups`
 --
 ALTER TABLE `users_groups`
   ADD PRIMARY KEY (`id`),
@@ -839,104 +929,141 @@ ALTER TABLE `users_groups`
   ADD KEY `fk_users_groups_groups1_idx` (`group_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `brg_pk`
+-- AUTO_INCREMENT untuk tabel `brg_pk`
 --
 ALTER TABLE `brg_pk`
   MODIFY `id_brg_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- AUTO_INCREMENT for table `brg_pm`
+-- AUTO_INCREMENT untuk tabel `brg_pm`
 --
 ALTER TABLE `brg_pm`
   MODIFY `id_brg_pm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
 --
--- AUTO_INCREMENT for table `groups`
+-- AUTO_INCREMENT untuk tabel `bulan`
+--
+ALTER TABLE `bulan`
+  MODIFY `id_bulan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT untuk tabel `groups`
 --
 ALTER TABLE `groups`
   MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
--- AUTO_INCREMENT for table `histori_harga`
+-- AUTO_INCREMENT untuk tabel `histori_harga`
 --
 ALTER TABLE `histori_harga`
   MODIFY `id_hh` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
--- AUTO_INCREMENT for table `info_pt`
+-- AUTO_INCREMENT untuk tabel `info_pt`
 --
 ALTER TABLE `info_pt`
   MODIFY `id_info_pt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
--- AUTO_INCREMENT for table `jenis`
+-- AUTO_INCREMENT untuk tabel `jenis`
 --
 ALTER TABLE `jenis`
   MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- AUTO_INCREMENT for table `leasing`
+-- AUTO_INCREMENT untuk tabel `leasing`
 --
 ALTER TABLE `leasing`
   MODIFY `id_leasing` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
--- AUTO_INCREMENT for table `login_attempts`
+-- AUTO_INCREMENT untuk tabel `login_attempts`
 --
 ALTER TABLE `login_attempts`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `merk`
+-- AUTO_INCREMENT untuk tabel `merk`
 --
 ALTER TABLE `merk`
   MODIFY `id_merk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- AUTO_INCREMENT for table `nota_keluar`
+-- AUTO_INCREMENT untuk tabel `nota_keluar`
 --
 ALTER TABLE `nota_keluar`
-  MODIFY `id_nota_keluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_nota_keluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
--- AUTO_INCREMENT for table `pembeli`
+-- AUTO_INCREMENT untuk tabel `pembeli`
 --
 ALTER TABLE `pembeli`
   MODIFY `id_pembeli` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `produk`
+-- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
   MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
+
 --
--- AUTO_INCREMENT for table `produkkeluar`
+-- AUTO_INCREMENT untuk tabel `produkkeluar`
 --
 ALTER TABLE `produkkeluar`
   MODIFY `id_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- AUTO_INCREMENT for table `produkmasuk`
+-- AUTO_INCREMENT untuk tabel `produkmasuk`
 --
 ALTER TABLE `produkmasuk`
   MODIFY `id_pm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
--- AUTO_INCREMENT for table `r_brg_pk`
+-- AUTO_INCREMENT untuk tabel `r_brg_pk`
 --
 ALTER TABLE `r_brg_pk`
   MODIFY `id_r_brg_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
--- AUTO_INCREMENT for table `status`
+-- AUTO_INCREMENT untuk tabel `status`
 --
 ALTER TABLE `status`
   MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
--- AUTO_INCREMENT for table `type`
+-- AUTO_INCREMENT untuk tabel `tahun`
+--
+ALTER TABLE `tahun`
+  MODIFY `id_tahun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `tanggal`
+--
+ALTER TABLE `tanggal`
+  MODIFY `id_tanggal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `type`
 --
 ALTER TABLE `type`
   MODIFY `id_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
--- AUTO_INCREMENT for table `users_groups`
+-- AUTO_INCREMENT untuk tabel `users_groups`
 --
 ALTER TABLE `users_groups`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
@@ -947,6 +1074,7 @@ ALTER TABLE `users_groups`
 ALTER TABLE `users_groups`
   ADD CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
