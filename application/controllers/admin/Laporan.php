@@ -20,7 +20,7 @@ class Laporan extends CI_Controller {
                 $tahunini = date('Y');
                 $getuser = $this->ion_auth->user()->row();
                 $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
-                $alltahun = $this->Admin_m->select_data('tahun');
+                $alltahun = $this->Admin_m->caritahun($getuser->id_info_pt);
                 $dtpt = $this->Admin_m->select_data('info_pt');
                 $data['title'] = 'Laporan '.$infopt->nama_info_pt;
                 $data['brand'] = $infopt->logo_pt;

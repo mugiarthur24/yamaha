@@ -115,6 +115,7 @@ class Penjualan extends CI_Controller {
         $getuser = $this->ion_auth->user()->row();
         $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
         $tahunini = date('Y');
+        $bulanini = date('Y-m');
         $hariini = date('Y-m-d');
         $last = $this->Penjualan_m->lastnota();
         if ($last == TRUE) {
@@ -131,14 +132,19 @@ class Penjualan extends CI_Controller {
           'id_user'=>preg_replace("/[^0-9]/", "",trim($getuser->id)),
         );
         $this->Admin_m->create('nota_keluar',$data);
-        $cekthn = $this->Admin_m->detail_data('tahun','kode_tahun',$tahunini);
+        $cekthn = $this->Admin_m->cektahun($getuser->id_info_pt,$tahunini);
         if ($cektgl == FALSE) {
-          $thndata = array('kode_tahun'=>trim($tahunini));
+          $thndata = array('kode_tahun'=>trim($tahunini),'id_info_pt'=>$getuser->id_info_pt);
           $this->Admin_m->create('tahun',$thndata);
         }
-        $cektgl = $this->Admin_m->detail_data('tanggal','kode',$hariini);
+        $cekbln = $this->Admin_m->cekbulan($getuser->id_info_pt,$bulanini);
+        if ($cekbln == FALSE) {
+          $blndata = array('kode_bulan'=>trim($bulanini),'nm_bulan'=>trim(date('F')),'id_info_pt'=>$getuser->id_info_pt);
+          $this->Admin_m->create('bulan',$blndata);
+        }
+        $cektgl = $this->Admin_m->cektanggal($getuser->id_info_pt,$hariini);
         if ($cektgl == FALSE) {
-          $tgldata = array('kode'=>trim($hariini));
+          $tgldata = array('kode'=>trim($hariini),'id_info_pt'=>$getuser->id_info_pt);
           $this->Admin_m->create('tanggal',$tgldata);
         }
         $pesan = 'Nota Baru Dengan Nomor '.$newkode.' Berhasil dibuat';
@@ -556,7 +562,22 @@ class Penjualan extends CI_Controller {
               'id_status'=>'1'
             );
             $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
-            $cektgl = $this->Admin_m->detail_data('tanggal','kode',$ceknota->tgl_jual);
+            $cekbulan = $this->Admin_m->cekbulan($getuser->id_info_pt,date('Y-m'));
+            if ($cekbulan == TRUE) {
+              $databln = array(
+                'ttl_bulan'=>$cekbulan->ttl_bulan+preg_replace("/[^0-9]/", "",$post['jml_bayar']),
+              );
+              $this->Admin_m->update('bulan','kode_bulan',date('Y-m'),$databln);
+            }else{
+              $databln = array(
+                'kode_bulan'=>date('Y-m'),
+                'id_info_pt'=>$getuser->id_info_pt,
+                'nm_bulan'=>date('F'),
+                'ttl_bulan'=>preg_replace("/[^0-9]/", "",$post['jml_bayar']),
+              );
+              $this->Admin_m->create('bulan',$databln);
+            }
+            $cektgl = $this->Admin_m->cektanggal($getuser->id_info_pt,$ceknota->tgl_jual);
             if ($cektgl == TRUE) {
               $datatgl = array(
                 'total'=>$cektgl->total+preg_replace("/[^0-9]/", "",$post['jml_bayar']),
@@ -565,11 +586,12 @@ class Penjualan extends CI_Controller {
             }else{
               $datatgl = array(
                 'kode'=>$cetaknota->tgl_jual,
-                'total'=>$cektgl->total+preg_replace("/[^0-9]/", "",$post['jml_bayar']),
+                'id_info_pt'=>$getuser->id_info_pt,
+                'total'=>preg_replace("/[^0-9]/", "",$post['jml_bayar']),
               );
               $this->Admin_m->create('tanggal',$datatgl);
             }
-            $pesan = 'Pembayaran pada Nota '.$ceknota->no_nota_keluar.' Berhasil';
+            $pesan = 'Pembayaran pada Nota '.$ceknota->no_nota_keluar.' Telah Berhasil';
             $this->session->set_flashdata('message', $pesan );
             redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
           }

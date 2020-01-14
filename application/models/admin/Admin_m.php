@@ -75,4 +75,37 @@ class Admin_m extends CI_Model
 		$query = $this->db->get('transaksi');
 		return $query->result();
 	}
+	public function cektahun($idpt,$kode){
+		$this->db->where('id_info_pt', $idpt);
+		$this->db->where('kode_tahun', $kode);
+		$query = $this->db->get('tahun');
+		return $query->row();
+	}
+	public function cekbulan($idpt,$kode){
+		$this->db->where('id_info_pt', $idpt);
+		$this->db->where('kode_bulan', $kode);
+		$query = $this->db->get('bulan');
+		return $query->row();
+	}
+	public function cektanggal($idpt,$kode){
+		$this->db->where('id_info_pt', $idpt);
+		$this->db->where('kode', $kode);
+		$query = $this->db->get('tanggal');
+		return $query->row();
+	}
+	public function caritahun($idpt){
+		$this->db->where('id_info_pt', $idpt);
+		$query = $this->db->get('tahun');
+		return $query->result();
+	}
+	public function caribulan($idpt){
+		$this->db->where('id_info_pt', $idpt);
+		$query = $this->db->get('bulan');
+		return $query->result();
+	}
+	public function caritanggal($idpt){
+		$this->db->where('id_info_pt', $idpt);
+		$query = $this->db->get('tanggal');
+		return $query->result();
+	}
 }
