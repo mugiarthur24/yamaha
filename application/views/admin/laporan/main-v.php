@@ -96,7 +96,37 @@
 	<div class="card-body">
 		<form action="<?php echo base_url('index.php/admin/laporan/index/') ?>" method="post">
 			<div class="row">
-				<div class="col-md-11">
+				<div class="col-md-2">
+					<select name="tahun" class="form-control">
+						<?php if (!empty($post['tahun'])): ?>
+							<option value="<?php echo $post['tahun'] ?>">-- <?php echo $post['tahun'] ?> --</option>
+							<option value="">Semua Tahun</option>
+							<?php else: ?>
+								<option value="">Semua Tahun</option>
+							<?php endif ?>
+							<?php foreach ($alltahun as $data): ?>
+								<option value="<?php echo $data->kode_tahun ?>"><?php echo $data->kode_tahun ?></option>
+							<?php endforeach ?>
+						</select>
+						<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
+				</div>
+				<?php if ($users->id_info_pt =='1'): ?>
+					<div class="col-md-3">
+						<select name="id_info_pt" class="form-control">
+							<?php if (!empty($post['id_info_pt'])): ?>
+								<option value="<?php echo $post['id_info_pt'] ?>"><?php echo $this->Admin_m->detail_data('info_pt','id_info_pt',$post['id_info_pt'])->nama_info_pt ?></option>
+								<option value="">Semua Perusahaan</option>
+							<?php else: ?>
+								<option value="">Semua Perusahaan</option>
+							<?php endif ?>
+							<?php foreach ($dtpt as $data): ?>
+								<option value="<?php echo $data->id_info_pt ?>"><?php echo $data->nama_info_pt ?></option>
+							<?php endforeach ?>
+						</select>
+						<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
+					</div>
+				<?php endif ?>
+				<div class="col-md-6">
 					<input type="text" name="no_nota_keluar" class="form-control" placeholder="No / Kode laporan" style="width: 100%" <?php if (!empty($post['no_nota_keluar']) ): ?>
 								value="<?php echo $post['no_nota_keluar'] ?>"
 							<?php endif ?>>
@@ -139,7 +169,7 @@
 							</td>
 							<td>
 								<?php if ($data['nm_p_ktp'] == TRUE): ?>
-									<?php echo $data['nm_p_ktp'].'<br/>'.$data['no_ktp_p']; ?>
+									<?php echo '<b>'.$data['nm_p_ktp'].'</b><br/>'.$data['no_ktp_p']; ?>
 								<?php else: ?>
 									<span class="pcoded-badge label label-warning">Belum di setting</span>
 								<?php endif ?>

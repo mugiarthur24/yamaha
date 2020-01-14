@@ -20,6 +20,8 @@ class Laporan extends CI_Controller {
                 $tahunini = date('Y');
                 $getuser = $this->ion_auth->user()->row();
                 $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+                $alltahun = $this->Admin_m->select_data('tahun');
+                $dtpt = $this->Admin_m->select_data('info_pt');
                 $data['title'] = 'Laporan '.$infopt->nama_info_pt;
                 $data['brand'] = $infopt->logo_pt;
                 $data['infopt'] = $infopt;
@@ -102,6 +104,8 @@ class Laporan extends CI_Controller {
                   $data['jmldata'] = $allcount;
                   $data['search'] = $search_text;
                   $data['post'] = $search_text;
+                  $data['alltahun'] = $alltahun;
+                  $data['dtpt'] = $dtpt;
                 $data['tgl'] = $tahunini;
                $data['pagination'] = $this->pagination->create_links();
               $this->load->view('admin/dashboard-v',$data);
