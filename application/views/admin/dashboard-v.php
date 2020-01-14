@@ -346,10 +346,10 @@
                                     </a>
                                 </li>
                                 <li class=" ">
-                                    <a href="#">
+                                    <a href="<?php echo base_url('index.php/admin/laporan/') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-edit-1"></i></span>
-                                        <span class="pcoded-mtext">Lap. Penjualan</span>
-                                        <span class="pcoded-badge label label-warning">NEW</span>
+                                        <span class="pcoded-mtext">Data Penjualan</span>
+                                        <span class="pcoded-badge label label-warning">All</span>
                                     </a>
                                 </li>                                
                             </ul>
