@@ -114,6 +114,7 @@ class Penjualan extends CI_Controller {
       }else{
         $getuser = $this->ion_auth->user()->row();
         $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+        $tahunini = date('Y');
         $hariini = date('Y-m-d');
         $last = $this->Penjualan_m->lastnota();
         if ($last == TRUE) {
@@ -130,6 +131,16 @@ class Penjualan extends CI_Controller {
           'id_user'=>preg_replace("/[^0-9]/", "",trim($getuser->id)),
         );
         $this->Admin_m->create('nota_keluar',$data);
+        $cekthn = $this->Admin_m->detail_data('tahun','kode_tahun',$tahunini);
+        if ($cektgl == FALSE) {
+          $thndata = array('kode_tahun'=>trim($tahunini));
+          $this->Admin_m->create('tahun',$thndata);
+        }
+        $cektgl = $this->Admin_m->detail_data('tanggal','kode',$hariini);
+        if ($cektgl == FALSE) {
+          $tgldata = array('kode'=>trim($hariini));
+          $this->Admin_m->create('tanggal',$tgldata);
+        }
         $pesan = 'Nota Baru Dengan Nomor '.$newkode.' Berhasil dibuat';
         $this->session->set_flashdata('message', $pesan );
         redirect(base_url('index.php/admin/penjualan/tambah/'.$newkode));
@@ -378,9 +389,9 @@ class Penjualan extends CI_Controller {
             $getuser = $this->ion_auth->user()->row();
             $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
             $data = array(
-              'nm_p_ktp'=>preg_replace("/[^a-zA-Z0-9]/", "",trim($post['nm_p_ktp'])),
-              'alamat_1_p'=>strip_tags($post['alamat_1_p']),
-              'no_polisi'=>strip_tags($post['no_polisi'])
+              'nm_p_ktp'=>trim($post['nm_p_ktp']),
+              'alamat_1_p'=>strip_tags(trim($post['alamat_1_p'])),
+              'no_polisi'=>strip_tags(trim($post['no_polisi']))
             );
             $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
             $pesan = 'Data Pembeli pada Nota '.$ceknota->no_nota_keluar.' Berhasil ditambahkan disimpan';
@@ -545,7 +556,20 @@ class Penjualan extends CI_Controller {
               'id_status'=>'1'
             );
             $this->Admin_m->update('nota_keluar','id_nota_keluar',$ceknota->id_nota_keluar,$data);
-            $pesan = 'Data Pembeli pada Nota '.$ceknota->no_nota_keluar.' Berhasil ditambahkan disimpan';
+            $cektgl = $this->Admin_m->detail_data('tanggal','kode',$ceknota->tgl_jual);
+            if ($cektgl == TRUE) {
+              $datatgl = array(
+                'total'=>$cektgl->total+preg_replace("/[^0-9]/", "",$post['jml_bayar']),
+              );
+              $this->Admin_m->update('tanggal','kode',$ceknota->tgl_jual,$datatgl);
+            }else{
+              $datatgl = array(
+                'kode'=>$cetaknota->tgl_jual,
+                'total'=>$cektgl->total+preg_replace("/[^0-9]/", "",$post['jml_bayar']),
+              );
+              $this->Admin_m->create('tanggal',$datatgl);
+            }
+            $pesan = 'Pembayaran pada Nota '.$ceknota->no_nota_keluar.' Berhasil';
             $this->session->set_flashdata('message', $pesan );
             redirect(base_url('index.php/admin/penjualan/tambah/'.$ceknota->no_nota_keluar));
           }

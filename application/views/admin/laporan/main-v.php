@@ -34,7 +34,7 @@
 	        <div class="card-block">
 	            <div class="row align-items-end">
 	                <div class="col-8">
-	                    <h4 class="text-white"><?php echo $stnktunda; ?></h4>
+	                    <h4 class="text-white"><?php echo $stnktunda; ?> Trx</h4>
 	                    <h6 class="text-white m-b-0">STNK Blm Selesai</h6>
 	                </div>
 	                <div class="col-4 text-right">
@@ -52,8 +52,8 @@
 	        <div class="card-block">
 	            <div class="row align-items-end">
 	                <div class="col-8">
-	                    <h4 class="text-white">500</h4>
-	                    <h6 class="text-white m-b-0">Bayar Chash</h6>
+	                    <h4 class="text-white"><?php echo $ttlleasing; ?> Trx</h4>
+	                    <h6 class="text-white m-b-0">Use Leasing</h6>
 	                </div>
 	                <div class="col-4 text-right">
 	                    <canvas id="update-chart-4" height="50"></canvas>
@@ -70,8 +70,8 @@
 	        <div class="card-block">
 	            <div class="row align-items-end">
 	                <div class="col-8">
-	                    <h4 class="text-white">290+</h4>
-	                    <h6 class="text-white m-b-0">Use Leasing</h6>
+	                    <h4 class="text-white"><?php echo $ttlchash; ?> Trx</h4>
+	                    <h6 class="text-white m-b-0">Bayar Chash</h6>
 	                </div>
 	                <div class="col-4 text-right">
 	                    <canvas id="update-chart-2" height="50"></canvas>
