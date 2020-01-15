@@ -309,6 +309,33 @@
                                 </li>
                                 
                             </ul>
+                            <div class="pcoded-navigatio-lavel">Counter</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li>
+                                    <a href="<?php echo base_url('index.php/admin/penjualan') ?>">
+                                        <span class="pcoded-micon"><i class="feather icon-credit-card"></i></span>
+                                        <span class="pcoded-mtext">Penjualan</span>
+                                    </a>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="#">
+                                        <span class="pcoded-micon"><i class="feather icon-box"></i></span>
+                                        <span class="pcoded-mtext">Data Penjualan</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class=" ">
+                                            <a href="<?php echo base_url('index.php/admin/laporan/hariini/') ?>">
+                                                <span class="pcoded-mtext">Hari Ini</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="<?php echo base_url('index.php/admin/laporan/') ?>">
+                                                <span class="pcoded-mtext">Tahunan</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                             <div class="pcoded-navigatio-lavel">Gudang & DPI</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li>
@@ -344,23 +371,7 @@
                                         <span class="pcoded-micon"><i class="feather icon-clipboard"></i></span>
                                         <span class="pcoded-mtext">BPKB dan STNK</span>
                                     </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="<?php echo base_url('index.php/admin/laporan/') ?>">
-                                        <span class="pcoded-micon"><i class="feather icon-edit-1"></i></span>
-                                        <span class="pcoded-mtext">Data Penjualan</span>
-                                        <span class="pcoded-badge label label-warning">All</span>
-                                    </a>
-                                </li>                                
-                            </ul>
-                            <div class="pcoded-navigatio-lavel">Counter</div>
-                            <ul class="pcoded-item pcoded-left-item">
-                                <li>
-                                    <a href="<?php echo base_url('index.php/admin/penjualan') ?>">
-                                        <span class="pcoded-micon"><i class="feather icon-credit-card"></i></span>
-                                        <span class="pcoded-mtext">Penjualan</span>
-                                    </a>
-                                </li>
+                                </li>                              
                             </ul>
                             <div class="pcoded-navigatio-lavel">Master</div>
                             <ul class="pcoded-item pcoded-left-item">

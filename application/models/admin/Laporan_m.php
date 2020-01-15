@@ -282,4 +282,24 @@ class Laporan_m extends CI_Model
 		$result = $query->result_array();
 		return $result[0]['allcount'];
 	}
+	// Fetch records
+	public function getDatatoday($date,$idinfopt) {
+		$this->db->from('nota_keluar');
+		$this->db->where('tgl_jual',$date);
+		$this->db->where('id_info_pt',$idinfopt);
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+	// Select total records
+	public function getrecordtoday($date,$idinfopt) {
+		$this->db->select('count(*) as allcount,nota_keluar.*');
+		$this->db->from('nota_keluar');
+		$this->db->where('tgl_jual',$date);
+		$this->db->where('id_info_pt',$idinfopt);
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
 }

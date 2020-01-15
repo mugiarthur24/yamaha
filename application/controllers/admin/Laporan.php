@@ -116,5 +116,49 @@ class Laporan extends CI_Controller {
           redirect(base_url('index.php/login'));
       }
     }
+    public function hariini($rowno=0){
+      if ($this->ion_auth->logged_in()) {
+        $level = array('admin');
+        if (!$this->ion_auth->in_group($level)) {
+          $pesan = 'Anda tidak memiliki Hak untuk Mengakses halaman ini';
+          $this->session->set_flashdata('message', $pesan );
+          redirect(base_url('index.php/dashboard'));
+        }else{
+          $this->load->model('admin/Penjualan_m');
+          $post = $this->input->post();
+          $hariini = date('Y-m-d');
+          $getuser = $this->ion_auth->user()->row();
+          $infopt = $this->Admin_m->info_pt($getuser->id_info_pt);
+          $jenis = $this->Admin_m->select_data('jenis');
+          $merk = $this->Admin_m->select_data('merk');
+          $type = $this->Admin_m->select_data('type');
+          $dtpt = $this->Admin_m->select_data('info_pt');
+          $data['title'] = 'Laporan Penjualan Harian '.$infopt->nama_info_pt;
+          $data['brand'] = $infopt->logo_pt;
+          $data['infopt'] = $infopt;
+          $data['users'] = $getuser;
+          $data['aside'] = 'nav/nav';
+          $data['detail'] = $getuser;
+          $data['jenis'] = $jenis;
+          $data['merk'] = $merk;
+          $data['type'] = $type;
+          $data['dtpt'] = $dtpt;
+          $data['page'] = 'admin/laporan/hariini-v';
+                // All records count
+          $allcount = $this->Laporan_m->getrecordtoday($hariini,$getuser->id_info_pt);
+                // Get records
+          $users_record = $this->Laporan_m->getDatatoday($hariini,$getuser->id_info_pt);
+          $data['hasil'] = $users_record;
+          $data['row'] = $rowno;
+          $data['jmldata'] = $allcount;
+          $data['tgl'] = $hariini;
+          $this->load->view('admin/dashboard-v',$data);
+        }
+      }else{
+        $pesan = 'Login terlebih dahulu';
+        $this->session->set_flashdata('message', $pesan );
+        redirect(base_url('index.php/login'));
+      }
+    }
 }
 ?>
