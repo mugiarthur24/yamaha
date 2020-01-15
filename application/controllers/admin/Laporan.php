@@ -148,9 +148,11 @@ class Laporan extends CI_Controller {
           $allcount = $this->Laporan_m->getrecordtoday($hariini,$getuser->id_info_pt);
                 // Get records
           $users_record = $this->Laporan_m->getDatatoday($hariini,$getuser->id_info_pt);
+          $produk_record = $this->Laporan_m->getprodukterjual($hariini,$getuser->id_info_pt);
           $data['hasil'] = $users_record;
           $data['row'] = $rowno;
           $data['jmldata'] = $allcount;
+          $data['produk'] = $produk_record;
           $data['tgl'] = $hariini;
           $this->load->view('admin/dashboard-v',$data);
         }

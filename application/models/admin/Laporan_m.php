@@ -302,4 +302,15 @@ class Laporan_m extends CI_Model
 		$result = $query->result_array();
 		return $result[0]['allcount'];
 	}
+	public function getprodukterjual($date,$idinfopt) {
+		$this->db->select('COUNT(produk.id_type) as total,type.nm_type,nota_keluar.*');
+		$this->db->join('produk', 'produk.id_produk = nota_keluar.id_produk');
+		$this->db->join('type', 'type.id_type = produk.id_type');
+		$this->db->where('nota_keluar.tgl_jual',$date);
+		$this->db->where('nota_keluar.id_info_pt',$idinfopt);
+		$this->db->where_not_in('nota_keluar.id_produk','0');
+		$this->db->group_by('produk.id_type');
+		$query = $this->db->get('nota_keluar');
+		return $query->result();
+	}
 }
