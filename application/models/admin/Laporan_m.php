@@ -52,7 +52,7 @@ class Laporan_m extends CI_Model
 			$this->db->where('id_status',$search['id_status']);
 		}
 		if (!empty($search['id_info_pt'])) {
-			$this->db->where('id_info_pt',$$search['id_info_pt']);
+			$this->db->where('id_info_pt',$search['id_info_pt']);
 		}
 		if (!empty($search['tahun'])) {
 			$this->db->like('tgl_jual',$search['tahun']);
@@ -221,8 +221,31 @@ class Laporan_m extends CI_Model
 			$this->db->where('id_status',$search['id_status']);
 		}
 		if (!empty($search['id_info_pt'])) {
-			$this->db->where('id_info_pt',$$search['id_info_pt']);
+			$this->db->where('id_info_pt',$search['id_info_pt']);
 		}
+		if (!empty($search['tahun'])) {
+			$this->db->like('tgl_jual',$search['tahun']);
+		}
+		$this->db->where('nota_keluar.id_status_stnk','0');
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+	public function stnk_tunda_pt($idpt,$search) {
+		$this->db->select('count(*) as allcount');
+		$this->db->from('nota_keluar');		
+		if (!empty($search['no_nota_keluar'])) {
+			$this->db->where('no_nota_keluar',$search['no_nota_keluar']);
+		}
+		if (!empty($search['nama'])) {
+			$this->db->like('nm_p_ktp',$search['nama']);
+			$this->db->or_like('no_ktp_p',$search['nama']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('id_status',$search['id_status']);
+		}
+		$this->db->where('id_info_pt',$idpt);
 		if (!empty($search['tahun'])) {
 			$this->db->like('tgl_jual',$search['tahun']);
 		}
@@ -246,8 +269,31 @@ class Laporan_m extends CI_Model
 			$this->db->where('id_status',$search['id_status']);
 		}
 		if (!empty($search['id_info_pt'])) {
-			$this->db->where('id_info_pt',$$search['id_info_pt']);
+			$this->db->where('id_info_pt',$search['id_info_pt']);
 		}
+		if (!empty($search['tahun'])) {
+			$this->db->like('tgl_jual',$search['tahun']);
+		}
+		$this->db->where('nota_keluar.id_leasing','0');
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+	public function byr_cash_pt($idpt,$search) {
+		$this->db->select('count(*) as allcount');
+		$this->db->from('nota_keluar');		
+		if (!empty($search['no_nota_keluar'])) {
+			$this->db->where('no_nota_keluar',$search['no_nota_keluar']);
+		}
+		if (!empty($search['nama'])) {
+			$this->db->like('nm_p_ktp',$search['nama']);
+			$this->db->or_like('no_ktp_p',$search['nama']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('id_status',$search['id_status']);
+		}
+		$this->db->where('id_info_pt',$idpt);
 		if (!empty($search['tahun'])) {
 			$this->db->like('tgl_jual',$search['tahun']);
 		}
@@ -271,8 +317,31 @@ class Laporan_m extends CI_Model
 			$this->db->where('id_status',$search['id_status']);
 		}
 		if (!empty($search['id_info_pt'])) {
-			$this->db->where('id_info_pt',$$search['id_info_pt']);
+			$this->db->where('id_info_pt',$search['id_info_pt']);
 		}
+		if (!empty($search['tahun'])) {
+			$this->db->like('tgl_jual',$search['tahun']);
+		}
+		$this->db->where_not_in('nota_keluar.id_leasing','0');
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+	public function byr_leasing_pt($idpt,$search) {
+		$this->db->select('count(*) as allcount');
+		$this->db->from('nota_keluar');		
+		if (!empty($search['no_nota_keluar'])) {
+			$this->db->where('no_nota_keluar',$search['no_nota_keluar']);
+		}
+		if (!empty($search['nama'])) {
+			$this->db->like('nm_p_ktp',$search['nama']);
+			$this->db->or_like('no_ktp_p',$search['nama']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('id_status',$search['id_status']);
+		}
+		$this->db->where('id_info_pt',$idpt);
 		if (!empty($search['tahun'])) {
 			$this->db->like('tgl_jual',$search['tahun']);
 		}

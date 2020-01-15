@@ -97,9 +97,15 @@ class Laporan extends CI_Controller {
                 // Initialize
                  $this->pagination->initialize($config);
                   $data['hasil'] = $users_record;
-                  $data['stnktunda'] = $this->Laporan_m->stnk_tunda($search_text);
-                  $data['ttlchash'] = $this->Laporan_m->byr_cash($search_text);
-                  $data['ttlleasing'] = $this->Laporan_m->byr_leasing($search_text);
+                  if ($getuser->id_info_pt !=='1') {
+                    $data['stnktunda'] = $this->Laporan_m->stnk_tunda_pt($getuser->id_info_pt,$search_text);
+                    $data['ttlchash'] = $this->Laporan_m->byr_cash_pt($getuser->id_info_pt,$search_text);
+                    $data['ttlleasing'] = $this->Laporan_m->byr_leasing_pt($getuser->id_info_pt,$search_text);
+                  }else{
+                    $data['stnktunda'] = $this->Laporan_m->stnk_tunda($search_text);
+                    $data['ttlchash'] = $this->Laporan_m->byr_cash($search_text);
+                    $data['ttlleasing'] = $this->Laporan_m->byr_leasing($search_text);
+                  }
                   $data['row'] = $rowno;
                   $data['jmldata'] = $allcount;
                   $data['search'] = $search_text;
