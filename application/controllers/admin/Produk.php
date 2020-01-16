@@ -74,7 +74,7 @@ class Produk extends CI_Controller {
                     $users_record = $this->Produk_m->getDataid($getuser->id_info_pt,$rowno,$rowperpage,$search_text);
                 }
                 // Pagination Configuration
-                 $config['base_url'] = base_url().'index.php/admin/produk';
+                 $config['base_url'] = base_url().'index.php/admin/produk/index/';
                  $config['use_page_numbers'] = TRUE;
                  $config['total_rows'] = $allcount;
                  $config['per_page'] = $rowperpage;

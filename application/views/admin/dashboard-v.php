@@ -328,6 +328,11 @@
                                                 <span class="pcoded-mtext">Hari Ini</span>
                                             </a>
                                         </li>
+                                        <li class=" ">
+                                            <a href="<?php echo base_url('index.php/admin/laporan/bulanan/') ?>">
+                                                <span class="pcoded-mtext">Bulanan</span>
+                                            </a>
+                                        </li>
                                         <li class="">
                                             <a href="<?php echo base_url('index.php/admin/laporan/') ?>">
                                                 <span class="pcoded-mtext">Tahunan</span>

@@ -382,4 +382,242 @@ class Laporan_m extends CI_Model
 		$query = $this->db->get('nota_keluar');
 		return $query->result();
 	}
+	// Fetch records
+	public function getDatabulanan($rowno,$rowperpage,$search) {
+		$this->db->from('nota_keluar');
+		if (!empty($search['no_nota_keluar'])) {
+			$this->db->where('no_nota_keluar',$search['no_nota_keluar']);
+		}
+		if (!empty($search['nama'])) {
+			$this->db->like('nm_p_ktp',$search['nama']);
+			$this->db->or_like('no_ktp_p',$search['nama']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('id_status',$search['id_status']);
+		}
+		if (!empty($search['id_info_pt'])) {
+			$this->db->where('id_info_pt',$search['id_info_pt']);
+		}
+		if (!empty($search['tgl_awal']) && !empty($search['tgl_akhir'])) {
+			$this->db->where('tgl_jual BETWEEN "'. date('Y-m-d', strtotime($search['tgl_awal'])). '" and "'. date('Y-m-d', strtotime($search['tgl_akhir'])).'"');
+		}
+		$this->db->limit($rowperpage, $rowno);
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+	// Select total records
+	public function getrecordCountbulanan($search) {
+		$this->db->select('count(*) as allcount,nota_keluar.*');
+		$this->db->from('nota_keluar');
+		if (!empty($search['no_nota_keluar'])) {
+			$this->db->where('no_nota_keluar',$search['no_nota_keluar']);
+		}
+		if (!empty($search['nama'])) {
+			$this->db->like('nm_p_ktp',$search['nama']);
+			$this->db->or_like('no_ktp_p',$search['nama']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('id_status',$search['id_status']);
+		}
+		if (!empty($search['id_info_pt'])) {
+			$this->db->where('id_info_pt',$search['id_info_pt']);
+		}
+		if (!empty($search['tgl_awal']) && !empty($search['tgl_akhir'])) {
+			$this->db->where('tgl_jual BETWEEN "'. date('Y-m-d', strtotime($search['tgl_awal'])). '" and "'. date('Y-m-d', strtotime($search['tgl_akhir'])).'"');
+		}
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+	// Fetch records
+	public function getDataidbulanan($idinfopt,$rowno,$rowperpage,$search) {
+		$this->db->from('nota_keluar');
+		if (!empty($search['no_nota_keluar'])) {
+			$this->db->where('no_nota_keluar',$search['no_nota_keluar']);
+		}
+		if (!empty($search['nama'])) {
+			$this->db->like('nm_p_ktp',$search['nama']);
+			$this->db->or_like('no_ktp_p',$search['nama']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('id_status',$search['id_status']);
+		}
+		if (!empty($search['tgl_awal']) && !empty($search['tgl_akhir'])) {
+			$this->db->where('tgl_jual BETWEEN "'. date('Y-m-d', strtotime($search['tgl_awal'])). '" and "'. date('Y-m-d', strtotime($search['tgl_akhir'])).'"');
+		}
+		$this->db->where('id_info_pt',$idinfopt);
+		$this->db->limit($rowperpage, $rowno);
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+	// Select total records
+	public function getrecordCountidbulanan($idinfopt,$search) {
+		$this->db->select('count(*) as allcount,nota_keluar.*');
+		$this->db->from('nota_keluar');
+		if (!empty($search['no_nota_keluar'])) {
+			$this->db->where('no_nota_keluar',$search['no_nota_keluar']);
+		}
+		if (!empty($search['nama'])) {
+			$this->db->like('nm_p_ktp',$search['nama']);
+			$this->db->or_like('no_ktp_p',$search['nama']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('id_status',$search['id_status']);
+		}
+		if (!empty($search['tgl_awal']) && !empty($search['tgl_akhir'])) {
+			$this->db->where('tgl_jual BETWEEN "'. date('Y-m-d', strtotime($search['tgl_awal'])). '" and "'. date('Y-m-d', strtotime($search['tgl_akhir'])).'"');
+		}
+		$this->db->where('id_info_pt',$idinfopt);
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+	public function stnk_tunda_bulanan($search) {
+		$this->db->select('count(*) as allcount');
+		$this->db->from('nota_keluar');		
+		if (!empty($search['no_nota_keluar'])) {
+			$this->db->where('no_nota_keluar',$search['no_nota_keluar']);
+		}
+		if (!empty($search['nama'])) {
+			$this->db->like('nm_p_ktp',$search['nama']);
+			$this->db->or_like('no_ktp_p',$search['nama']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('id_status',$search['id_status']);
+		}
+		if (!empty($search['id_info_pt'])) {
+			$this->db->where('id_info_pt',$search['id_info_pt']);
+		}
+		if (!empty($search['tgl_awal']) && !empty($search['tgl_akhir'])) {
+			$this->db->where('tgl_jual BETWEEN "'. date('Y-m-d', strtotime($search['tgl_awal'])). '" and "'. date('Y-m-d', strtotime($search['tgl_akhir'])).'"');
+		}
+		$this->db->where('nota_keluar.id_status_stnk','0');
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+	public function stnk_tunda_pt_bulanan($idpt,$search) {
+		$this->db->select('count(*) as allcount');
+		$this->db->from('nota_keluar');		
+		if (!empty($search['no_nota_keluar'])) {
+			$this->db->where('no_nota_keluar',$search['no_nota_keluar']);
+		}
+		if (!empty($search['nama'])) {
+			$this->db->like('nm_p_ktp',$search['nama']);
+			$this->db->or_like('no_ktp_p',$search['nama']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('id_status',$search['id_status']);
+		}
+		$this->db->where('id_info_pt',$idpt);
+		if (!empty($search['tgl_awal']) && !empty($search['tgl_akhir'])) {
+			$this->db->where('tgl_jual BETWEEN "'. date('Y-m-d', strtotime($search['tgl_awal'])). '" and "'. date('Y-m-d', strtotime($search['tgl_akhir'])).'"');
+		}
+		$this->db->where('nota_keluar.id_status_stnk','0');
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+	public function byr_cash_bulanan($search) {
+		$this->db->select('count(*) as allcount');
+		$this->db->from('nota_keluar');		
+		if (!empty($search['no_nota_keluar'])) {
+			$this->db->where('no_nota_keluar',$search['no_nota_keluar']);
+		}
+		if (!empty($search['nama'])) {
+			$this->db->like('nm_p_ktp',$search['nama']);
+			$this->db->or_like('no_ktp_p',$search['nama']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('id_status',$search['id_status']);
+		}
+		if (!empty($search['id_info_pt'])) {
+			$this->db->where('id_info_pt',$search['id_info_pt']);
+		}
+		if (!empty($search['tgl_awal']) && !empty($search['tgl_akhir'])) {
+			$this->db->where('tgl_jual BETWEEN "'. date('Y-m-d', strtotime($search['tgl_awal'])). '" and "'. date('Y-m-d', strtotime($search['tgl_akhir'])).'"');
+		}
+		$this->db->where('nota_keluar.id_leasing','0');
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+	public function byr_cash_pt_bulanan($idpt,$search) {
+		$this->db->select('count(*) as allcount');
+		$this->db->from('nota_keluar');		
+		if (!empty($search['no_nota_keluar'])) {
+			$this->db->where('no_nota_keluar',$search['no_nota_keluar']);
+		}
+		if (!empty($search['nama'])) {
+			$this->db->like('nm_p_ktp',$search['nama']);
+			$this->db->or_like('no_ktp_p',$search['nama']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('id_status',$search['id_status']);
+		}
+		$this->db->where('id_info_pt',$idpt);
+		if (!empty($search['tgl_awal']) && !empty($search['tgl_akhir'])) {
+			$this->db->where('tgl_jual BETWEEN "'. date('Y-m-d', strtotime($search['tgl_awal'])). '" and "'. date('Y-m-d', strtotime($search['tgl_akhir'])).'"');
+		}
+		$this->db->where('nota_keluar.id_leasing','0');
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+	public function byr_leasing_bulanan($search) {
+		$this->db->select('count(*) as allcount');
+		$this->db->from('nota_keluar');		
+		if (!empty($search['no_nota_keluar'])) {
+			$this->db->where('no_nota_keluar',$search['no_nota_keluar']);
+		}
+		if (!empty($search['nama'])) {
+			$this->db->like('nm_p_ktp',$search['nama']);
+			$this->db->or_like('no_ktp_p',$search['nama']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('id_status',$search['id_status']);
+		}
+		if (!empty($search['id_info_pt'])) {
+			$this->db->where('id_info_pt',$search['id_info_pt']);
+		}
+		if (!empty($search['tgl_awal']) && !empty($search['tgl_akhir'])) {
+			$this->db->where('tgl_jual BETWEEN "'. date('Y-m-d', strtotime($search['tgl_awal'])). '" and "'. date('Y-m-d', strtotime($search['tgl_akhir'])).'"');
+		}
+		$this->db->where_not_in('nota_keluar.id_leasing','0');
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
+	public function byr_leasing_pt_bulanan($idpt,$search) {
+		$this->db->select('count(*) as allcount');
+		$this->db->from('nota_keluar');		
+		if (!empty($search['no_nota_keluar'])) {
+			$this->db->where('no_nota_keluar',$search['no_nota_keluar']);
+		}
+		if (!empty($search['nama'])) {
+			$this->db->like('nm_p_ktp',$search['nama']);
+			$this->db->or_like('no_ktp_p',$search['nama']);
+		}
+		if (!empty($search['id_status'])) {
+			$this->db->where('id_status',$search['id_status']);
+		}
+		$this->db->where('id_info_pt',$idpt);
+		if (!empty($search['tgl_awal']) && !empty($search['tgl_akhir'])) {
+			$this->db->where('tgl_jual BETWEEN "'. date('Y-m-d', strtotime($search['tgl_awal'])). '" and "'. date('Y-m-d', strtotime($search['tgl_akhir'])).'"');
+		}
+		$this->db->where_not_in('nota_keluar.id_leasing','0');
+		$this->db->order_by('id_nota_keluar','desc');
+		$query = $this->db->get();
+		$result = $query->result_array();
+		return $result[0]['allcount'];
+	}
 }
