@@ -413,7 +413,7 @@
                                 <li>
                                     <a href="<?php echo base_url('index.php/admin/setting/') ?>">
                                         <span class="pcoded-micon"><i class="feather icon-unlock"></i></span>
-                                        <span class="pcoded-mtext">Data Perusahaan</span>
+                                        <span class="pcoded-mtext">Data Outlet</span>
                                     </a>
                                     
                                 </li>
