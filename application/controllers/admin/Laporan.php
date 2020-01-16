@@ -214,11 +214,6 @@ class Laporan extends CI_Controller {
                        if($this->session->userdata('id_status') != NULL){
                         $post['id_status'] = $this->session->userdata('id_status');
                        }
-                       if($this->session->userdata('tahun') != NULL){
-                        $post['tahun'] = $this->session->userdata('tahun');
-                       }else{
-                        $post['tahun'] = $tahunini;
-                       }
                        $search_text = $post;
                    }
                    // Row per page

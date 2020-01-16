@@ -2,8 +2,13 @@
     <div class="col-lg-8">
         <div class="page-header-title">
             <div class="d-inline">
-                <h4>Laporan Penjualan Tahun <?php echo $tgl; ?></h4>
-                <span>Daftar Hasil Penjualan per tahun <?php echo $tgl; ?></span>
+            	<?php if (!empty($post['tgl_awal']) && !empty($post['tgl_akhir'])): ?>
+            		<h4>Laporan Penjualan Bulanan dari <?php echo date('d F Y',strtotime($post['tgl_awal'])).' Sampai '.date('d F Y',strtotime($post['tgl_akhir'])); ?></h4>
+	                <span>Daftar Hasil Penjualan per Bulan dari <?php echo date('d F Y',strtotime($post['tgl_awal'])).' Sampai '.date('d F Y',strtotime($post['tgl_akhir'])); ?></span>
+	               <?php else: ?>
+	               	<h4>Laporan Penjualan Bulanan dari "Tanggal Belum di tentukan"</h4>
+	               	<span>Daftar Hasil Penjualan per Bulan dari "Tanggal Belum di tentukan"</span>
+            	<?php endif ?>
             </div>
         </div>
     </div>
@@ -96,7 +101,6 @@
 	<div class="card-body">
 		<form action="<?php echo base_url('index.php/admin/laporan/bulanan/') ?>" method="post">
 			<div class="row">
-				
 				<?php if ($users->id_info_pt =='1'): ?>
 					<div class="col-md-6">
 						<select name="id_info_pt" class="form-control">
