@@ -60,16 +60,10 @@ class Laporan extends CI_Controller {
                    if($rowno != 0){
                      $rowno = ($rowno-1) * $rowperpage;
                  }
-                if ($getuser->id_info_pt =='1') {
-                   $allcount = $this->Laporan_m->getrecordCount($search_text);
-                   // Get records
-                   $users_record = $this->Laporan_m->getData($rowno,$rowperpage,$search_text);
-                }else{
                     // All records count
                     $allcount = $this->Laporan_m->getrecordCountid($getuser->id_info_pt,$search_text);
                     // Get records
                     $users_record = $this->Laporan_m->getDataid($getuser->id_info_pt,$rowno,$rowperpage,$search_text);
-                }
                 // Pagination Configuration
                  $config['base_url'] = base_url().'index.php/admin/laporan/index/';
                  $config['use_page_numbers'] = TRUE;
@@ -97,15 +91,10 @@ class Laporan extends CI_Controller {
                 // Initialize
                  $this->pagination->initialize($config);
                   $data['hasil'] = $users_record;
-                  if ($getuser->id_info_pt !=='1') {
-                    $data['stnktunda'] = $this->Laporan_m->stnk_tunda_pt($getuser->id_info_pt,$search_text);
-                    $data['ttlchash'] = $this->Laporan_m->byr_cash_pt($getuser->id_info_pt,$search_text);
-                    $data['ttlleasing'] = $this->Laporan_m->byr_leasing_pt($getuser->id_info_pt,$search_text);
-                  }else{
-                    $data['stnktunda'] = $this->Laporan_m->stnk_tunda($search_text);
-                    $data['ttlchash'] = $this->Laporan_m->byr_cash($search_text);
-                    $data['ttlleasing'] = $this->Laporan_m->byr_leasing($search_text);
-                  }
+                  $data['stnktunda'] = $this->Laporan_m->stnk_tunda_pt($getuser->id_info_pt,$search_text);
+                  $data['ttlchash'] = $this->Laporan_m->byr_cash_pt($getuser->id_info_pt,$search_text);
+                  $data['ttlleasing'] = $this->Laporan_m->byr_leasing_pt($getuser->id_info_pt,$search_text);
+                  
                   $data['row'] = $rowno;
                   $data['jmldata'] = $allcount;
                   $data['search'] = $search_text;
@@ -222,16 +211,10 @@ class Laporan extends CI_Controller {
                    if($rowno != 0){
                      $rowno = ($rowno-1) * $rowperpage;
                  }
-                if ($getuser->id_info_pt =='1') {
-                   $allcount = $this->Laporan_m->getrecordCountbulanan($search_text);
-                   // Get records
-                   $users_record = $this->Laporan_m->getDatabulanan($rowno,$rowperpage,$search_text);
-                }else{
                     // All records count
                     $allcount = $this->Laporan_m->getrecordCountidbulanan($getuser->id_info_pt,$search_text);
                     // Get records
                     $users_record = $this->Laporan_m->getDataidbulanan($getuser->id_info_pt,$rowno,$rowperpage,$search_text);
-                }
                 // Pagination Configuration
                  $config['base_url'] = base_url().'index.php/admin/laporan/index/';
                  $config['use_page_numbers'] = TRUE;
@@ -259,15 +242,9 @@ class Laporan extends CI_Controller {
                 // Initialize
                  $this->pagination->initialize($config);
                   $data['hasil'] = $users_record;
-                  if ($getuser->id_info_pt !=='1') {
-                    $data['stnktunda'] = $this->Laporan_m->stnk_tunda_pt_bulanan($getuser->id_info_pt,$search_text);
-                    $data['ttlchash'] = $this->Laporan_m->byr_cash_pt_bulanan($getuser->id_info_pt,$search_text);
-                    $data['ttlleasing'] = $this->Laporan_m->byr_leasing_pt_bulanan($getuser->id_info_pt,$search_text);
-                  }else{
-                    $data['stnktunda'] = $this->Laporan_m->stnk_tunda_bulanan($search_text);
-                    $data['ttlchash'] = $this->Laporan_m->byr_cash_bulanan($search_text);
-                    $data['ttlleasing'] = $this->Laporan_m->byr_leasing_bulanan($search_text);
-                  }
+                  $data['stnktunda'] = $this->Laporan_m->stnk_tunda_pt_bulanan($getuser->id_info_pt,$search_text);
+                  $data['ttlchash'] = $this->Laporan_m->byr_cash_pt_bulanan($getuser->id_info_pt,$search_text);
+                  $data['ttlleasing'] = $this->Laporan_m->byr_leasing_pt_bulanan($getuser->id_info_pt,$search_text);
                   $data['row'] = $rowno;
                   $data['jmldata'] = $allcount;
                   $data['search'] = $search_text;
