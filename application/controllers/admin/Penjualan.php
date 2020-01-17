@@ -582,7 +582,7 @@ class Penjualan extends CI_Controller {
               $datatgl = array(
                 'total'=>$cektgl->total+preg_replace("/[^0-9]/", "",$post['jml_bayar']),
               );
-              $this->Admin_m->update('tanggal','kode',$ceknota->tgl_jual,$datatgl);
+              $this->Admin_m->update('tanggal','id_tanggal',$cektgl->id_tanggal,$datatgl);
             }else{
               $datatgl = array(
                 'kode'=>$cetaknota->tgl_jual,

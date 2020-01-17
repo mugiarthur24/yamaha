@@ -108,4 +108,24 @@ class Admin_m extends CI_Model
 		$query = $this->db->get('tanggal');
 		return $query->result();
 	}
+	// dashboardf
+	public function dh_outlet_harian($tgl){
+		$this->db->join('info_pt', 'info_pt.id_info_pt = tanggal.id_info_pt');
+		$this->db->where('kode', $tgl);
+		$this->db->order_by('tanggal.id_info_pt');
+		$query = $this->db->get('tanggal');
+		return $query->result();
+	}
+	public function getprodukterjual($date,$idinfopt) {
+		$this->db->select('COUNT(produk.id_type) as total,type.nm_type,nota_keluar.*,info_pt.nama_info_pt,info_pt.kode_pt');
+		$this->db->join('produk', 'produk.id_produk = nota_keluar.id_produk');
+		$this->db->join('type', 'type.id_type = produk.id_type');
+		$this->db->join('info_pt', 'info_pt.id_info_pt = nota_keluar.id_info_pt');
+		$this->db->where('nota_keluar.tgl_jual',$date);
+		$this->db->where('nota_keluar.id_info_pt',$idinfopt);
+		$this->db->where_not_in('nota_keluar.id_produk','0');
+		$this->db->group_by('produk.id_type');
+		$query = $this->db->get('nota_keluar');
+		return $query->result();
+	}
 }
