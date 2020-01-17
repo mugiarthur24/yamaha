@@ -117,7 +117,7 @@ class Admin_m extends CI_Model
 		return $query->result();
 	}
 	public function getprodukterjual($date,$idinfopt) {
-		$this->db->select('COUNT(produk.id_type) as total,type.nm_type,nota_keluar.*,info_pt.nama_info_pt,info_pt.kode_pt');
+		$this->db->select('SUM(nota_keluar.jml_bayar) as total,type.nm_type,nota_keluar.*,info_pt.nama_info_pt,info_pt.kode_pt');
 		$this->db->join('produk', 'produk.id_produk = nota_keluar.id_produk');
 		$this->db->join('type', 'type.id_type = produk.id_type');
 		$this->db->join('info_pt', 'info_pt.id_info_pt = nota_keluar.id_info_pt');

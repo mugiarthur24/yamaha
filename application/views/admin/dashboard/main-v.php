@@ -119,14 +119,14 @@
                                 borderWidth: 0,
                                 dataLabels: {
                                     enabled: true,
-                                    format: '{point.y:.0f}'
+                                    format: 'Rp.{point.y:,.0f}'
                                 }
                             }
                         },
 
                         tooltip: {
                             headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> of total<br/>'
+                            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>Rp.{point.y:,.0f}</b> of total<br/>'
                         },
 
                         series: [{
