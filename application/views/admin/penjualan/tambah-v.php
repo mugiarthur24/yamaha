@@ -120,81 +120,70 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-6">
-		<div class="card">
-			<div class="card-header">
-				<div class="row">
-					<div class="col">
-						<b>Daftar Produk</b>
-						<span class="text-muted">Produk siap dijual / Tersedia pada dealer</span>
-					</div>
-				</div>
+	<div class="col">
+		<nav>
+			<div class="nav nav-tabs" id="nav-tab" role="tablist">
+				<a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#produk" role="tab" aria-controls="nav-home" aria-selected="true">Data Produk</a>
+				<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Pembeli</a>
+				<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#leasing" role="tab" aria-controls="nav-contact" aria-selected="false">Leasing</a>
+				<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#kelengkapan" role="tab" aria-controls="nav-contact" aria-selected="false">Kelengkapan</a>
 			</div>
-			<div class="card-body">
-				<form action="<?php echo base_url('index.php/admin/penjualan/tambah/'.$detail->no_nota_keluar) ?>" method="post">
-					<div class="row">
-						<div class="col-md-12">
-							<select name="id_type" class="form-control">
-								<?php if (!empty($post['id_type'])): ?>
-									<option value="<?php echo $post['id_type'] ?>"><?php echo $this->Admin_m->detail_data('type','id_type',$post['id_type'])->nm_type ?></option>
-									<option value="">Semua Type Produk</option>
-								<?php else: ?>
-									<option value="">Semua Type Produk</option>
-								<?php endif ?>
-								<?php foreach ($type as $data): ?>
-									<option value="<?php echo $data->id_type ?>"><?php echo $data->nm_type ?></option>
-								<?php endforeach ?>
-							</select>
-							<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
-						</div>
-							<div class="col-md-12">
-								<input type="text" name="cc" class="form-control" placeholder="CC Produk" style="width: 100%" <?php if (!empty($post['cc']) ): ?>
-								value="<?php echo $post['cc'] ?>"
-								<?php endif ?>>
-								<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
-							</div>
-							<div class="col-md-12">
-								<input type="text" name="warna" class="form-control" placeholder="Warna Produk" style="width: 100%" <?php if (!empty($post['warna']) ): ?>
-								value="<?php echo $post['warna'] ?>"
-								<?php endif ?>>
-								<small class="form-text text-muted">Tekan enter untuk melakukan pencarian</small>
-							</div>
-							<div class="col-md-12">
-								<button type="submit" name="submit" value="submit" class="btn btn-success btn-sm">Cari</button>
+		</nav>
+		<div class="tab-content" id="nav-tabContent">
+			<div class="tab-pane fade show active" id="produk" role="tabpanel" aria-labelledby="nav-home-tab">
+				<div class="card">
+					<div class="card-header">
+						<div class="row">
+							<div class="col">
+								<b>Daftar Produk</b>
+								<span class="text-muted">Produk siap dijual / Tersedia pada dealer</span>
 							</div>
 						</div>
-					</form>
-					<div class="mt-4">Jumlah produk di temukan sebanyak <label class="label label-success"><?php echo $jmldata.' Produk'; ?></label></div>
-					<div class="table-responsive">
-						<table class="table mt-2" style="font-size: 13px;">
-							<tr>
-								<th>No</th>
-								<th>No Rangka / Mesin</th>
-								<th>Type</th>
-								<th>Harga</th>
-								<th></th>
-							</tr>
-							<?php if ($hasil == TRUE): ?>
-								<?php $no = 1+$row ?>
-								<?php foreach ($hasil as $data): ?>
-									<?php if ($data['id_produk'] == $detail->id_produk): ?>
-										<tr class="table-info">
-											<td><?php echo $no; ?></td>
-											<td>
-												<input type="hidden" name="id_produk" value="<?php echo $data['id_produk'] ?>">
-												<?php echo 'R : '.$data['no_rangka']; ?><br/>
-												<?php echo 'M : '.$data['no_mesin']; ?>
-											</td>
-											<td>
-												<?php echo $data['nm_type']; ?><br/>
-												<?php echo $data['cc'].' / '.$data['warna']; ?>
-											</td>
-											<td><?php echo 'Rp.'.number_format($data['hrg_jual']); ?></td>
-											<td>
-												<div class="btn  btn-secondary btn-sm">Tambah</div>
-											</td>
-										</tr>
-									<?php else: ?>
+					</div>
+					<div class="card-body">
+						<form action="<?php echo base_url('index.php/admin/penjualan/tambah/'.$detail->no_nota_keluar) ?>" method="post">
+							<div class="row">
+								<div class="col">
+									<select name="id_type" class="form-control">
+										<?php if (!empty($post['id_type'])): ?>
+											<option value="<?php echo $post['id_type'] ?>"><?php echo $this->Admin_m->detail_data('type','id_type',$post['id_type'])->nm_type ?></option>
+											<option value="">Semua Type Produk</option>
+										<?php else: ?>
+												<option value="">Semua Type Produk</option>
+										<?php endif ?>
+										<?php foreach ($type as $data): ?>
+											<option value="<?php echo $data->id_type ?>"><?php echo $data->nm_type ?></option>
+										<?php endforeach ?>
+									</select>
+								</div>
+								<div class="col">
+									<input type="text" name="cc" class="form-control" placeholder="CC Produk" style="width: 100%" <?php if (!empty($post['cc']) ): ?>
+									value="<?php echo $post['cc'] ?>"
+									<?php endif ?>>
+								</div>
+								<div class="col">
+									<input type="text" name="warna" class="form-control" placeholder="Warna Produk" style="width: 100%" <?php if (!empty($post['warna']) ): ?>
+									value="<?php echo $post['warna'] ?>"
+									<?php endif ?>>
+								</div>
+								<div class="col">
+									<button type="submit" name="submit" value="submit" class="btn btn-success btn-sm w-100">Cari</button>
+								</div>
+							</div>
+						</form>
+						<div class="mt-4">Jumlah produk di temukan sebanyak <label class="label label-success"><?php echo $jmldata.' Produk'; ?></label></div>
+						<div class="">
+							<table class="table mt-2" style="font-size: 13px;">
+								<tr>
+									<th>No</th>
+									<th>No Rangka / Mesin</th>
+									<th>Type</th>
+									<th>Harga</th>
+									<th></th>
+								</tr>
+								<?php if ($hasil == TRUE): ?>
+									<?php $no = 1+$row ?>
+									<?php foreach ($hasil as $data): ?>
 										<form action="<?php echo base_url('index.php/admin/penjualan/addproduk/'.$detail->no_nota_keluar) ?>" method="post">
 											<tr>
 												<td><?php echo $no; ?></td>
@@ -214,172 +203,170 @@
 													<?php else: ?>
 														<button type="submit" name="submit" value="submit" class="btn  btn-success btn-sm">Tambah</button>
 													<?php endif ?>
-													
 												</td>
 											</tr>
 										</form>
-									<?php endif ?>
-									<?php $no++ ?>
-								<?php endforeach ?>
-							<?php else: ?>
-								<tr><td colspan="8" class="text-center">Tidak ada data ditemukan</td></tr>
-							<?php endif ?>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-6">
-			<div class="card">
-				<div class="card-header">
-					<div class="row">
-						<div class="col">
-							<b>Identitas Pembeli</b>
-							<span class="text-muted">Identitas Lengkap pembeli Pada Nota, <?php echo $detail->no_nota_keluar; ?></span>
-						</div>
-					</div>
-				</div>
-				<div class="card-body">
-					<form action="<?php echo base_url('index.php/admin/penjualan/updatapembeli/'.$detail->no_nota_keluar) ?>" method="post">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>Nama Sesuai KTP (Pembeli)</label>
-									<input type="text" class="form-control" name="nm_p_ktp" placeholder="Masukan Nama Pembeli Sesuai KTP" value="<?php echo $detail->nm_p_ktp ?>">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>Alamat 1</label>
-									<input type="text" class="form-control" name="alamat_1_p" placeholder="Alamat 1" value="<?php echo $detail->alamat_1_p ?>">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>No Polisi</label>
-									<input type="text" class="form-control" name="no_polisi" placeholder="Nomor Polisi" value="<?php echo $detail->no_polisi ?>">
-								</div>
-							</div>
-						</div>
-						<button type="submit" value="submit" name="submit" class="btn btn-success btn-sm">Simpan Data Pembeli</button>
-					</form>
-				</div>
-			</div>
-			<div class="card mt-4">
-				<div class="card-header">
-					<div class="row">
-						<div class="col">
-							<b>Data Leasing</b>
-							<span class="text-muted">Kelengkapan data leasing, <?php echo $detail->no_nota_keluar; ?></span>
-						</div>
-					</div>
-				</div>
-				<form action="<?php echo base_url('index.php/admin/penjualan/updataleasing/'.$detail->no_nota_keluar) ?>" method="post">
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<?php if ($detail->id_leasing =='0'): ?>
-										<div class="checkbox-fade fade-in-primary d-">
-										    <label>
-										        <input type="radio" name="id_leasing" value="0" checked>
-										        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-										        <span class="text-inverse">Tidak Menggunakan Leasing / CASH</span></span>
-										    </label>
-										</div><br/>
+										<?php $no++ ?>
+									<?php endforeach ?>
 									<?php else: ?>
-										<div class="checkbox-fade fade-in-primary d-">
-										    <label>
-										        <input type="radio" name="id_leasing" value="0">
-										        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-										        <span class="text-inverse">Tidak Menggunakan Leasing / CASH</span>
-										    </label>
-										</div><br/>
+										<tr><td colspan="8" class="text-center">Tidak ada data ditemukan</td></tr>
 									<?php endif ?>
-									<?php foreach ($leasing as $leas): ?>
-										<?php if ($leas->id_leasing == $detail->id_leasing): ?>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+				<div class="card">
+					<div class="card-header">
+						<div class="row">
+							<div class="col">
+								<b>Identitas Pembeli</b>
+								<span class="text-muted">Identitas Lengkap pembeli Pada Nota, <?php echo $detail->no_nota_keluar; ?></span>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<form action="<?php echo base_url('index.php/admin/penjualan/updatapembeli/'.$detail->no_nota_keluar) ?>" method="post">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Nama Sesuai KTP (Pembeli)</label>
+										<input type="text" class="form-control" name="nm_p_ktp" placeholder="Masukan Nama Pembeli Sesuai KTP" value="<?php echo $detail->nm_p_ktp ?>">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Alamat 1</label>
+										<input type="text" class="form-control" name="alamat_1_p" placeholder="Alamat 1" value="<?php echo $detail->alamat_1_p ?>">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>No Polisi</label>
+										<input type="text" class="form-control" name="no_polisi" placeholder="Nomor Polisi" value="<?php echo $detail->no_polisi ?>">
+									</div>
+								</div>
+							</div>
+							<button type="submit" value="submit" name="submit" class="btn btn-success btn-sm">Simpan Data Pembeli</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="leasing" role="tabpanel" aria-labelledby="leasing">
+				<div class="card mt-4">
+					<div class="card-header">
+						<div class="row">
+							<div class="col">
+								<b>Data Leasing</b>
+								<span class="text-muted">Kelengkapan data leasing, <?php echo $detail->no_nota_keluar; ?></span>
+							</div>
+						</div>
+					</div>
+					<form action="<?php echo base_url('index.php/admin/penjualan/updataleasing/'.$detail->no_nota_keluar) ?>" method="post">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<?php if ($detail->id_leasing =='0'): ?>
 											<div class="checkbox-fade fade-in-primary d-">
 											    <label>
-											        <input type="radio" name="id_leasing" value="<?php echo $leas->id_leasing ?>" checked>
+											        <input type="radio" name="id_leasing" value="0" checked>
 											        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-											        <span class="text-inverse"><?php echo $leas->nm_leasing; ?></span>
+											        <span class="text-inverse">Tidak Menggunakan Leasing / CASH</span></span>
 											    </label>
 											</div><br/>
 										<?php else: ?>
 											<div class="checkbox-fade fade-in-primary d-">
 											    <label>
-											        <input type="radio" name="id_leasing" value="<?php echo $leas->id_leasing ?>">
+											        <input type="radio" name="id_leasing" value="0">
 											        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-											        <span class="text-inverse"><?php echo $leas->nm_leasing; ?></span>
+											        <span class="text-inverse">Tidak Menggunakan Leasing / CASH</span>
 											    </label>
 											</div><br/>
 										<?php endif ?>
-									<?php endforeach ?>
+										<?php foreach ($leasing as $leas): ?>
+											<?php if ($leas->id_leasing == $detail->id_leasing): ?>
+												<div class="checkbox-fade fade-in-primary d-">
+												    <label>
+												        <input type="radio" name="id_leasing" value="<?php echo $leas->id_leasing ?>" checked>
+												        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+												        <span class="text-inverse"><?php echo $leas->nm_leasing; ?></span>
+												    </label>
+												</div><br/>
+											<?php else: ?>
+												<div class="checkbox-fade fade-in-primary d-">
+												    <label>
+												        <input type="radio" name="id_leasing" value="<?php echo $leas->id_leasing ?>">
+												        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+												        <span class="text-inverse"><?php echo $leas->nm_leasing; ?></span>
+												    </label>
+												</div><br/>
+											<?php endif ?>
+										<?php endforeach ?>
+									</div>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>STNK</label>
+										<input type="text" class="form-control" name="stnk" placeholder="STNK">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Tgl Reg STNK</label>
+										<input type="date" class="form-control" name="tgl_reg_stnk" placeholder="Masukan Nama Tanggal Lahir" value="<?php echo date('Y-m-d') ?>" value="<?php echo $detail->tgl_reg_stnk ?>">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Harga STNK</label>
+										<input type="text" class="form-control" name="harga_stnk" placeholder="Harga STNK" value="<?php echo $detail->harga_stnk ?>">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Uang Muka</label>
+										<input type="text" class="form-control" name="uang_muka" placeholder="Uang Muka" value="<?php echo $detail->uang_muka ?>">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Jangka Bayar</label>
+										<input type="text" class="form-control" name="jangka_bayar" value="<?php echo $detail->jangka_bayar ?>" placeholder="Jangka Bayar">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Angsuran</label>
+										<input type="text" class="form-control" name="angsuran" placeholder="Angsuran" value="<?php echo $detail->angsuran ?>">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Surveyor</label>
+										<input type="text" class="form-control" name="id_surveyor" placeholder="Surveyor" value="<?php echo $detail->id_surveyor ?>">
+									</div>
+								</div>
+							</div>
+							<button type="submit" value="submit" name="submit" class="btn btn-success btn-sm">Simpan Data Leasing</button>
 						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>STNK</label>
-									<input type="text" class="form-control" name="stnk" placeholder="STNK">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Tgl Reg STNK</label>
-									<input type="date" class="form-control" name="tgl_reg_stnk" placeholder="Masukan Nama Tanggal Lahir" value="<?php echo date('Y-m-d') ?>" value="<?php echo $detail->tgl_reg_stnk ?>">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Harga STNK</label>
-									<input type="text" class="form-control" name="harga_stnk" placeholder="Harga STNK" value="<?php echo $detail->harga_stnk ?>">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Uang Muka</label>
-									<input type="text" class="form-control" name="uang_muka" placeholder="Uang Muka" value="<?php echo $detail->uang_muka ?>">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Jangka Bayar</label>
-									<input type="text" class="form-control" name="jangka_bayar" value="<?php echo $detail->jangka_bayar ?>" placeholder="Jangka Bayar">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Angsuran</label>
-									<input type="text" class="form-control" name="angsuran" placeholder="Angsuran" value="<?php echo $detail->angsuran ?>">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>Surveyor</label>
-									<input type="text" class="form-control" name="id_surveyor" placeholder="Surveyor" value="<?php echo $detail->id_surveyor ?>">
-								</div>
-							</div>
-						</div>
-						<button type="submit" value="submit" name="submit" class="btn btn-success btn-sm">Simpan Data Leasing</button>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
-		</div>
-	</div>
-	<div class="row">
-			<div class="col">
+			<div class="tab-pane fade" id="kelengkapan" role="tabpanel" aria-labelledby="kelengkapan">
 				<div class="card">
 					<div class="card-header">
 						<div class="row">
@@ -500,6 +487,8 @@
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
 <?php if ($detail->id_status =='0' && $detail->id_produk !=='0'): ?>
 	<!-- Modal -->
 	<div class="modal fade" id="bayar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
