@@ -332,7 +332,7 @@ class Penjualan extends CI_Controller {
         $ceknota = $this->Admin_m->detail_data('nota_keluar','no_nota_keluar',preg_replace("/[^a-zA-Z0-9]/", "",trim($nota)));
         if ($ceknota == TRUE) {
           if ($ceknota->id_status == '0') {
-            // $cekproduk = $this->Penjualan_m->detailproduk($ceknota->id_produk);
+            $cekproduk = $this->Penjualan_m->detailproduk($ceknota->id_produk);
             // if ($cekproduk->id_status =='1' || $cekproduk->id_status =='0') {
               $data = array(
                 'id_produk'=>'0',
