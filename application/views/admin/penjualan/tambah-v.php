@@ -123,10 +123,10 @@
 	<div class="col">
 		<nav>
 			<div class="nav nav-tabs" id="nav-tab" role="tablist">
-				<a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#produk" role="tab" aria-controls="nav-home" aria-selected="true">Data Produk</a>
-				<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Pembeli</a>
-				<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#leasing" role="tab" aria-controls="nav-contact" aria-selected="false">Leasing</a>
-				<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#kelengkapan" role="tab" aria-controls="nav-contact" aria-selected="false">Kelengkapan</a>
+				<a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#produk" role="tab" aria-controls="nav-home" aria-selected="true">Data Produk <i class="ti ti-briefcase"></i></a>
+				<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Pembeli <i class="ti ti-user"></i></a>
+				<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#leasing" role="tab" aria-controls="nav-contact" aria-selected="false">Leasing <i class="ti ti-shopping-cart-full"></i></a>
+				<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#kelengkapan" role="tab" aria-controls="nav-contact" aria-selected="false">Kelengkapan <i class="ti ti-bookmark-alt"></i></a>
 			</div>
 		</nav>
 		<div class="tab-content" id="nav-tabContent">

@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>assets\icon\ion-icon\css\ionicons.min.css">
     <!-- themify-icons line icon -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>assets\icon\themify-icons\themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/') ?>themify-icons.css">
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/adminty/files/') ?>assets\icon\icofont\css\icofont.css">
     <!-- Style.css -->
