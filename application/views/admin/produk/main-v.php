@@ -110,13 +110,10 @@
 			<table class="table" style="font-size: 13px;">
 				<tr>
 					<th>No</th>
-					<th>No Rangka</th>
-					<th>No Mesin</th>
-					<th>Merk</th>
-					<th>Type</th>
-					<th>Warna</th>
-					<th>Wilayah</th>
-					<th>harga</th>
+					<th>No Rangka,No Mesin</th>
+					<th>Type,Warna</th>
+					<th>Nama Outlet</th>
+					<th>Harga</th>
 					<th>Status</th>
 				</tr>
 				<?php if ($hasil == TRUE): ?>
@@ -124,12 +121,9 @@
 					<?php foreach ($hasil as $data): ?>
 						<tr>
 							<td><?php echo $no; ?></td>
-							<td><?php echo $data['no_rangka']; ?></td>
-							<td><?php echo $data['no_mesin']; ?></td>
-							<td><span class="pcoded-badge label label-primary"><?php echo $data['nm_merk']; ?></span></td>
-							<td><?php echo $data['nm_type']; ?></td>
-							<td><?php echo ucfirst($data['warna']); ?></td>
-							<td><span class="pcoded-badge label label-inverse"><?php echo $data['kode_pt']; ?></span></td>
+							<td><?php echo $data['no_rangka']; ?><br/><?php echo $data['no_mesin']; ?></td>
+							<td><?php echo $data['nm_type']; ?> / <?php echo ucfirst($data['warna']); ?><br/><?php echo $data['no_faktur']; ?></td>
+							<td><?php echo $data['nama_info_pt']; ?> - <?php echo $data['kode_pt']; ?></td>
 							<td><?php echo 'Rp.'.number_format($data['hrg_jual']); ?></td>
 							<td>
 								<?php if ($data['id_status'] == '1' ): ?>

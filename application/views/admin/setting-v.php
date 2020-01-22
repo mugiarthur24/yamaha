@@ -5,7 +5,7 @@
 		<span class="text-muted">Pengaturan dan data dasar perusahaan</span>
 	</div>
 	<div class="card-body">
-		<form action="<?php echo base_url('index.php/admin/setting/update') ?>" method="post" enctype="multipart/form-data">
+		<form action="<?php echo base_url('index.php/admin/setting/update/'.$infopt->id_info_pt) ?>" method="post" enctype="multipart/form-data">
 			<div class="media">
 				<img id="preview" class="align-self-center mr-3 rounded-circle border border-info" src="<?php echo base_url('assets/img/lembaga/'.$infopt->logo_pt) ?>" width="50px" alt="Generic placeholder image">
 				<div class="media-body">
